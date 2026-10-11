@@ -604,9 +604,11 @@
                                 <i class="bi bi-search"></i>
                             </div>
                         </div>
-                        
+
                         <div class="header-icons">
-                            <a href="#" class="icon-link" title="Profile">
+                            <a href="{{ route('backend.dashboard') }}"
+                                class="icon-link"
+                                title="Profile">
                                 <i class="bi bi-person"></i>
                             </a>
                             <a href="#" class="icon-link" title="Wishlist">
