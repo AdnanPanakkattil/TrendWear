@@ -29,6 +29,7 @@ header {
 .navbar {
     padding: 12px 0;
     background: #ffffff;
+    position: relative;
 }
 
 .brand-name {
@@ -73,24 +74,33 @@ header {
     transition: color 0.2s ease;
 }
 
-.navbar .nav-link:hover {
-    color: #000000;
-}
-
-.navbar .nav-link.active {
-    color: #000000;
-    font-weight: 600;
-}
-
-.navbar .nav-link.active::after {
+.navbar .nav-link::after {
     content: '';
     position: absolute;
     bottom: -2px;
     left: 0;
     width: 100%;
     height: 2px;
-    background-color: #222222;
+    background-color: #111111;
     border-radius: 2px;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.28s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.navbar .nav-link:hover {
+    color: #000000;
+}
+
+.navbar .nav-link:hover::after,
+.navbar .nav-link.active::after,
+.has-megamenu:hover > .nav-link::after {
+    transform: scaleX(1);
+}
+
+.navbar .nav-link.active {
+    color: #000000;
+    font-weight: 600;
 }
 
 .nav-link i.dropdown-icon {
@@ -280,5 +290,552 @@ header {
         justify-content: space-around;
         padding-top: 16px;
         border-top: 1px solid #eeeeee;
+    }
+}
+
+/* =========================================
+   SCREENSHOT-MATCHED MODERN LIGHT MEGA MENU
+========================================= */
+
+.mega-menu.modern-light-menu {
+    border: 1px solid #edf0f2;
+    border-radius: 16px;
+    background-color: #ffffff;
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.08);
+    padding: 24px 28px;
+}
+
+/* 5 Column Grid Layout */
+.mega-menu-inner {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr) 1.3fr;
+    gap: 22px;
+    align-items: stretch;
+}
+
+/* Columns & Dividers */
+.mega-col {
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #edf0f2;
+    padding-right: 20px;
+}
+
+.mega-banner-col {
+    border-right: none;
+    padding-right: 0;
+}
+
+/* Column Header */
+.mega-col-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 6px;
+}
+
+.header-icon-box {
+    color: #111827;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.col-title {
+    font-family: 'Outfit', 'Poppins', sans-serif;
+    font-size: 15.5px;
+    font-weight: 700;
+    color: #111827;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.col-subtitle {
+    font-size: 11px;
+    color: #8c93a0;
+    font-family: 'Poppins', sans-serif;
+    display: block;
+    margin-top: 2px;
+}
+
+.header-accent-line {
+    width: 24px;
+    height: 1.5px;
+    background-color: #1e2229;
+    margin-bottom: 14px;
+    border-radius: 1px;
+}
+
+/* Category Link List */
+.mega-link-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 16px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex-grow: 1;
+}
+
+.mega-link-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 0;
+    color: #4b5563;
+    font-size: 13.5px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 450;
+    text-decoration: none;
+    transition: all 0.18s ease;
+}
+
+.mega-link-item:hover {
+    color: #111827;
+    font-weight: 550;
+    padding-left: 2px;
+}
+
+.link-arrow {
+    font-size: 11px;
+    color: #9ca3af;
+    transition: transform 0.18s ease, color 0.18s ease;
+}
+
+.mega-link-item:hover .link-arrow {
+    color: #111827;
+    transform: translateX(3px);
+}
+
+/* Badges */
+.pill-badge {
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 20px;
+    letter-spacing: 0.4px;
+    line-height: 1.2;
+}
+
+.pill-badge-new {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.pill-badge-hot {
+    background-color: #ffebee;
+    color: #e53935;
+}
+
+/* Bottom Mini Promo Cards */
+.mini-promo-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #f8fafc;
+    border: 1px solid #f1f3f5;
+    border-radius: 10px;
+    padding: 8px 10px;
+    text-decoration: none;
+    margin-top: auto;
+    transition: all 0.2s ease;
+}
+
+.mini-promo-card:hover {
+    background-color: #f1f5f9;
+    border-color: #e2e8f0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+}
+
+.mini-card-img {
+    width: 52px;
+    height: 44px;
+    border-radius: 6px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.mini-card-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 2px;
+    line-height: 1.2;
+}
+
+.mini-card-sub {
+    font-size: 9.5px;
+    color: #6b7280;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.mini-card-sub i {
+    font-size: 9px;
+}
+
+/* Column 5 Right Banner Showcase */
+.showcase-banner-card {
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    height: 100%;
+    min-height: 380px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 30px 24px;
+    background-color: #f1ece4;
+}
+
+.banner-model-img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: right center;
+    z-index: 1;
+    transition: transform 0.4s ease;
+}
+
+.showcase-banner-card:hover .banner-model-img {
+    transform: scale(1.03);
+}
+
+.banner-overlay-gradient {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(241, 236, 228, 0.96) 0%, rgba(241, 236, 228, 0.85) 45%, rgba(241, 236, 228, 0.15) 100%);
+    z-index: 2;
+}
+
+.banner-text-content {
+    position: relative;
+    z-index: 3;
+    max-width: 68%;
+}
+
+.banner-eyebrow {
+    font-family: 'Outfit', sans-serif;
+    font-size: 9.5px;
+    letter-spacing: 1.8px;
+    font-weight: 700;
+    color: #5a6270;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.banner-headline {
+    font-family: 'Outfit', 'Playfair Display', sans-serif;
+    font-size: 27px;
+    font-weight: 800;
+    line-height: 1.15;
+    color: #111827;
+    margin-bottom: 12px;
+}
+
+.banner-desc {
+    font-family: 'Poppins', sans-serif;
+    font-size: 11.5px;
+    color: #4b5563;
+    line-height: 1.45;
+    margin-bottom: 22px;
+}
+
+.btn-banner-shop {
+    display: inline-flex;
+    align-items: center;
+    background-color: #1a1e24;
+    color: #ffffff;
+    font-size: 11.5px;
+    font-weight: 600;
+    padding: 8px 18px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    font-family: 'Poppins', sans-serif;
+}
+
+.btn-banner-shop:hover {
+    background-color: #000000;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    color: #ffffff;
+}
+
+/* =========================================
+   WOMEN SECTION PASTEL ACCENTS
+========================================= */
+
+.icon-circle-pink {
+    background-color: #fce7ec;
+    color: #e11d48;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-circle-purple {
+    background-color: #ede9fe;
+    color: #7c3aed;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-circle-mint {
+    background-color: #d1fae5;
+    color: #059669;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-circle-peach {
+    background-color: #ffedd5;
+    color: #ea580c;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Women Mini Cards Pastel Tints */
+.card-pink-tint {
+    background-color: #fdf2f4;
+    border-color: #fce4e8;
+}
+.card-pink-tint:hover {
+    background-color: #fbe6eb;
+}
+
+.card-purple-tint {
+    background-color: #f5f3ff;
+    border-color: #ede9fe;
+}
+.card-purple-tint:hover {
+    background-color: #ede8ff;
+}
+
+.card-mint-tint {
+    background-color: #f0fdf9;
+    border-color: #dcfce7;
+}
+.card-mint-tint:hover {
+    background-color: #e3faf1;
+}
+
+.card-peach-tint {
+    background-color: #fff7ed;
+    border-color: #ffedd5;
+}
+.card-peach-tint:hover {
+    background-color: #ffeedb;
+}
+
+/* Women Banner Showcase */
+.women-banner-card {
+    background-color: #f9ebe9;
+}
+
+.women-overlay-gradient {
+    background: linear-gradient(90deg, rgba(249, 235, 233, 0.96) 0%, rgba(249, 235, 233, 0.85) 48%, rgba(249, 235, 233, 0.15) 100%);
+}
+
+/* =========================================
+   KIDS SECTION PASTEL ACCENTS
+========================================= */
+
+.icon-circle-blue {
+    background-color: #e0f2fe;
+    color: #0284c7;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-circle-yellow {
+    background-color: #fef3c7;
+    color: #d97706;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-circle-green {
+    background-color: #dcfce7;
+    color: #16a34a;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-circle-orange {
+    background-color: #ffedd5;
+    color: #ea580c;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Kids Mini Cards Pastel Tints */
+.card-blue-tint {
+    background-color: #f0f9ff;
+    border-color: #e0f2fe;
+}
+.card-blue-tint:hover {
+    background-color: #e0f2fe;
+}
+
+.card-yellow-tint {
+    background-color: #fefce8;
+    border-color: #fef08a;
+}
+.card-yellow-tint:hover {
+    background-color: #fef9c3;
+}
+
+.card-green-tint {
+    background-color: #f0fdf4;
+    border-color: #dcfce7;
+}
+.card-green-tint:hover {
+    background-color: #dcfce7;
+}
+
+.card-orange-tint {
+    background-color: #fff7ed;
+    border-color: #ffedd5;
+}
+.card-orange-tint:hover {
+    background-color: #ffeedb;
+}
+
+/* Kids Banner Showcase */
+.kids-banner-card {
+    background-color: #eff6ff;
+}
+
+.kids-overlay-gradient {
+    background: linear-gradient(90deg, rgba(239, 246, 255, 0.96) 0%, rgba(239, 246, 255, 0.85) 48%, rgba(239, 246, 255, 0.15) 100%);
+}
+
+/* =========================================
+   DESKTOP MEGA MENU (HOVER & FLOATING)
+========================================= */
+
+@media (min-width: 992px) {
+    .nav-item.has-megamenu {
+        position: static;
+    }
+
+    .has-megamenu .mega-menu.modern-light-menu {
+        position: absolute;
+        top: calc(100% + 4px);
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+        width: calc(100% - 60px);
+        max-width: 1360px;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(10px);
+        transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1), transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.22s;
+        pointer-events: none;
+        display: block !important;
+        z-index: 1050;
+    }
+
+    .has-megamenu:hover .mega-menu.modern-light-menu,
+    .has-megamenu:focus-within .mega-menu.modern-light-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+        pointer-events: auto;
+    }
+
+    .nav-item.has-megamenu:hover .dropdown-icon {
+        transform: rotate(180deg);
+        color: #111827;
+    }
+}
+
+/* =========================================
+   MOBILE MEGA MENU (INSIDE OFFCANVAS)
+========================================= */
+
+@media (max-width: 991.98px) {
+    .nav-item.has-megamenu {
+        width: 100%;
+    }
+
+    .has-megamenu .mega-menu.modern-light-menu {
+        position: static;
+        width: 100%;
+        box-shadow: none;
+        border: 1px solid #edf0f2;
+        border-radius: 12px;
+        background-color: #ffffff;
+        margin-top: 8px;
+        padding: 16px !important;
+    }
+
+    .mega-menu-triangle {
+        display: none;
+    }
+
+    .mega-menu-inner {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .mega-col {
+        border-right: none;
+        padding-right: 0;
+        border-bottom: 1px solid #f0f2f5;
+        padding-bottom: 18px;
+    }
+
+    .mega-banner-col {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+
+    .showcase-banner-card {
+        min-height: 260px;
     }
 }
