@@ -1,5 +1,5 @@
 <nav
-  class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+  class="layout-navbar navbar navbar-expand-xl align-items-center bg-navbar-theme px-4"
   id="layout-navbar">
   <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
     <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
@@ -11,10 +11,14 @@
     <!-- Search -->
     <div class="navbar-nav align-items-center">
       <div class="nav-item navbar-search-wrapper mb-0">
-        <a class="nav-item nav-link search-toggler d-flex align-items-center px-0" href="javascript:void(0);">
-          <i class="ti ti-search ti-md me-2 me-lg-4 ti-lg"></i>
-          <span class="d-none d-md-inline-block text-muted fw-normal">Search (Ctrl+/)</span>
-        </a>
+        <div class="d-flex align-items-center bg-lighter rounded px-3 py-1" style="width: 260px;">
+          <i class="ti ti-search ti-md me-2 text-muted"></i>
+          <input
+            type="text"
+            class="form-control search-input border-0 shadow-none bg-transparent p-0"
+            placeholder="Search (Ctrl+/)"
+            aria-label="Search..." />
+        </div>
       </div>
     </div>
     <!-- /Search -->
@@ -450,17 +454,19 @@
         </ul>
       </li>
       <!--/ User -->
+
+      <!-- Settings / Customizer -->
+      <li class="nav-item ms-1">
+        <a
+          class="nav-link btn btn-text-secondary btn-icon rounded-pill hide-arrow"
+          href="javascript:void(0);"
+          onclick="const c = document.querySelector('.template-customizer'); if (c && c.classList.contains('template-customizer-open')) { c.classList.remove('template-customizer-open'); } else { document.querySelector('.template-customizer-open-btn')?.click(); }"
+          title="Settings">
+          <i class="ti ti-settings ti-md"></i>
+        </a>
+      </li>
+      <!--/ Settings -->
     </ul>
 
-  </div>
-
-  <!-- Search Small Screens -->
-  <div class="navbar-search-wrapper search-input-wrapper d-none">
-    <input
-      type="text"
-      class="form-control search-input container-xxl border-0"
-      placeholder="Search..."
-      aria-label="Search..." />
-    <i class="ti ti-x search-toggler cursor-pointer"></i>
   </div>
 </nav>
