@@ -21,12 +21,19 @@
     <li class="menu-header small">
       <span class="menu-header-text" data-i18n="Apps & Pages">Menus</span>
     </li>
-    <li class="menu-item active open">
+    <li class="menu-item">
       <a href="" class="menu-link">
         <i class="menu-icon fa-solid fa-table-columns"></i>
         <div data-i18n="Dashboards">Dashboards</div>
       </a>
     </li>
+
+    <li class="menu-item">
+    <a href="{{ route('user.index') }}" class="menu-link">
+        <i class="menu-icon fa-solid fa-users"></i>
+        <div>User Management</div>
+    </a>
+</li>
   
 
   </ul>

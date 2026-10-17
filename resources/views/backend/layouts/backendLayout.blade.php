@@ -69,9 +69,23 @@
 
 
 </head>
-<script>
-  var baseUrl = "{{ url('/') }}";
-</script>
+<style>
+  /* Reduce left and right content gaps */
+  .custom-content {
+    width: 100%;
+    max-width: 100%;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  /* Reduce spacing around the content */
+  .content-wrapper .container-p-y {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+</style>
 
 <body>
   <!-- Layout wrapper -->
@@ -94,12 +108,12 @@
         <div class="content-wrapper">
           <!-- Content -->
 
-          <div class="container-xxl flex-grow-1 container-p-y">
+          <div class="container-fluid flex-grow-1 container-p-y custom-content">
             @yield('content')
           </div>
           <!-- / Content -->
 
-         
+
 
           <div class="content-backdrop fade"></div>
         </div>
