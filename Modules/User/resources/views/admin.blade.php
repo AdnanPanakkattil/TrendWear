@@ -3,12 +3,12 @@
 <link rel="stylesheet" href="{{ asset('page-css/patient.css') }}">
 <div class="content-wrapper">
     <form id="superadmin_form" action="" method="POST" enctype="multipart/form-data">
-        <form id="superadmin_form" action="" method="POST" enctype="multipart/form-data">
+        <form id="admin_form" action="" method="POST" enctype="multipart/form-data">
             <div id="account-details" class="card content dstepper-block active" style="zoom: 90%;">
                 <div class="card-body">
 
                     <div class="content-header d-flex justify-content-between align-items-center mb-4">
-                        <h6 class="mb-0 fontzs m-0">Super Admin</h6>
+                        <h6 class="mb-0 fontzs m-0">Admin</h6>
                         <div class="d-flex gap-2">
                             <button type="button" class="btn btn-secondary" onclick="history.back()">cancel Btn</button>
                             <button type="button" id="saveButton" class="btn btn-success">save Btn</button>
