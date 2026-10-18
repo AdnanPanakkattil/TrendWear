@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\User\Http\Controllers\SuperadminController;
+use Modules\User\Http\Controllers\StaffController;
+use Modules\User\Http\Controllers\AdminController;
+use Modules\User\Http\Controllers\InventoryManagerController;
 use Modules\User\Http\Controllers\UserController;
 
 Route::resource('users', UserController::class)->names('user');
@@ -17,7 +20,7 @@ Route::get('/superadmin', [SuperadminController::class, 'index'])
 
 //================ admin ===================================
 
-Route::get('/admin', [SuperadminController::class, 'index'])
+Route::get('/admin', [AdminController::class, 'index'])
     ->name('backend.admin');
 
 //===============================================================
@@ -25,7 +28,7 @@ Route::get('/admin', [SuperadminController::class, 'index'])
 
 //================ staff ===================================
 
-Route::get('/staff', [SuperadminController::class, 'index'])
+Route::get('/staff', [StaffController::class, 'index'])
     ->name('backend.staff');
 
 //===============================================================
@@ -33,7 +36,7 @@ Route::get('/staff', [SuperadminController::class, 'index'])
 
 //================ inventorymanager ===================================
 
-Route::get('/inventorymanager', [SuperadminController::class, 'index'])
+Route::get('/inventorymanager', [InventoryManagerController::class, 'index'])
     ->name('backend.inventorymanager');
 
 //===============================================================
