@@ -12,8 +12,8 @@ Route::resource('users', UserController::class)->names('user');
 
 //================ superadmin ===================================
 
-Route::get('/superadmin', [SuperadminController::class, 'index'])
-    ->name('backend.superadmin');
+Route::get('/superadmin', [SuperadminController::class, 'index'])->name('backend.superadmin');
+Route::post('/superadmin/store', [SuperadminController::class, 'store'])->name('superadmin.store');
 
 //===============================================================
 

@@ -4,6 +4,9 @@ namespace Modules\User\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Modules\User\Models\Superadmin;
+use Modules\User\Http\Requests\SuperadminStoreRequest;
 
 class SuperadminController extends Controller
 {
@@ -15,42 +18,23 @@ class SuperadminController extends Controller
         return view('user::superadmin');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+
+
+    public function store(SuperadminStoreRequest $request)
     {
-        return view('user::create');
+        $validated = $request->validated();
+
+        $validated['password'] = Hash::make($validated['password']);
+
+        $validated['role'] = 'super_admin';
+        $validated['active'] = 1;
+
+        $superadmin = Superadmin::create($validated);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Superadmin created successfully.',
+            'id' => $superadmin->id,
+        ], 201);
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request) {}
-
-    /**
-     * Show the specified resource.
-     */
-    public function show($id)
-    {
-        return view('user::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
-    {
-        return view('user::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id) {}
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id) {}
 }
