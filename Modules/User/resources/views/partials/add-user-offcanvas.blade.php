@@ -14,7 +14,7 @@
                 <div class="d-grid gap-2 col-10 col-lg-8 mx-auto">
                     <button class="btn btn-primary btn-lg redirect-button d-flex align-items-center justify-content-center py-2"
                         data-role="super_admin"
-                        data-url="{{ route('user.create', ['role' => 'super_admin']) }}"
+                        data-url="{{ route('backend.superadmin') }}"
                         type="button">
                         <i class="ti ti-shield-lock me-2 fs-5"></i>
                         <span>Super Admin</span>
@@ -26,7 +26,7 @@
                 <div class="d-grid gap-2 col-10 col-lg-8 mx-auto">
                     <button class="btn btn-primary btn-lg redirect-button d-flex align-items-center justify-content-center py-2"
                         data-role="admin"
-                        data-url="{{ route('user.create', ['role' => 'admin']) }}"
+                        data-url="{{ route('backend.admin') }}"
                         type="button">
                         <i class="ti ti-user-shield me-2 fs-5"></i>
                         <span>Admin</span>
@@ -38,7 +38,7 @@
                 <div class="d-grid gap-2 col-10 col-lg-8 mx-auto">
                     <button class="btn btn-primary btn-lg redirect-button d-flex align-items-center justify-content-center py-2"
                         data-role="staff"
-                        data-url="{{ route('user.create', ['role' => 'staff']) }}"
+                        data-url="{{ route('backend.staff') }}"
                         type="button">
                         <i class="ti ti-id-badge-2 me-2 fs-5"></i>
                         <span>Staff</span>
@@ -50,7 +50,7 @@
                 <div class="d-grid gap-2 col-10 col-lg-8 mx-auto">
                     <button class="btn btn-primary btn-lg redirect-button d-flex align-items-center justify-content-center py-2"
                         data-role="inventory_manager"
-                        data-url="{{ route('user.create', ['role' => 'inventory_manager']) }}"
+                        data-url="{{ route('backend.inventorymanager') }}"
                         type="button">
                         <i class="ti ti-building-warehouse me-2 fs-5"></i>
                         <span>Inventory Manager</span>
