@@ -17,5 +17,17 @@ class UserController extends Controller
         return view('user::index');
     }
 
-    
+    /**
+     * Show the form for creating a new user with a specific role
+     */
+    public function create(Request $request)
+    {
+        $role = $request->query('role');
+
+        if (view()->exists('user::create')) {
+            return view('user::create', compact('role'));
+        }
+
+        return redirect()->route('user.index');
+    }
 }

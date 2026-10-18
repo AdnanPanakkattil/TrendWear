@@ -6606,13 +6606,14 @@ textarea.form-control-lg {
   visibility: visible;
 }
 
+
 .offcanvas-backdrop {
   position: fixed;
   top: 0;
   left: 0;
   z-index: 1089;
-  width: 100vw;
-  height: 100vh;
+  width: 104vw;
+  height: 127vh;
   background-color: #97959e;
 }
 .offcanvas-backdrop.fade {

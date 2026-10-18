@@ -4,7 +4,7 @@
 <div class="col-md-12" style="zoom: 85% !important">
     <div class="card h-100">
         <div class="card-header d-flex justify-content-between">
-            <h6 class="card-title mb-0">bills_daily_overview</h6>
+            <h6 class="card-title mb-0">bills daily overview</h6>
             <small class="text-muted">today</small>
         </div>
         <div class="card-body d-flex align-items-end pb-0">
@@ -59,13 +59,24 @@
 
 <div class="mt-5">
     <div class="row" style="margin-left: 5px;margin-right: 5px;">
-        <div class="col-12 divhead p-0">
-            <div>
-                <h4> Users List </h4>
-            </div>
-        </div>
+
         <div class="card" style="zoom: 80%;">
             <div class="card-body">
+                <div class="col-12 divhead p-0 d-flex justify-content-between align-items-center mb-3">
+                    <div>
+                        <h4 class="mb-0">Users List</h4>
+                    </div>
+
+                    <button type="button"
+                        class="btn btn-primary"
+                        data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasAddUser"
+                        aria-controls="offcanvasAddUser">
+
+                        <i class="ti ti-user-plus me-1"></i>
+                        Add User
+                    </button>
+                </div>
                 <!-- <div class="mb-2">
                     <button class="btn btn-primary me-5 mb-4 " type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                         filter<i class="menu-icon tf-icons ti ti-filter me-0 ms-2"></i>
@@ -217,6 +228,7 @@
                     </tfoot>
                 </table>
             </div>
+            @include('user::partials.add-user-offcanvas')
         </div>
     </div>
 </div>
@@ -244,5 +256,15 @@
 
 @endsection
 @push('scripts')
-<script src="../../assets/vendor/libs/apex-charts/apexcharts.js"></script>
+<script src="{{ asset('assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        $(document).on('click', '.redirect-button', function() {
+            var url = $(this).data('url');
+            if (url) {
+                window.location.href = url;
+            }
+        });
+    });
+</script>
 @endpush
