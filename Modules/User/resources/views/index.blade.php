@@ -2,9 +2,9 @@
 @section('content')
 
 <div class="col-md-12" style="zoom: 85% !important">
-    <div class="card h-100">
+    <div class="card h-100" style="overflow: hidden;">
         <div class="card-header d-flex justify-content-between">
-            <h6 class="card-title mb-0">bills daily overview</h6>
+            <h6 class="card-title mb-0">daily overview</h6>
             <small class="text-muted">today</small>
         </div>
         <div class="card-body d-flex align-items-end pb-0">
@@ -20,7 +20,7 @@
                                 <div class="card-info">
 
                                     <h5 class="mb-0" id="total_paid">0</h5>
-                                    <h6> total paid </h6>
+                                    <h6> All Users </h6>
                                 </div>
                             </div>
                         </div>
@@ -32,7 +32,7 @@
                                 </div>
                                 <div class="card-info">
                                     <h5 class="mb-0" id="total_pending">0</h5>
-                                    <h6> total pending </h6>
+                                    <h6> All super admins </h6>
                                 </div>
                             </div>
                         </div>
@@ -44,7 +44,31 @@
                                 </div>
                                 <div class="card-info">
                                     <h5 class="mb-0" id="total_cancelled">0</h5>
-                                    <h6> total cancelled </h6>
+                                    <h6> All Admins </h6>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="d-flex align-items-center">
+                                <div class="badge rounded bg-label-danger me-4 p-2">
+                                    <i class="ti ti-circle-x ti-lg"></i>
+                                </div>
+                                <div class="card-info">
+                                    <h5 class="mb-0" id="total_cancelled">0</h5>
+                                    <h6> All Staff </h6>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="d-flex align-items-center">
+                                <div class="badge rounded bg-label-danger me-4 p-2">
+                                    <i class="ti ti-circle-x ti-lg"></i>
+                                </div>
+                                <div class="card-info">
+                                    <h5 class="mb-0" id="total_cancelled">0</h5>
+                                    <h6> All Customers </h6>
                                 </div>
                             </div>
                         </div>
@@ -53,7 +77,7 @@
                 </div>
             </div>
         </div>
-        <div id="subscriberGained"></div>
+        <div id="billsDailyOverviewChart"></div>
     </div>
 </div>
 
@@ -161,8 +185,8 @@
 @endsection
 @push('scripts')
 
-<script src="{{ asset('assets/backend-page-js/user.js') }}"></script>
 <script src="{{ asset('assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
+<script src="{{ asset('assets/backend-page-js/user.js') }}"></script>
 <script>
     $(document).ready(function() {
         $(document).on('click', '.redirect-button', function() {
