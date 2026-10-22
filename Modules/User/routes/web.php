@@ -14,6 +14,7 @@ Route::resource('users', UserController::class)->names('user');
 
 Route::get('/superadmin', [SuperadminController::class, 'index'])->name('backend.superadmin');
 Route::post('/superadmin/store', [SuperadminController::class, 'store'])->name('superadmin.store');
+Route::get('/superadmin/data', [SuperadminController::class,'data'])->name('superadmin.data');
 
 //===============================================================
 

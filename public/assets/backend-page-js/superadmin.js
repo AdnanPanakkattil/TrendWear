@@ -1,7 +1,8 @@
 $(document).ready(function () {
 
-    $('#saveButton').on('click', function () {
+    // store db ============================================
 
+    $('#saveButton').on('click', function () {
         $.ajax({
             url: '/superadmin/store',
             type: 'POST',
@@ -18,4 +19,6 @@ $(document).ready(function () {
         });
     });
 
+    //======================================================
 });
+

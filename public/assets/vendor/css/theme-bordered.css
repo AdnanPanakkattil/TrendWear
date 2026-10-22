@@ -207,8 +207,8 @@ a.bg-primary:hover, a.bg-primary:focus {
 .pagination li.active > a:not(.page-link),
 .pagination li.active > a:not(.page-link):hover,
 .pagination li.active > a:not(.page-link):focus {
-  border-color: #ffffff;
-  background-color: #ffffff;
+  border-color: #FF5722;
+  background-color: #FF5722;
   color: #fff;
 }
 

@@ -107,35 +107,27 @@
                 </div>
             </div>
             <div class="card-datatable table-responsive">
-                <table class="dt-advanced-search table service-common-table" id="xray_table">
+                <table class="dt-advanced-search table service-common-table" id="Users_table">
                     <thead>
                         <tr>
-
-                            <th> User Id </th>
-                            <th> Name English </th>
-                            <th> Name Arabic </th>
-                            <th> Email </th>
-                            <th> Mobile </th>
-                            <th> Gender </th>
-                            <th> Role </th>
-                            <th> status </th>
-                            <th> Actions </th>
-
+                            <th>User ID</th>
+                            <th>Name English</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Mobile</th>
+                            <th>Role</th>
+                            <th>Joined Date</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
-
-                            <th> User Id </th>
-                            <th> Name English </th>
-                            <th> Name Arabic </th>
-                            <th> Email </th>
-                            <th> Mobile </th>
-                            <th> Gender </th>
-                            <th> Role </th>
-                            <th> status </th>
-                            <th> Actions </th>
-
+                            <th>User ID</th>
+                            <th>Name English</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Mobile</th>
+                            <th>Role</th>
+                            <th>Joined Date</th>
                         </tr>
                     </tfoot>
                 </table>
