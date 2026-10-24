@@ -65,7 +65,7 @@
 
       <ul class="menu-sub">
         <li class="menu-item {{ request()->routeIs('category.*') ? 'active' : '' }}" id="menu_category_sub">
-          <a href="{{ route('category.index') }}" class="menu-link">
+          <a href="" class="menu-link">
             <div data-i18n="Item Master">Item Master</div>
           </a>
         </li>
