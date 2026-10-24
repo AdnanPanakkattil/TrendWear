@@ -32,6 +32,21 @@
       </a>
     </li>
 
+    <li class="menu-item menu-dropdown" id="Product_management_menu">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon fa-solid fa-box"></i>
+        <div>Product Management</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item" id="Category_management_menu">
+          <a href="{{ route('category.index') }}" class="menu-link">
+            <i class="menu-icon fa-solid fa-tags"></i>
+            <div>Categories</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+
 
   </ul>
 </aside>
