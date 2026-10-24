@@ -67,8 +67,9 @@
 
 
   <link rel="stylesheet" href="{{ asset('assets/vendor/libs/sweetalert2/sweetalert2.css')}}" />
+  <link rel="stylesheet" href="{{ asset('assets/vendor/libs/flatpickr/flatpickr.css')}}" />
 
-
+  @stack('styles')
 </head>
 <style>
   /* Reduce left and right content gaps */
@@ -359,6 +360,7 @@
   <script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script>
   <script src="{{ asset('assets/vendor/libs/sweetalert2/sweetalert2.js')}}"></script>
   <script src="{{ asset('assets/js/extended-ui-sweetalert2.js')}}"></script>
+  <script src="{{ asset('assets/vendor/libs/flatpickr/flatpickr.js') }}"></script>
 
   @stack('scripts')
 </body>

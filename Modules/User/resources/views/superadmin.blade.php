@@ -61,6 +61,7 @@
                         <input type="text" id="joined_date" name="joined_date"
                             class="form-control dob-picker joined_date"
                             placeholder="YYYY-MM-DD"
+                            autocomplete="off"
                             value="">
                         <span class="text-danger error-text joined_date_error"></span>
                     </div>
