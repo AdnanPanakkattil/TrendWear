@@ -7,25 +7,30 @@ $(document).ready(function () {
         },
     });
 
-    $('#Users_table').DataTable({
+    const userTable = $('#Users_table').DataTable({
         processing: true,
         serverSide: true,
-
         ajax: {
-            url: '/superadmin/data',
+            url: '/users/data',
             type: 'GET'
         },
-
         columns: [
             { data: 'id', name: 'id' },
             { data: 'name_en', name: 'name_en' },
             { data: 'username', name: 'username' },
             { data: 'email', name: 'email' },
-            { data: 'mobile_no', name: 'mobile_no' },
+            { data: 'mobile_no', name: 'mobile_no', defaultContent: '-' },
             {
                 data: 'role',
                 name: 'role',
                 render: function (data) {
+                    const badgeClasses = {
+                        super_admin: 'bg-label-warning',
+                        admin: 'bg-label-danger',
+                        staff: 'bg-label-info',
+                        inventory_manager: 'bg-label-secondary',
+                        customer: 'bg-label-primary'
+                    };
 
                     const roles = {
                         super_admin: 'Super Admin',
@@ -35,7 +40,10 @@ $(document).ready(function () {
                         customer: 'Customer'
                     };
 
-                    return roles[data] || data;
+                    const badgeClass = badgeClasses[data] || 'bg-label-secondary';
+                    const roleLabel = roles[data] || data;
+
+                    return '<span class="badge ' + badgeClass + '">' + roleLabel + '</span>';
                 }
             },
             {
@@ -46,9 +54,63 @@ $(document).ready(function () {
             {
                 data: 'actions',
                 name: 'actions',
+                orderable: false,
+                searchable: false,
                 defaultContent: '-'
             }
         ]
+    });
+
+    // Delete user handler with SweetAlert2 (Soft delete with is_delete = 1)
+    $(document).on('click', '.delete-user-btn', function () {
+        const userId = $(this).data('id');
+        const userName = $(this).data('name') || 'this user';
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'Are you sure you want to delete "' + userName + '"?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete!',
+            cancelButtonText: 'Cancel',
+            customClass: {
+                confirmButton: 'btn btn-danger me-2',
+                cancelButton: 'btn btn-secondary'
+            },
+            buttonsStyling: false
+        }).then(function (result) {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '/users/delete/' + userId,
+                    type: 'POST',
+                    success: function (response) {
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Deleted!',
+                                text: response.message,
+                                customClass: {
+                                    confirmButton: 'btn btn-success'
+                                },
+                                buttonsStyling: false
+                            });
+                            userTable.ajax.reload(null, false);
+                        }
+                    },
+                    error: function (xhr) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error!',
+                            text: xhr.responseJSON?.message || 'Failed to delete user.',
+                            customClass: {
+                                confirmButton: 'btn btn-primary'
+                            },
+                            buttonsStyling: false
+                        });
+                    }
+                });
+            }
+        });
     });
 
     // --------------------------------------------------------------------

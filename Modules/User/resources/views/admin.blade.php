@@ -8,6 +8,7 @@
 
     <form id="admin_form" action="" method="POST">
         @csrf
+        <input type="hidden" id="user_id" name="id" value="{{ $id ?? '' }}">
 
         <div id="account-details"
             class="card content dstepper-block active"
@@ -17,15 +18,13 @@
 
                 <div class="content-header d-flex justify-content-between align-items-center mb-4">
 
-                    <h6 class="mb-0 fontzs m-0">Admin</h6>
+                    <h6 class="mb-0 fontzs m-0" id="admin_title">Admin</h6>
 
                     <div class="d-flex gap-2">
 
-                        <button type="button"
-                            class="btn btn-secondary"
-                            onclick="history.back()">
+                        <a href="{{ route('user.index') }}" class="btn btn-secondary">
                             Cancel
-                        </button>
+                        </a>
 
                         <button type="button"
                             id="saveButton"
@@ -94,7 +93,7 @@
                     <div class="col-sm-3">
 
                         <label class="form-label" for="password">
-                            Password
+                            Password <small class="text-muted text-password-hint"></small>
                         </label>
 
                         <input type="password"

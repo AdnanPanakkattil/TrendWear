@@ -1,6 +1,21 @@
 @extends('backend.layouts.backendLayout')
 @section('content')
 
+<style>
+.edit-user-btn, .edit-user-btn i {
+    color: #2b76ff !important;
+}
+.edit-user-btn:hover {
+    background-color: rgba(43, 118, 255, 0.12) !important;
+}
+.delete-user-btn, .delete-user-btn i {
+    color: #ea5455 !important;
+}
+.delete-user-btn:hover {
+    background-color: rgba(234, 84, 85, 0.12) !important;
+}
+</style>
+
 <div class="col-md-12" style="zoom: 85% !important">
     <div class="card h-100" style="overflow: hidden;">
         <div class="card-header d-flex justify-content-between">
@@ -18,8 +33,7 @@
                                     <i class="fa-solid fa-users"></i>
                                 </div>
                                 <div class="card-info">
-
-                                    <h5 class="mb-0" id="total_paid">0</h5>
+                                    <h5 class="mb-0" id="stat_total_users">{{ $counts['total'] ?? 0 }}</h5>
                                     <h6> All Users </h6>
                                 </div>
                             </div>
@@ -31,8 +45,8 @@
                                     <i class="fa-solid fa-user-shield fa-lg"></i>
                                 </div>
                                 <div class="card-info">
-                                    <h5 class="mb-0" id="total_pending">0</h5>
-                                    <h6> All super admins </h6>
+                                    <h5 class="mb-0" id="stat_super_admins">{{ $counts['super_admin'] ?? 0 }}</h5>
+                                    <h6> All Super Admins </h6>
                                 </div>
                             </div>
                         </div>
@@ -44,7 +58,7 @@
                                 </div>
 
                                 <div class="card-info">
-                                    <h5 class="mb-0" id="total_cancelled">0</h5>
+                                    <h5 class="mb-0" id="stat_admins">{{ $counts['admin'] ?? 0 }}</h5>
                                     <h6> All Admins </h6>
                                 </div>
                             </div>
@@ -57,7 +71,7 @@
                                 </div>
 
                                 <div class="card-info">
-                                    <h5 class="mb-0" id="total_cancelled">0</h5>
+                                    <h5 class="mb-0" id="stat_staff">{{ $counts['staff'] ?? 0 }}</h5>
                                     <h6> All Staff </h6>
                                 </div>
                             </div>
@@ -69,7 +83,7 @@
                                     <i class="fa-solid fa-user fa-lg"></i>
                                 </div>
                                 <div class="card-info">
-                                    <h5 class="mb-0" id="total_cancelled">0</h5>
+                                    <h5 class="mb-0" id="stat_customers">{{ $counts['customer'] ?? 0 }}</h5>
                                     <h6> All Customers </h6>
                                 </div>
                             </div>

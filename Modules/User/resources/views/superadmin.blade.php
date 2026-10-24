@@ -4,14 +4,15 @@
 <div class="content-wrapper">
     <form id="superadmin_form" action="" method="POST" enctype="multipart/form-data">
         @csrf
+        <input type="hidden" id="user_id" name="id" value="{{ $id ?? '' }}">
         <div id="account-details" class="card content dstepper-block active" style="zoom: 90%;">
             <div class="card-body">
 
                 <div class="content-header d-flex justify-content-between align-items-center mb-4">
-                    <h6 class="mb-0 fontzs m-0">Super Admin</h6>
+                    <h6 class="mb-0 fontzs m-0" id="superadmin_title">Super Admin</h6>
                     <div class="d-flex gap-2">
-                        <button type="button" class="btn btn-secondary" onclick="history.back()">cancel Btn</button>
-                        <button type="button" id="saveButton" class="btn btn-success">save Btn</button>
+                        <a href="{{ route('user.index') }}" class="btn btn-secondary">Cancel</a>
+                        <button type="button" id="saveButton" class="btn btn-success">Save</button>
                     </div>
                 </div>
 
@@ -36,9 +37,9 @@
 
                     <div class="col-sm-3">
                         <label class="form-label labe" for="password">
-                            Password
+                            Password <small class="text-muted text-password-hint"></small>
                         </label>
-                        <input type="text" id="password" name="password" class="form-control password"
+                        <input type="password" id="password" name="password" class="form-control password"
                             placeholder="Password"
                             autocomplete="new-password"/>
                         <span class="text-danger error-text password_error"></span>
@@ -46,13 +47,13 @@
 
                     <div class="col-sm-3">
                         <label class="form-label labez" for="mobile_no">Mobile No</label>
-                        <input type="tel" id="mobile_no" name="mobile_no" class="form-control mobile_no" placeholder=" Mobile No" />
+                        <input type="tel" id="mobile_no" name="mobile_no" class="form-control mobile_no" placeholder="Mobile No" />
                         <span class="text-danger error-text mobile_no_error"></span>
                     </div>
 
                     <div class="col-sm-3">
                         <label for="email" class="form-label labez"> Email Address</label>
-                        <input type="email" name="email" class="form-control email" id="email" placeholder=" Email Address" />
+                        <input type="email" name="email" class="form-control email" id="email" placeholder="Email Address" />
                         <span class="text-danger error-text email_error"></span>
                     </div>
 
@@ -61,8 +62,7 @@
                         <input type="text" id="joined_date" name="joined_date"
                             class="form-control dob-picker joined_date"
                             placeholder="YYYY-MM-DD"
-                            autocomplete="off"
-                            value="">
+                            autocomplete="off">
                         <span class="text-danger error-text joined_date_error"></span>
                     </div>
                 </div>

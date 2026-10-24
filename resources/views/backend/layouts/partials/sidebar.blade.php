@@ -49,10 +49,19 @@
       <ul class="menu-sub">
         <li class="menu-item {{ request()->routeIs('user.index') ? 'active' : '' }}" id="menu_user_sub">
           <a href="{{ route('user.index') }}" class="menu-link">
-            <div data-i18n="Users">Users</div>
+            <div data-i18n="Users">All Users</div>
           </a>
         </li>
-
+        <li class="menu-item {{ request()->routeIs('backend.superadmin', 'superadmin.*') ? 'active' : '' }}" id="menu_superadmin_sub">
+          <a href="{{ route('backend.superadmin') }}" class="menu-link">
+            <div data-i18n="Super Admin">Super Admin</div>
+          </a>
+        </li>
+        <li class="menu-item {{ request()->routeIs('backend.admin', 'admin.*') ? 'active' : '' }}" id="menu_admin_sub">
+          <a href="{{ route('backend.admin') }}" class="menu-link">
+            <div data-i18n="Admin">Admin</div>
+          </a>
+        </li>
       </ul>
     </li>
 

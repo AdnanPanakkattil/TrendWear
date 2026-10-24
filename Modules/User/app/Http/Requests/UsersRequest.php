@@ -4,18 +4,33 @@ namespace Modules\User\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+use Illuminate\Validation\Rule;
+
 class UsersRequest extends FormRequest
 {
     public function rules(): array
     {
+        $userId = $this->route('id') ?? $this->route('user') ?? $this->input('id');
+        $isUpdate = !empty($userId);
+
         return [
-            'name_en' => 'required',
-            'name_ar' => 'nullable',
-            'username' => 'required|string|max:100|unique:users,username',
-            'email' => 'required|email|max:191|unique:users,email',
-            'password' => 'required|min:8',
-            'mobile_no' => 'nullable',
-            'joined_date' => 'nullable',
+            'name_en' => 'required|string|max:100',
+            'name_ar' => 'nullable|string|max:100',
+            'username' => [
+                'required',
+                'string',
+                'max:100',
+                Rule::unique('users', 'username')->ignore($userId)->where(fn ($query) => $query->where('is_delete', 0)),
+            ],
+            'email' => [
+                'required',
+                'email',
+                'max:191',
+                Rule::unique('users', 'email')->ignore($userId)->where(fn ($query) => $query->where('is_delete', 0)),
+            ],
+            'password' => $isUpdate ? 'nullable|min:8' : 'required|min:8',
+            'mobile_no' => 'nullable|string|max:20',
+            'joined_date' => 'nullable|date',
         ];
     }
 
