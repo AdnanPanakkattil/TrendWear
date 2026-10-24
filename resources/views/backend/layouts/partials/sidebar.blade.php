@@ -62,13 +62,21 @@
         <div>Product Management</div>
       </a>
       <div class="menu-floating-tooltip">Product Management</div>
+
       <ul class="menu-sub">
         <li class="menu-item {{ request()->routeIs('category.*') ? 'active' : '' }}" id="menu_category_sub">
           <a href="{{ route('category.index') }}" class="menu-link">
+            <div data-i18n="Item Master">Item Master</div>
+          </a>
+        </li>
+
+        <li class="menu-item" id="menu_category_sub">
+          <a href="" class="menu-link">
             <div data-i18n="Categories">Categories</div>
           </a>
         </li>
       </ul>
+
     </li>
 
   </ul>
