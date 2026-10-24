@@ -87,7 +87,119 @@
     padding-bottom: 1rem !important;
   }
 
-  /* Active sidebar menu styling (Orange background) */
+  /* ==========================================================
+     Modern Minimalist Sidebar UI (Matches Reference Screenshot)
+     ========================================================== */
+  #layout-menu.bg-menu-theme {
+    background-color: #ffffff !important;
+    border-right: 1px solid #edf0f5 !important;
+    box-shadow: none !important;
+  }
+
+  /* Section Headers: QUICK ACCESS, ALL MODULES */
+  .bg-menu-theme .menu-header {
+    padding: 1.4rem 1.4rem 0.5rem 1.4rem !important;
+    margin-top: 0.35rem;
+    margin-bottom: 0.15rem;
+  }
+  .bg-menu-theme .menu-header::before {
+    display: none !important; /* Hide default horizontal dividing line */
+  }
+  .bg-menu-theme .menu-header .menu-header-text {
+    font-size: 0.74rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.08em !important;
+    color: #94a3b8 !important;
+    text-transform: uppercase !important;
+    font-family: inherit;
+  }
+
+  /* Sidebar Menu Item Links */
+  .bg-menu-theme.menu-vertical .menu-item .menu-link {
+    display: flex !important;
+    align-items: center !important;
+    padding: 0.64rem 1.25rem !important;
+    margin: 2px 10px !important;
+    border-radius: 8px !important;
+    color: #374151 !important;
+    font-size: 0.94rem !important;
+    font-weight: 500 !important;
+    line-height: 1.45 !important;
+    transition: all 0.15s ease-in-out !important;
+  }
+
+  /* Menu Item Text */
+  .bg-menu-theme.menu-vertical .menu-item .menu-link div:not(.badge) {
+    color: #374151 !important;
+    font-weight: 500 !important;
+    font-size: 0.94rem !important;
+  }
+
+  /* Outline Icons matching reference */
+  .bg-menu-theme.menu-vertical .menu-item .menu-link .menu-icon {
+    font-size: 1.34rem !important;
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+    min-width: 1.5rem !important;
+    color: #374151 !important;
+    margin-right: 0.95rem !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    stroke-width: 1.6px;
+    transition: color 0.15s ease-in-out !important;
+  }
+
+  /* Hover State */
+  .bg-menu-theme.menu-vertical .menu-item:not(.active) .menu-link:hover {
+    background-color: #f8fafc !important;
+  }
+  .bg-menu-theme.menu-vertical .menu-item:not(.active) .menu-link:hover,
+  .bg-menu-theme.menu-vertical .menu-item:not(.active) .menu-link:hover div,
+  .bg-menu-theme.menu-vertical .menu-item:not(.active) .menu-link:hover .menu-icon {
+    color: #0f172a !important;
+  }
+
+  /* Dropdown Chevron Arrow (>) styled crisp and sleek */
+  .bg-menu-theme.menu-vertical .menu-item .menu-toggle::after {
+    border-color: #64748b !important;
+    border-width: 1.8px 1.8px 0 0 !important;
+    width: 0.44rem !important;
+    height: 0.44rem !important;
+    right: 1.25rem !important;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+  .bg-menu-theme.menu-vertical .menu-item:not(.active) .menu-link:hover.menu-toggle::after {
+    border-color: #0f172a !important;
+  }
+  .bg-menu-theme.menu-vertical .menu-item.open > .menu-toggle::after {
+    transform: translateY(-50%) rotate(135deg) !important;
+  }
+
+  /* Submenu items */
+  .bg-menu-theme.menu-vertical .menu-sub {
+    padding: 0.2rem 0 !important;
+  }
+  .bg-menu-theme.menu-vertical .menu-sub .menu-item .menu-link {
+    padding-left: 3.45rem !important;
+    font-size: 0.88rem !important;
+    color: #4b5563 !important;
+    border-radius: 6px !important;
+    margin: 2px 10px !important;
+  }
+  .bg-menu-theme.menu-vertical .menu-sub .menu-item .menu-link div {
+    color: #4b5563 !important;
+    font-size: 0.88rem !important;
+    font-weight: 450 !important;
+  }
+  .bg-menu-theme.menu-vertical .menu-sub .menu-item:not(.active) .menu-link:hover {
+    background-color: #f8fafc !important;
+  }
+  .bg-menu-theme.menu-vertical .menu-sub .menu-item:not(.active) .menu-link:hover div {
+    color: #0f172a !important;
+  }
+
+  /* Active sidebar menu styling (Orange brand accent) */
   .bg-menu-theme.menu-vertical .menu-item.active > .menu-link:not(.menu-toggle) {
     background: linear-gradient(270deg, #ff7849 0%, #ff5722 100%) !important;
     box-shadow: 0px 2px 8px 0px rgba(255, 87, 34, 0.45) !important;

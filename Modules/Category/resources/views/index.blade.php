@@ -3,10 +3,6 @@
 
 <div class="col-md-12" style="zoom: 85% !important">
     <div class="card h-100" style="overflow: hidden;">
-        <div class="card-header d-flex justify-content-between">
-            <h6 class="card-title mb-0">Categories</h6>
-            <small class="text-muted">Product Management</small>
-        </div>
 
         <div class="card-body">
             <div class="col-12 divhead p-0 d-flex justify-content-between align-items-center mb-3">
