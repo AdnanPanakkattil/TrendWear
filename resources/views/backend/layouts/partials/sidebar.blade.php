@@ -8,9 +8,13 @@
       <span class="app-brand-text demo menu-text fw-bold" style="vertical-align: middle;">Trend wear</span>
     </a>
 
-    <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
-      <i class="ti menu-toggle-icon d-none d-xl-block align-middle"></i>
-      <i class="ti ti-x d-block d-xl-none ti-md align-middle"></i>
+    <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto sidebar-toggle-btn d-none d-xl-flex">
+      <svg class="menu-toggle-custom-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 6h9M3 12h9M3 18h9M18 7l-4 5 4 5" />
+      </svg>
+    </a>
+    <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+      <i class="ti ti-x ti-md align-middle"></i>
     </a>
   </div>
 
@@ -28,6 +32,7 @@
         <i class="menu-icon ti ti-smart-home"></i>
         <div data-i18n="Dashboard">Dashboard</div>
       </a>
+      <div class="menu-floating-tooltip">Dashboard</div>
     </li>
 
     <!-- SECTION: Modules -->
@@ -35,17 +40,19 @@
       <span class="menu-header-text">Modules</span>
     </li>
 
-    <li class="menu-item {{ request()->routeIs('user.*') ? 'active open' : '' }}" id="menu_user_management">
+    <li class="menu-item {{ request()->routeIs('user.*', 'superadmin.*', 'backend.superadmin', 'backend.admin', 'backend.staff', 'backend.inventorymanager') ? 'active open' : '' }}" id="menu_user_management">
       <a href="javascript:void(0);" class="menu-link menu-toggle">
         <i class="menu-icon ti ti-users"></i>
         <div>User Management</div>
       </a>
+      <div class="menu-floating-tooltip">User Management</div>
       <ul class="menu-sub">
-        <li class="menu-item {{ request()->routeIs('user.*') ? 'active' : '' }}" id="menu_user_sub">
+        <li class="menu-item {{ request()->routeIs('user.index') ? 'active' : '' }}" id="menu_user_sub">
           <a href="{{ route('user.index') }}" class="menu-link">
-            <div data-i18n="User">User</div>
+            <div data-i18n="Users">Users</div>
           </a>
         </li>
+
       </ul>
     </li>
 
@@ -54,6 +61,7 @@
         <i class="menu-icon ti ti-box"></i>
         <div>Product Management</div>
       </a>
+      <div class="menu-floating-tooltip">Product Management</div>
       <ul class="menu-sub">
         <li class="menu-item {{ request()->routeIs('category.*') ? 'active' : '' }}" id="menu_category_sub">
           <a href="{{ route('category.index') }}" class="menu-link">

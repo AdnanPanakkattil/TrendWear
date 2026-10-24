@@ -143,6 +143,7 @@
                             <th>Mobile</th>
                             <th>Role</th>
                             <th>Joined Date</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -154,6 +155,7 @@
                             <th>Mobile</th>
                             <th>Role</th>
                             <th>Joined Date</th>
+                            <th>Action</th>
                         </tr>
                     </tfoot>
                 </table>

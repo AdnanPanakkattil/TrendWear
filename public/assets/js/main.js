@@ -55,6 +55,17 @@ if (document.getElementById('layout-menu')) {
     window.Helpers.mainMenu = menu;
   });
 
+  // Disable sidebar expansion on hover when collapsed
+  if (typeof window.Helpers !== 'undefined') {
+    window.Helpers._setMenuHoverState = function () {
+      this._removeClass('layout-menu-hover');
+    };
+    window.Helpers._bindMenuMouseEvents = function () {
+      this._unbindMenuMouseEvents();
+    };
+    window.Helpers._unbindMenuMouseEvents();
+  }
+
   // Initialize menu togglers and bind click on each
   let menuToggler = document.querySelectorAll('.layout-menu-toggle');
   menuToggler.forEach(item => {

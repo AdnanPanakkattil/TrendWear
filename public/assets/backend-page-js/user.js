@@ -27,6 +27,11 @@ $(document).ready(function () {
                 data: 'joined_date',
                 name: 'joined_date',
                 defaultContent: '-'
+            },
+            {
+                data: 'actions',
+                name: 'actions',
+                defaultContent: '-'
             }
         ]
     });
@@ -99,6 +104,12 @@ $(document).ready(function () {
                 },
                 axisBorder: {
                     show: false
+                },
+                crosshairs: {
+                    show: false
+                },
+                tooltip: {
+                    enabled: false
                 }
             },
             yaxis: {
@@ -107,17 +118,20 @@ $(document).ready(function () {
                 },
                 show: false
             },
-            tooltip: {
-                enabled: true,
-                theme: 'dark',
-                x: {
-                    show: false
+            states: {
+                hover: {
+                    filter: {
+                        type: 'none'
+                    }
                 },
-                y: {
-                    formatter: function (val) {
-                        return val + ' bills';
+                active: {
+                    filter: {
+                        type: 'none'
                     }
                 }
+            },
+            tooltip: {
+                enabled: false
             }
         };
 

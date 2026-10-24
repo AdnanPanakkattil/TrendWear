@@ -7,6 +7,15 @@
     </a>
   </div>
 
+  <!-- Desktop sidebar toggle shown when collapsed (Matching Image 2) -->
+  <div class="layout-menu-toggle navbar-nav align-items-center me-3 navbar-toggle-desktop d-none d-xl-flex">
+    <a class="nav-item nav-link px-0 cursor-pointer" href="javascript:void(0)">
+      <svg class="menu-toggle-custom-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 6h9M3 12h9M3 18h9M18 7l-4 5 4 5" />
+      </svg>
+    </a>
+  </div>
+
   <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
     <!-- Search -->
     <div class="navbar-nav align-items-center">

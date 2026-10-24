@@ -161,24 +161,24 @@
     color: #0f172a !important;
   }
 
-  /* Dropdown Chevron Arrow matching reference images (Closed: >, Open: v) */
+  /* Dropdown Chevron Arrow matching reference images (Closed: >, Open: —) */
   .bg-menu-theme.menu-vertical .menu-item .menu-toggle::after {
     content: "" !important;
     position: absolute !important;
-    right: 1.15rem !important;
+    right: 1.25rem !important;
     top: 50% !important;
     width: 0.42rem !important;
     height: 0.42rem !important;
-    border: solid #64748b !important;
+    border: solid #94a3b8 !important;
     border-width: 0 1.8px 1.8px 0 !important;
     transform: translateY(-50%) rotate(-45deg) !important;
-    transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s ease !important;
+    transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s ease, width 0.15s ease, height 0.15s ease, background-color 0.15s ease !important;
     font-size: 0 !important;
     font-family: inherit !important;
     display: inline-block !important;
   }
   .bg-menu-theme.menu-vertical .menu-item:not(.active) .menu-link:hover.menu-toggle::after {
-    border-color: #1e293b !important;
+    border-color: #ff5722 !important;
   }
 
   /* Parent menu-toggle links never get solid orange gradient */
@@ -190,28 +190,53 @@
     background-color: #f8fafc !important;
   }
 
-  /* Open state: Arrow points down (v) & subtle grey background as in reference image 2 */
+  /* Open state: Horizontal minus indicator (—) & soft tinted background */
   .bg-menu-theme.menu-vertical .menu-item.open > .menu-toggle {
-    background-color: #f3f4f6 !important;
+    background-color: rgba(255, 87, 34, 0.08) !important;
     box-shadow: none !important;
   }
   .bg-menu-theme.menu-vertical .menu-item.open > .menu-toggle::after {
-    transform: translateY(-62%) rotate(45deg) !important;
-    border-color: #334155 !important;
+    width: 10px !important;
+    height: 1.8px !important;
+    background-color: #ff5722 !important;
+    border: none !important;
+    transform: translateY(-50%) !important;
+    border-radius: 1px !important;
   }
   .bg-menu-theme.menu-vertical .menu-item.open > .menu-toggle div {
-    color: #1e293b !important;
-    font-weight: 500 !important;
+    color: #ff5722 !important;
+    font-weight: 600 !important;
   }
   .bg-menu-theme.menu-vertical .menu-item.open > .menu-toggle .menu-icon {
-    color: #1e293b !important;
+    color: #ff5722 !important;
   }
 
   /* Submenu container */
   .bg-menu-theme.menu-vertical .menu-sub {
-    padding: 0.25rem 0 0.35rem 0 !important;
+    position: relative !important;
+    padding: 0.35rem 0 0.45rem 0 !important;
     margin: 0 !important;
     background: transparent !important;
+  }
+
+  /* Submenu items */
+  .bg-menu-theme.menu-vertical .menu-sub .menu-item {
+    position: relative !important;
+    margin: 2px 8px !important;
+  }
+
+  /* Continuous vertical tree guide line connecting each node to the next (no excess tail) */
+  .bg-menu-theme.menu-vertical .menu-sub .menu-item:not(:last-child)::after {
+    content: "" !important;
+    position: absolute !important;
+    left: 1.85rem !important;
+    top: 50% !important;
+    height: 100% !important;
+    width: 1.5px !important;
+    background-color: #e2e8f0 !important;
+    transform: translateX(-50%) !important;
+    z-index: 1 !important;
+    pointer-events: none !important;
   }
 
   /* Submenu item links */
@@ -219,33 +244,35 @@
     position: relative !important;
     display: flex !important;
     align-items: center !important;
-    padding: 0.55rem 1.25rem 0.55rem 3.4rem !important;
+    padding: 0.46rem 1rem 0.46rem 2.85rem !important;
     font-size: 0.88rem !important;
-    color: #4b5563 !important;
-    border-radius: 8px !important;
-    margin: 2px 10px !important;
+    color: #64748b !important;
+    border-radius: 6px !important;
+    margin: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
     transition: all 0.15s ease-in-out !important;
   }
 
-  /* Submenu clean dot bullet */
+  /* Submenu circular node bullets (hollow ring by default) */
   .bg-menu-theme.menu-vertical .menu-sub .menu-item .menu-link::before {
     content: "" !important;
     position: absolute !important;
-    left: 2.2rem !important;
+    left: 1.85rem !important;
     top: 50% !important;
-    transform: translateY(-50%) !important;
-    width: 6px !important;
-    height: 6px !important;
+    transform: translate(-50%, -50%) !important;
+    width: 8px !important;
+    height: 8px !important;
     border-radius: 50% !important;
-    background-color: #cbd5e1 !important;
-    border: none !important;
-    font-size: 0 !important;
-    font-family: inherit !important;
+    background-color: #ffffff !important;
+    border: 1.6px solid #cbd5e1 !important;
+    box-sizing: border-box !important;
+    z-index: 2 !important;
     transition: all 0.2s ease-in-out !important;
   }
 
   .bg-menu-theme.menu-vertical .menu-sub .menu-item .menu-link div {
-    color: #4b5563 !important;
+    color: #64748b !important;
     font-size: 0.88rem !important;
     font-weight: 500 !important;
     transition: color 0.15s ease-in-out !important;
@@ -253,25 +280,29 @@
 
   /* Submenu hover */
   .bg-menu-theme.menu-vertical .menu-sub .menu-item:not(.active) .menu-link:hover {
-    background-color: #f8fafc !important;
+    background-color: transparent !important;
   }
   .bg-menu-theme.menu-vertical .menu-sub .menu-item:not(.active) .menu-link:hover::before {
-    background-color: #ff5722 !important;
-    transform: translateY(-50%) scale(1.3) !important;
+    border-color: #ff5722 !important;
+    background-color: #ffffff !important;
+    transform: translate(-50%, -50%) scale(1.15) !important;
   }
   .bg-menu-theme.menu-vertical .menu-sub .menu-item:not(.active) .menu-link:hover div {
-    color: #0f172a !important;
+    color: #ff5722 !important;
   }
 
   /* Submenu active item */
   .bg-menu-theme.menu-vertical .menu-sub .menu-item.active > .menu-link {
-    background: rgba(255, 87, 34, 0.08) !important;
+    background: transparent !important;
     box-shadow: none !important;
   }
   .bg-menu-theme.menu-vertical .menu-sub .menu-item.active > .menu-link::before {
+    width: 8.5px !important;
+    height: 8.5px !important;
     background-color: #ff5722 !important;
-    transform: translateY(-50%) scale(1.3) !important;
-    box-shadow: 0 0 0 3px rgba(255, 87, 34, 0.25) !important;
+    border: 2px solid #ffffff !important;
+    box-shadow: 0 0 0 1.5px #ff5722 !important;
+    transform: translate(-50%, -50%) !important;
   }
   .bg-menu-theme.menu-vertical .menu-sub .menu-item.active > .menu-link div {
     color: #ff5722 !important;
@@ -287,6 +318,277 @@
   .bg-menu-theme.menu-vertical .menu-inner > .menu-item.active > .menu-link:not(.menu-toggle) .menu-icon,
   .bg-menu-theme.menu-vertical .menu-inner > .menu-item.active > .menu-link:not(.menu-toggle) div {
     color: #ffffff !important;
+  }
+
+  /* Hide floating tooltip in normal (expanded) state */
+  .menu-floating-tooltip {
+    display: none !important;
+  }
+
+  /* Submenu icons in expanded state */
+  .bg-menu-theme.menu-vertical .menu-sub .menu-item .menu-link .menu-icon {
+    font-size: 1.15rem !important;
+    margin-right: 0.5rem !important;
+  }
+  .bg-menu-theme.menu-vertical .menu-sub .menu-item .menu-link:has(.menu-icon)::before {
+    display: none !important;
+  }
+  .bg-menu-theme.menu-vertical .menu-sub .menu-item .menu-link:has(.menu-icon) {
+    padding-left: 2.2rem !important;
+  }
+
+  /* Menu Toggle SVG Icon Styling (Matching Reference Images 1 & 2) */
+  .menu-toggle-custom-svg {
+    stroke: #64748b !important;
+  }
+  .sidebar-toggle-btn,
+  .sidebar-toggle-btn:hover,
+  .sidebar-toggle-btn:focus,
+  .navbar-toggle-desktop a,
+  .navbar-toggle-desktop a:hover,
+  .navbar-toggle-desktop a:focus {
+    background: transparent !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+  }
+  .sidebar-toggle-btn .menu-toggle-custom-svg,
+  .sidebar-toggle-btn:hover .menu-toggle-custom-svg,
+  .navbar-toggle-desktop .menu-toggle-custom-svg,
+  .navbar-toggle-desktop:hover .menu-toggle-custom-svg {
+    stroke: #64748b !important;
+  }
+
+  /* =========================================================================
+     COLLAPSED SIDEBAR HOVER TOOLTIP & FLOATING SUBMENU (Matching Reference)
+     ========================================================================= */
+  @media (min-width: 1200px) {
+    /* Toggle Button Placement:
+       - Open: show in sidebar (Image 1 style)
+       - Closed: show in navbar (Image 2 style) */
+    html:not(.layout-menu-collapsed) .sidebar-toggle-btn {
+      display: flex !important;
+    }
+    html:not(.layout-menu-collapsed) .navbar-toggle-desktop {
+      display: none !important;
+    }
+    html.layout-menu-collapsed .sidebar-toggle-btn {
+      display: none !important;
+    }
+    html.layout-menu-collapsed .navbar-toggle-desktop {
+      display: flex !important;
+    }
+    html.layout-menu-collapsed .app-brand {
+      justify-content: center !important;
+      padding: 0 !important;
+    }
+    html.layout-menu-collapsed .app-brand-link {
+      margin: 0 auto !important;
+    }
+
+    /* Allow floating tooltips and popups to overflow the collapsed sidebar */
+    html.layout-menu-collapsed #layout-menu,
+    html.layout-menu-collapsed #layout-menu .menu-inner {
+      overflow: visible !important;
+    }
+
+    /* Lock collapsed sidebar width strictly to 4.375rem */
+    html.layout-menu-collapsed:not(.layout-menu-expanded) .layout-menu,
+    html.layout-menu-collapsed:not(.layout-menu-expanded) .layout-menu.menu-vertical,
+    html.layout-menu-collapsed:not(.layout-menu-expanded) .layout-menu .menu-vertical {
+      width: 4.375rem !important;
+      overflow: visible !important;
+    }
+
+    /* Hide root-level text, headers, and app-brand text in collapsed state */
+    html.layout-menu-collapsed:not(.layout-menu-expanded) .menu-inner > .menu-item > .menu-link > div,
+    html.layout-menu-collapsed:not(.layout-menu-expanded) .menu-inner > .menu-header,
+    html.layout-menu-collapsed:not(.layout-menu-expanded) .menu-inner > .menu-block,
+    html.layout-menu-collapsed:not(.layout-menu-expanded) .app-brand-text,
+    html.layout-menu-collapsed:not(.layout-menu-expanded) .menu-inner > .menu-item > .menu-toggle::after {
+      opacity: 0 !important;
+      visibility: hidden !important;
+      width: 0 !important;
+      display: none !important;
+    }
+
+    /* Hover highlight around root item icon in collapsed sidebar */
+    html.layout-menu-collapsed:not(.layout-menu-expanded) .menu-inner > .menu-item {
+      position: relative !important;
+    }
+    /* Hover bridge on menu-item to bridge gap to floating popup card */
+    html.layout-menu-collapsed:not(.layout-menu-expanded) .menu-inner > .menu-item:has(.menu-sub)::after,
+    html.layout-menu-collapsed:not(.layout-menu-expanded) .menu-inner > .menu-item:has(.menu-toggle)::after {
+      content: "" !important;
+      position: absolute !important;
+      top: -10px !important;
+      right: -30px !important;
+      width: 40px !important;
+      bottom: -10px !important;
+      background: transparent !important;
+      z-index: 1050 !important;
+    }
+    html.layout-menu-collapsed:not(.layout-menu-expanded) .menu-inner > .menu-item:hover > .menu-link {
+      background: #ffede7 !important;
+      border-radius: 12px !important;
+    }
+    html.layout-menu-collapsed:not(.layout-menu-expanded) .menu-inner > .menu-item:hover > .menu-link .menu-icon {
+      color: #ff5722 !important;
+    }
+
+    /* Dark Tooltip Badge */
+    html.layout-menu-collapsed:not(.layout-menu-expanded) .menu-inner > .menu-item:hover > .menu-floating-tooltip {
+      display: inline-flex !important;
+      align-items: center;
+      position: absolute !important;
+      left: calc(100% + 12px) !important;
+      top: 50% !important;
+      transform: translateY(-50%) !important;
+      background: #202938 !important;
+      opacity: 1 !important;
+      color: #ffffff !important;
+      font-size: 0.78rem !important;
+      font-weight: 500 !important;
+      padding: 6px 14px !important;
+      border-radius: 6px !important;
+      white-space: nowrap !important;
+      z-index: 1105 !important;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.28) !important;
+      pointer-events: none !important;
+      animation: menuPopupFade 0.15s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+
+    /* Left-pointing arrow on dark tooltip */
+    html.layout-menu-collapsed:not(.layout-menu-expanded) .menu-inner > .menu-item .menu-floating-tooltip::before {
+      content: "";
+      position: absolute;
+      right: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+      border-width: 5px 6px 5px 0;
+      border-style: solid;
+      border-color: transparent #202938 transparent transparent;
+    }
+
+    /* When menu-item has a submenu, position tooltip at the top */
+    html.layout-menu-collapsed:not(.layout-menu-expanded) .menu-inner > .menu-item:has(.menu-sub):hover > .menu-floating-tooltip,
+    html.layout-menu-collapsed:not(.layout-menu-expanded) .menu-inner > .menu-item:hover > .menu-link.menu-toggle + .menu-floating-tooltip {
+      top: 0px !important;
+      transform: none !important;
+    }
+    html.layout-menu-collapsed:not(.layout-menu-expanded) .menu-inner > .menu-item:has(.menu-sub) .menu-floating-tooltip::before,
+    html.layout-menu-collapsed:not(.layout-menu-expanded) .menu-inner > .menu-item .menu-link.menu-toggle + .menu-floating-tooltip::before {
+      top: 14px !important;
+    }
+
+    /* Floating Submenu Popup Card */
+    html.layout-menu-collapsed:not(.layout-menu-expanded) .menu-inner > .menu-item > .menu-sub {
+      display: none !important;
+      position: absolute !important;
+      left: calc(100% + 12px) !important;
+      top: 32px !important;
+      min-width: 195px !important;
+      background: #ffffff !important;
+      border-radius: 12px !important;
+      box-shadow: 0 10px 30px -4px rgba(0, 0, 0, 0.14), 0 4px 10px -2px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 0, 0, 0.05) !important;
+      padding: 8px !important;
+      margin: 0 !important;
+      z-index: 1100 !important;
+      list-style: none !important;
+    }
+    html.layout-menu-collapsed:not(.layout-menu-expanded) .menu-inner > .menu-item > .menu-sub::before {
+      display: none !important;
+    }
+
+    /* Invisible hover bridge between icon and floating card */
+    html.layout-menu-collapsed:not(.layout-menu-expanded) .menu-inner > .menu-item > .menu-sub::after {
+      content: "" !important;
+      position: absolute !important;
+      top: -45px !important;
+      left: -35px !important;
+      bottom: -20px !important;
+      width: 45px !important;
+      background: transparent !important;
+      z-index: 1050 !important;
+    }
+
+    html.layout-menu-collapsed:not(.layout-menu-expanded) .menu-inner > .menu-item:hover > .menu-sub {
+      display: block !important;
+      animation: menuPopupFade 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+
+    /* Submenu links inside floating card */
+    html.layout-menu-collapsed:not(.layout-menu-expanded) .menu-inner > .menu-item > .menu-sub .menu-item {
+      margin: 0 0 2px 0 !important;
+      width: 100% !important;
+      position: static !important;
+    }
+    html.layout-menu-collapsed:not(.layout-menu-expanded) .menu-inner > .menu-item > .menu-sub .menu-item::before,
+    html.layout-menu-collapsed:not(.layout-menu-expanded) .menu-inner > .menu-item > .menu-sub .menu-item::after {
+      display: none !important;
+    }
+    html.layout-menu-collapsed:not(.layout-menu-expanded) .menu-inner > .menu-item > .menu-sub .menu-item .menu-link {
+      display: flex !important;
+      align-items: center !important;
+      padding: 9px 14px !important;
+      border-radius: 8px !important;
+      font-size: 0.88rem !important;
+      color: #334155 !important;
+      margin: 0 !important;
+      text-decoration: none !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      transition: all 0.15s ease !important;
+    }
+    html.layout-menu-collapsed:not(.layout-menu-expanded) .menu-inner > .menu-item > .menu-sub .menu-item .menu-link::before,
+    html.layout-menu-collapsed:not(.layout-menu-expanded) .menu-inner > .menu-item > .menu-sub .menu-item .menu-link::after {
+      display: none !important;
+    }
+    html.layout-menu-collapsed:not(.layout-menu-expanded) .menu-inner > .menu-item > .menu-sub .menu-item .menu-link div {
+      opacity: 1 !important;
+      visibility: visible !important;
+      width: auto !important;
+      display: block !important;
+      font-weight: 500 !important;
+      color: inherit !important;
+    }
+    html.layout-menu-collapsed:not(.layout-menu-expanded) .menu-inner > .menu-item > .menu-sub .menu-item .menu-link .menu-icon {
+      font-size: 1.15rem !important;
+      margin-right: 10px !important;
+      color: inherit !important;
+      display: inline-block !important;
+    }
+
+    /* Submenu item hover inside floating card */
+    html.layout-menu-collapsed:not(.layout-menu-expanded) .menu-inner > .menu-item > .menu-sub .menu-item:not(.active) .menu-link:hover {
+      background-color: #f8fafc !important;
+      color: #ff5722 !important;
+    }
+    html.layout-menu-collapsed:not(.layout-menu-expanded) .menu-inner > .menu-item > .menu-sub .menu-item:not(.active) .menu-link:hover div,
+    html.layout-menu-collapsed:not(.layout-menu-expanded) .menu-inner > .menu-item > .menu-sub .menu-item:not(.active) .menu-link:hover .menu-icon {
+      color: #ff5722 !important;
+    }
+
+    /* Submenu active item inside floating card */
+    html.layout-menu-collapsed:not(.layout-menu-expanded) .menu-inner > .menu-item > .menu-sub .menu-item.active .menu-link {
+      background-color: #fff1ee !important;
+      color: #ff5722 !important;
+    }
+    html.layout-menu-collapsed:not(.layout-menu-expanded) .menu-inner > .menu-item > .menu-sub .menu-item.active .menu-link div,
+    html.layout-menu-collapsed:not(.layout-menu-expanded) .menu-inner > .menu-item > .menu-sub .menu-item.active .menu-link .menu-icon {
+      color: #ff5722 !important;
+      font-weight: 600 !important;
+    }
+
+    @keyframes menuPopupFade {
+      from {
+        opacity: 0;
+        transform: translateX(-5px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
   }
 </style>
 
