@@ -14,8 +14,8 @@
 
                         <div class="col">
                             <div class="d-flex align-items-center">
-                                <div class="badge rounded bg-label-success  me-4 p-2">
-                                    <i class="ti ti-checks ti-lg"></i>
+                                <div class="badge rounded bg-label-success me-4 p-3">
+                                    <i class="fa-solid fa-users"></i>
                                 </div>
                                 <div class="card-info">
 
@@ -27,8 +27,8 @@
 
                         <div class="col">
                             <div class="d-flex align-items-center">
-                                <div class="badge rounded bg-label-warning me-4 p-2">
-                                    <i class="ti ti-clock-hour-4 ti-lg"></i>
+                                <div class="badge rounded bg-label-warning me-4 p-3">
+                                    <i class="fa-solid fa-user-shield fa-lg"></i>
                                 </div>
                                 <div class="card-info">
                                     <h5 class="mb-0" id="total_pending">0</h5>
@@ -39,9 +39,10 @@
 
                         <div class="col">
                             <div class="d-flex align-items-center">
-                                <div class="badge rounded bg-label-danger me-4 p-2">
-                                    <i class="ti ti-circle-x ti-lg"></i>
+                                <div class="badge rounded bg-label-danger me-4 p-3">
+                                    <i class="fa-solid fa-user-tie fa-lg"></i>
                                 </div>
+
                                 <div class="card-info">
                                     <h5 class="mb-0" id="total_cancelled">0</h5>
                                     <h6> All Admins </h6>
@@ -51,9 +52,10 @@
 
                         <div class="col">
                             <div class="d-flex align-items-center">
-                                <div class="badge rounded bg-label-danger me-4 p-2">
-                                    <i class="ti ti-circle-x ti-lg"></i>
+                                <div class="badge rounded bg-label-info me-4 p-3">
+                                    <i class="fa-solid fa-user-gear fa-lg"></i>
                                 </div>
+
                                 <div class="card-info">
                                     <h5 class="mb-0" id="total_cancelled">0</h5>
                                     <h6> All Staff </h6>
@@ -63,8 +65,8 @@
 
                         <div class="col">
                             <div class="d-flex align-items-center">
-                                <div class="badge rounded bg-label-danger me-4 p-2">
-                                    <i class="ti ti-circle-x ti-lg"></i>
+                                <div class="badge rounded bg-label-primary me-4 p-3">
+                                    <i class="fa-solid fa-user fa-lg"></i>
                                 </div>
                                 <div class="card-info">
                                     <h5 class="mb-0" id="total_cancelled">0</h5>

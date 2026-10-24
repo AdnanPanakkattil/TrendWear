@@ -23,9 +23,9 @@
     </li>
 
     <!-- Dashboard -->
-    <li class="menu-item" id="menu_dashboard">
+    <li class="menu-item {{ request()->routeIs('backend.dashboard') ? 'active' : '' }}" id="menu_dashboard">
       <a href="{{ route('backend.dashboard') }}" class="menu-link">
-        <i class="menu-icon ti ti-calendar"></i>
+        <i class="menu-icon ti ti-smart-home"></i>
         <div data-i18n="Dashboard">Dashboard</div>
       </a>
     </li>
@@ -35,13 +35,13 @@
       <span class="menu-header-text">Modules</span>
     </li>
 
-    <li class="menu-item menu-dropdown" id="Product_management_menu">
+    <li class="menu-item {{ request()->routeIs('user.*') ? 'active open' : '' }}" id="menu_user_management">
       <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class="menu-icon ti ti-calendar"></i>
+        <i class="menu-icon ti ti-users"></i>
         <div>User Management</div>
       </a>
       <ul class="menu-sub">
-        <li class="menu-item" id="Category_management_menu">
+        <li class="menu-item {{ request()->routeIs('user.*') ? 'active' : '' }}" id="menu_user_sub">
           <a href="{{ route('user.index') }}" class="menu-link">
             <div data-i18n="User">User</div>
           </a>
@@ -49,22 +49,19 @@
       </ul>
     </li>
 
-
-    <li class="menu-item menu-dropdown" id="Product_management_menu">
+    <li class="menu-item {{ request()->routeIs('category.*') ? 'active open' : '' }}" id="menu_product_management">
       <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class="menu-icon ti ti-calendar"></i>
+        <i class="menu-icon ti ti-box"></i>
         <div>Product Management</div>
       </a>
       <ul class="menu-sub">
-        <li class="menu-item" id="Category_management_menu">
+        <li class="menu-item {{ request()->routeIs('category.*') ? 'active' : '' }}" id="menu_category_sub">
           <a href="{{ route('category.index') }}" class="menu-link">
             <div data-i18n="Categories">Categories</div>
           </a>
         </li>
       </ul>
     </li>
-
-
 
   </ul>
 </aside>

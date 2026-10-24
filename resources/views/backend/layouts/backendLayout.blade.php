@@ -118,11 +118,11 @@
   .bg-menu-theme.menu-vertical .menu-item .menu-link {
     display: flex !important;
     align-items: center !important;
-    padding: 0.64rem 1.25rem !important;
-    margin: 2px 10px !important;
+    padding: 0.64rem 1.85rem 0.64rem 1.15rem !important;
+    margin: 2px 8px !important;
     border-radius: 8px !important;
     color: #374151 !important;
-    font-size: 0.94rem !important;
+    font-size: 0.92rem !important;
     font-weight: 500 !important;
     line-height: 1.45 !important;
     transition: all 0.15s ease-in-out !important;
@@ -132,17 +132,17 @@
   .bg-menu-theme.menu-vertical .menu-item .menu-link div:not(.badge) {
     color: #374151 !important;
     font-weight: 500 !important;
-    font-size: 0.94rem !important;
+    font-size: 0.92rem !important;
   }
 
   /* Outline Icons matching reference */
   .bg-menu-theme.menu-vertical .menu-item .menu-link .menu-icon {
-    font-size: 1.34rem !important;
-    width: 1.5rem !important;
-    height: 1.5rem !important;
-    min-width: 1.5rem !important;
+    font-size: 1.3rem !important;
+    width: 1.4rem !important;
+    height: 1.4rem !important;
+    min-width: 1.4rem !important;
     color: #374151 !important;
-    margin-right: 0.95rem !important;
+    margin-right: 0.75rem !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -160,53 +160,131 @@
     color: #0f172a !important;
   }
 
-  /* Dropdown Chevron Arrow (>) styled crisp and sleek */
+  /* Dropdown Chevron Arrow matching reference images (Closed: >, Open: v) */
   .bg-menu-theme.menu-vertical .menu-item .menu-toggle::after {
-    border-color: #64748b !important;
-    border-width: 1.8px 1.8px 0 0 !important;
-    width: 0.44rem !important;
-    height: 0.44rem !important;
-    right: 1.25rem !important;
-    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    content: "" !important;
+    position: absolute !important;
+    right: 1.15rem !important;
+    top: 50% !important;
+    width: 0.42rem !important;
+    height: 0.42rem !important;
+    border: solid #64748b !important;
+    border-width: 0 1.8px 1.8px 0 !important;
+    transform: translateY(-50%) rotate(-45deg) !important;
+    transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.2s ease !important;
+    font-size: 0 !important;
+    font-family: inherit !important;
+    display: inline-block !important;
   }
   .bg-menu-theme.menu-vertical .menu-item:not(.active) .menu-link:hover.menu-toggle::after {
-    border-color: #0f172a !important;
-  }
-  .bg-menu-theme.menu-vertical .menu-item.open > .menu-toggle::after {
-    transform: translateY(-50%) rotate(135deg) !important;
+    border-color: #1e293b !important;
   }
 
-  /* Submenu items */
-  .bg-menu-theme.menu-vertical .menu-sub {
-    padding: 0.2rem 0 !important;
+  /* Parent menu-toggle links never get solid orange gradient */
+  .bg-menu-theme.menu-vertical .menu-item > .menu-link.menu-toggle {
+    background: transparent !important;
+    box-shadow: none !important;
   }
+  .bg-menu-theme.menu-vertical .menu-item:not(.open) > .menu-link.menu-toggle:hover {
+    background-color: #f8fafc !important;
+  }
+
+  /* Open state: Arrow points down (v) & subtle grey background as in reference image 2 */
+  .bg-menu-theme.menu-vertical .menu-item.open > .menu-toggle {
+    background-color: #f3f4f6 !important;
+    box-shadow: none !important;
+  }
+  .bg-menu-theme.menu-vertical .menu-item.open > .menu-toggle::after {
+    transform: translateY(-62%) rotate(45deg) !important;
+    border-color: #334155 !important;
+  }
+  .bg-menu-theme.menu-vertical .menu-item.open > .menu-toggle div {
+    color: #1e293b !important;
+    font-weight: 500 !important;
+  }
+  .bg-menu-theme.menu-vertical .menu-item.open > .menu-toggle .menu-icon {
+    color: #1e293b !important;
+  }
+
+  /* Submenu container */
+  .bg-menu-theme.menu-vertical .menu-sub {
+    padding: 0.25rem 0 0.35rem 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+  }
+
+  /* Submenu item links */
   .bg-menu-theme.menu-vertical .menu-sub .menu-item .menu-link {
-    padding-left: 3.45rem !important;
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    padding: 0.55rem 1.25rem 0.55rem 3.4rem !important;
     font-size: 0.88rem !important;
     color: #4b5563 !important;
-    border-radius: 6px !important;
+    border-radius: 8px !important;
     margin: 2px 10px !important;
+    transition: all 0.15s ease-in-out !important;
   }
+
+  /* Submenu clean dot bullet */
+  .bg-menu-theme.menu-vertical .menu-sub .menu-item .menu-link::before {
+    content: "" !important;
+    position: absolute !important;
+    left: 2.2rem !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    width: 6px !important;
+    height: 6px !important;
+    border-radius: 50% !important;
+    background-color: #cbd5e1 !important;
+    border: none !important;
+    font-size: 0 !important;
+    font-family: inherit !important;
+    transition: all 0.2s ease-in-out !important;
+  }
+
   .bg-menu-theme.menu-vertical .menu-sub .menu-item .menu-link div {
     color: #4b5563 !important;
     font-size: 0.88rem !important;
-    font-weight: 450 !important;
+    font-weight: 500 !important;
+    transition: color 0.15s ease-in-out !important;
   }
+
+  /* Submenu hover */
   .bg-menu-theme.menu-vertical .menu-sub .menu-item:not(.active) .menu-link:hover {
     background-color: #f8fafc !important;
+  }
+  .bg-menu-theme.menu-vertical .menu-sub .menu-item:not(.active) .menu-link:hover::before {
+    background-color: #ff5722 !important;
+    transform: translateY(-50%) scale(1.3) !important;
   }
   .bg-menu-theme.menu-vertical .menu-sub .menu-item:not(.active) .menu-link:hover div {
     color: #0f172a !important;
   }
 
-  /* Active sidebar menu styling (Orange brand accent) */
-  .bg-menu-theme.menu-vertical .menu-item.active > .menu-link:not(.menu-toggle) {
+  /* Submenu active item */
+  .bg-menu-theme.menu-vertical .menu-sub .menu-item.active > .menu-link {
+    background: rgba(255, 87, 34, 0.08) !important;
+    box-shadow: none !important;
+  }
+  .bg-menu-theme.menu-vertical .menu-sub .menu-item.active > .menu-link::before {
+    background-color: #ff5722 !important;
+    transform: translateY(-50%) scale(1.3) !important;
+    box-shadow: 0 0 0 3px rgba(255, 87, 34, 0.25) !important;
+  }
+  .bg-menu-theme.menu-vertical .menu-sub .menu-item.active > .menu-link div {
+    color: #ff5722 !important;
+    font-weight: 600 !important;
+  }
+
+  /* Top-level active menu item styling (Leaf items like Dashboard only) */
+  .bg-menu-theme.menu-vertical .menu-inner > .menu-item.active > .menu-link:not(.menu-toggle) {
     background: linear-gradient(270deg, #ff7849 0%, #ff5722 100%) !important;
     box-shadow: 0px 2px 8px 0px rgba(255, 87, 34, 0.45) !important;
     color: #ffffff !important;
   }
-  .bg-menu-theme.menu-vertical .menu-item.active > .menu-link:not(.menu-toggle) .menu-icon,
-  .bg-menu-theme.menu-vertical .menu-item.active > .menu-link:not(.menu-toggle) div {
+  .bg-menu-theme.menu-vertical .menu-inner > .menu-item.active > .menu-link:not(.menu-toggle) .menu-icon,
+  .bg-menu-theme.menu-vertical .menu-inner > .menu-item.active > .menu-link:not(.menu-toggle) div {
     color: #ffffff !important;
   }
 </style>
