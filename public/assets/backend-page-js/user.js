@@ -22,7 +22,22 @@ $(document).ready(function () {
             { data: 'username', name: 'username' },
             { data: 'email', name: 'email' },
             { data: 'mobile_no', name: 'mobile_no' },
-            { data: 'role', name: 'role' },
+            {
+                data: 'role',
+                name: 'role',
+                render: function (data) {
+
+                    const roles = {
+                        super_admin: 'Super Admin',
+                        admin: 'Admin',
+                        staff: 'Staff',
+                        inventory_manager: 'Inventory Manager',
+                        customer: 'Customer'
+                    };
+
+                    return roles[data] || data;
+                }
+            },
             {
                 data: 'joined_date',
                 name: 'joined_date',

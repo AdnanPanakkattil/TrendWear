@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Modules\User\Http\Requests\SuperadminStoreRequest;
+use Modules\User\Http\Requests\UsersRequest;
 use Yajra\DataTables\Facades\DataTables;
 
 class SuperadminController extends Controller
@@ -24,7 +25,7 @@ class SuperadminController extends Controller
 
     // store function ==================================================
 
-    public function store(SuperadminStoreRequest $request)
+    public function store(UsersRequest $request)
     {
         $validated = $request->validated();
 
@@ -44,20 +45,26 @@ class SuperadminController extends Controller
 
     //====================================================================
 
-    public function data()
-    {
-        $query = User::query()
-            ->select([
-                'id',
-                'name_en',
-                'username',
-                'email',
-                'mobile_no',
-                'role',
-                'joined_date',
-            ])
-            ->where('role', 'super_admin');
+public function data()
+{
+    $query = User::query()
+        ->select([
+            'id',
+            'name_en',
+            'username',
+            'email',
+            'mobile_no',
+            'role',
+            'joined_date',
+        ])
+        ->whereIn('role', [
+            'super_admin',
+            'admin',
+            'staff',
+            'inventory_manager',
+            'customer',
+        ]);
 
-        return DataTables::eloquent($query)->toJson();
-    }
+    return DataTables::eloquent($query)->toJson();
+}
 }

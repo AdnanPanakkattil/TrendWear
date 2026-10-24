@@ -1,79 +1,179 @@
 @extends('backend.layouts.backendLayout')
-@section('content')
-<link rel="stylesheet" href="{{ asset('page-css/patient.css') }}">
-<div class="content-wrapper">
-    <form id="superadmin_form" action="" method="POST" enctype="multipart/form-data">
-        <form id="admin_form" action="" method="POST" enctype="multipart/form-data">
-            <div id="account-details" class="card content dstepper-block active" style="zoom: 90%;">
-                <div class="card-body">
 
-                    <div class="content-header d-flex justify-content-between align-items-center mb-4">
-                        <h6 class="mb-0 fontzs m-0">Admin</h6>
-                        <div class="d-flex gap-2">
-                            <button type="button" class="btn btn-secondary" onclick="history.back()">cancel Btn</button>
-                            <button type="button" id="saveButton" class="btn btn-success">save Btn</button>
-                        </div>
+@section('content')
+
+<link rel="stylesheet" href="{{ asset('page-css/patient.css') }}">
+
+<div class="content-wrapper">
+
+    <form id="admin_form" action="" method="POST">
+        @csrf
+
+        <div id="account-details"
+            class="card content dstepper-block active"
+            style="zoom: 90%;">
+
+            <div class="card-body">
+
+                <div class="content-header d-flex justify-content-between align-items-center mb-4">
+
+                    <h6 class="mb-0 fontzs m-0">Admin</h6>
+
+                    <div class="d-flex gap-2">
+
+                        <button type="button"
+                            class="btn btn-secondary"
+                            onclick="history.back()">
+                            Cancel
+                        </button>
+
+                        <button type="button"
+                            id="saveButton"
+                            class="btn btn-success">
+                            Save
+                        </button>
+
                     </div>
 
-                    <div class="row g-6 gap">
-                        <div class="col-sm-3">
-                            <label class="form-label labe" for="firstName_en"> Name English </label>
-                            <input type="text" id="firstName_en" name="firstName_en" class="form-control  firstName_en" placeholder=" Name English " />
-                            <span class="text-danger error-text firstName_en_error"></span>
-                        </div>
+                </div>
 
-                        <div class="col-sm-3">
-                            <label class="form-label labe" for="firstName_ar">Name Arabic</label>
-                            <input type="text" id="firstName_ar" name="firstName_ar" class="form-control  firstName_ar" placeholder=" Name Arabic " />
-                            <span class="text-danger error-text firstName_ar_error"></span>
-                        </div>
+                <div class="row g-3">
 
-                        <div class="col-sm-3">
-                            <label class="form-label labe" for="username"> Username </label>
-                            <input type="text" id="username" name="username" class="form-control username" placeholder=" Username " />
-                            <span class="text-danger error-text username_error"></span>
-                        </div>
+                    {{-- Name English --}}
+                    <div class="col-sm-3">
 
-                        <div class="col-sm-3">
-                            <label class="form-label labe" for="password">
-                                Password
-                            </label>
-                            <input type="text" id="password" name="password" class="form-control password"
-                                placeholder="Password"
-                                value="" />
-                            <span class="text-danger error-text password_error"></span>
-                        </div>
+                        <label class="form-label" for="name_en">
+                            Name English
+                        </label>
 
-                        <div class="col-sm-3">
-                            <label class="form-label labez" for="username"> Mobile No</label>
-                            <input type="tel" id="MobileNo" name="MobileNo" class="form-control  MobileNo" placeholder=" Mobile No" />
-                            <span class="text-danger error-text MobileNo_error"></span>
-                        </div>
+                        <input type="text"
+                            id="name_en"
+                            name="name_en"
+                            class="form-control"
+                            placeholder="Name English">
 
-                        <div class="col-sm-3">
-                            <label for="exampleFormControlInput1" class="form-label labez"> Email Address</label>
-                            <input type="email" name="email" class="form-control  email" id="Email" placeholder=" Email Address" />
-                            <span class="text-danger error-text email_error"></span>
-                        </div>
+                        <span class="text-danger error-text name_en_error"></span>
 
-                        <div class="col-sm-3">
-                            <label for="joined_date" class="form-label labez"> Joined Date</label>
-                            <input type="text" id="joined_date" name="joined_date"
-                                class="form-control dob-picker joined_date"
-                                placeholder="YYYY-MM-DD"
-                                value="">
-                            <span class="text-danger error-text joined_date_error"></span>
-                        </div>
+                    </div>
+
+                    {{-- Name Arabic --}}
+                    <div class="col-sm-3">
+
+                        <label class="form-label" for="name_ar">
+                            Name Arabic
+                        </label>
+
+                        <input type="text"
+                            id="name_ar"
+                            name="name_ar"
+                            class="form-control"
+                            placeholder="Name Arabic">
+
+                        <span class="text-danger error-text name_ar_error"></span>
+
+                    </div>
+
+                    {{-- Username --}}
+                    <div class="col-sm-3">
+
+                        <label class="form-label" for="username">
+                            Username
+                        </label>
+
+                        <input type="text"
+                            id="username"
+                            name="username"
+                            class="form-control"
+                            placeholder="Username">
+
+                        <span class="text-danger error-text username_error"></span>
+
+                    </div>
+
+                    {{-- Password --}}
+                    <div class="col-sm-3">
+
+                        <label class="form-label" for="password">
+                            Password
+                        </label>
+
+                        <input type="password"
+                            id="password"
+                            name="password"
+                            class="form-control"
+                            placeholder="Password"
+                            autocomplete="new-password">
+
+                        <span class="text-danger error-text password_error"></span>
+
+                    </div>
+
+                    {{-- Mobile --}}
+                    <div class="col-sm-3">
+
+                        <label class="form-label" for="mobile_no">
+                            Mobile No
+                        </label>
+
+                        <input type="tel"
+                            id="mobile_no"
+                            name="mobile_no"
+                            class="form-control"
+                            placeholder="Mobile No">
+
+                        <span class="text-danger error-text mobile_no_error"></span>
+
+                    </div>
+
+                    {{-- Email --}}
+                    <div class="col-sm-3">
+
+                        <label class="form-label" for="email">
+                            Email Address
+                        </label>
+
+                        <input type="email"
+                            id="email"
+                            name="email"
+                            class="form-control"
+                            placeholder="Email Address">
+
+                        <span class="text-danger error-text email_error"></span>
+
+                    </div>
+
+                    {{-- Joined Date --}}
+                    <div class="col-sm-3">
+
+                        <label class="form-label" for="joined_date">
+                            Joined Date
+                        </label>
+
+                        <input type="text"
+                            id="joined_date"
+                            name="joined_date"
+                            class="form-control joined_date"
+                            placeholder="YYYY-MM-DD"
+                            autocomplete="off">
+
+                        <span class="text-danger error-text joined_date_error"></span>
+
                     </div>
 
                 </div>
 
             </div>
-        </form>
+
+        </div>
+
     </form>
+
 </div>
 
 @endsection
+
 @push('scripts')
-<script src="{{ asset('page-js/superadmin.js') }}"></script>
+
+<script src="{{ asset('assets/backend-page-js/admin.js') }}"></script>
+
 @endpush

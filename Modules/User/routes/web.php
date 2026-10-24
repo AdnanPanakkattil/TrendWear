@@ -21,8 +21,18 @@ Route::get('/superadmin/data', [SuperadminController::class,'data'])->name('supe
 
 //================ admin ===================================
 
+//================ ADMIN ===================================
+
 Route::get('/admin', [AdminController::class, 'index'])
     ->name('backend.admin');
+
+Route::post('/admin/store', [AdminController::class, 'store'])
+    ->name('admin.store');
+
+Route::get('/admin/data', [AdminController::class, 'data'])
+    ->name('admin.data');
+
+//=========================================================
 
 //===============================================================
 

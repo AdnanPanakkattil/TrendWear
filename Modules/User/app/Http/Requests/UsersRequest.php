@@ -4,9 +4,8 @@ namespace Modules\User\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SuperadminStoreRequest extends FormRequest
+class UsersRequest extends FormRequest
 {
-
     public function rules(): array
     {
         return [
