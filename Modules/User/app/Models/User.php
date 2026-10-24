@@ -4,9 +4,9 @@ namespace Modules\User\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-// use Modules\User\Database\Factories\SuperadminFactory;
+// use Modules\User\Database\Factories\UserFactory;
 
-class Superadmin extends Model
+class user extends Model
 {
     use HasFactory;
 
@@ -24,4 +24,5 @@ class Superadmin extends Model
         'joined_date',
         'active',
     ];
+
 }

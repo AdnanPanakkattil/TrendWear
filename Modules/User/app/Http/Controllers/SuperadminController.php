@@ -3,9 +3,8 @@
 namespace Modules\User\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use Modules\User\Models\Superadmin;
 use Modules\User\Http\Requests\SuperadminStoreRequest;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -34,7 +33,7 @@ class SuperadminController extends Controller
         $validated['role'] = 'super_admin';
         $validated['active'] = 1;
 
-        $superadmin = Superadmin::create($validated);
+        $superadmin = User::create($validated);
 
         return response()->json([
             'success' => true,
@@ -47,7 +46,7 @@ class SuperadminController extends Controller
 
     public function data()
     {
-        $query = Superadmin::query()
+        $query = User::query()
             ->select([
                 'id',
                 'name_en',
