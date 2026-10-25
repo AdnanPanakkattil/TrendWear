@@ -874,7 +874,7 @@
         </div>
 
         <!-- Review 2 -->
-        <div class="p-2 rounded bg-light">
+        <div class="p-2 rounded bg-light  mb-2">
           <div class="d-flex align-items-center gap-2 mb-1">
             <img src="{{ asset('assets/img/avatars/7.png') }}" alt="Nancy" class="rounded-circle" style="width: 28px; height: 28px; object-fit: cover;">
             <div style="font-size: 0.78rem;" class="fst-italic text-dark">"The product is very beautiful. I like it. "</div>
@@ -890,6 +890,41 @@
             <span class="text-muted" style="font-size: 0.72rem;">- by Nancy Martino</span>
           </div>
         </div>
+        <!-- Review 2 -->
+        <div class="p-2 rounded bg-light  mb-2">
+          <div class="d-flex align-items-center gap-2 mb-1">
+            <img src="{{ asset('assets/img/avatars/7.png') }}" alt="Nancy" class="rounded-circle" style="width: 28px; height: 28px; object-fit: cover;">
+            <div style="font-size: 0.78rem;" class="fst-italic text-dark">"The product is very beautiful. I like it. "</div>
+          </div>
+          <div class="d-flex align-items-center justify-content-between mt-1">
+            <div>
+              <i class="ti ti-star-filled star-gold"></i>
+              <i class="ti ti-star-filled star-gold"></i>
+              <i class="ti ti-star-filled star-gold"></i>
+              <i class="ti ti-star-filled star-gold"></i>
+              <i class="ti ti-star-filled star-gold"></i>
+            </div>
+            <span class="text-muted" style="font-size: 0.72rem;">- by Nancy Martino</span>
+          </div>
+        </div>
+        <!-- Review 2 -->
+        <div class="p-2 rounded bg-light  mb-2">
+          <div class="d-flex align-items-center gap-2 mb-1">
+            <img src="{{ asset('assets/img/avatars/7.png') }}" alt="Nancy" class="rounded-circle" style="width: 28px; height: 28px; object-fit: cover;">
+            <div style="font-size: 0.78rem;" class="fst-italic text-dark">"The product is very beautiful. I like it. "</div>
+          </div>
+          <div class="d-flex align-items-center justify-content-between mt-1">
+            <div>
+              <i class="ti ti-star-filled star-gold"></i>
+              <i class="ti ti-star-filled star-gold"></i>
+              <i class="ti ti-star-filled star-gold"></i>
+              <i class="ti ti-star-filled star-gold"></i>
+              <i class="ti ti-star-filled star-gold"></i>
+            </div>
+            <span class="text-muted" style="font-size: 0.72rem;">- by Nancy Martino</span>
+          </div>
+        </div>
+
       </div>
     </div>
 
