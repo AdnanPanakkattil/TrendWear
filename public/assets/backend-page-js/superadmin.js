@@ -45,7 +45,18 @@ $(document).ready(function () {
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
-                    text: 'Unable to load user details.'
+                    text: 'Unable to load user details.',
+                    showConfirmButton: true,
+                    showCancelButton: false,
+                    showDenyButton: false,
+                    confirmButtonText: 'OK',
+                    customClass: {
+                        confirmButton: 'btn btn-primary'
+                    },
+                    buttonsStyling: false,
+                    willOpen: function (popup) {
+                        $(popup).find('.swal2-cancel, .swal2-deny').remove();
+                    }
                 });
             }
         });
@@ -96,7 +107,17 @@ $(document).ready(function () {
                         icon: 'success',
                         title: 'Success',
                         text: response.message,
-                        confirmButtonText: 'OK'
+                        showConfirmButton: true,
+                        showCancelButton: false,
+                        showDenyButton: false,
+                        confirmButtonText: 'OK',
+                        customClass: {
+                            confirmButton: 'btn btn-primary'
+                        },
+                        buttonsStyling: false,
+                        willOpen: function (popup) {
+                            $(popup).find('.swal2-cancel, .swal2-deny').remove();
+                        }
                     }).then(() => {
                         window.location.href = '/users';
                     });
@@ -113,7 +134,18 @@ $(document).ready(function () {
                     Swal.fire({
                         icon: 'error',
                         title: 'Error',
-                        text: xhr.responseJSON?.message || 'Something went wrong.'
+                        text: xhr.responseJSON?.message || 'Something went wrong.',
+                        showConfirmButton: true,
+                        showCancelButton: false,
+                        showDenyButton: false,
+                        confirmButtonText: 'OK',
+                        customClass: {
+                            confirmButton: 'btn btn-primary'
+                        },
+                        buttonsStyling: false,
+                        willOpen: function (popup) {
+                            $(popup).find('.swal2-cancel, .swal2-deny').remove();
+                        }
                     });
                 }
             },

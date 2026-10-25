@@ -20,6 +20,7 @@ class UserController extends Controller
             'super_admin' => User::where('role', 'super_admin')->where('is_delete', 0)->count(),
             'admin' => User::where('role', 'admin')->where('is_delete', 0)->count(),
             'staff' => User::where('role', 'staff')->where('is_delete', 0)->count(),
+            'inventory_manager' => User::where('role', 'inventory_manager')->where('is_delete', 0)->count(),
             'customer' => User::where('role', 'customer')->where('is_delete', 0)->count(),
         ];
 
@@ -41,6 +42,8 @@ class UserController extends Controller
             return redirect()->route('backend.staff');
         } elseif ($role === 'inventory_manager') {
             return redirect()->route('backend.inventorymanager');
+        } elseif ($role === 'customer') {
+            return redirect()->route('backend.customer');
         }
 
         if (view()->exists('user::create')) {
@@ -61,6 +64,12 @@ class UserController extends Controller
             return redirect()->route('superadmin.edit', $id);
         } elseif ($user->role === 'admin') {
             return redirect()->route('admin.edit', $id);
+        } elseif ($user->role === 'staff') {
+            return redirect()->route('staff.edit', $id);
+        } elseif ($user->role === 'inventory_manager') {
+            return redirect()->route('inventorymanager.edit', $id);
+        } elseif ($user->role === 'customer') {
+            return redirect()->route('customer.edit', $id);
         }
 
         return redirect()->route('user.index');
@@ -111,9 +120,26 @@ class UserController extends Controller
 
         return DataTables::eloquent($query)
             ->addColumn('actions', function ($row) {
-                $editUrl = $row->role === 'super_admin'
-                    ? route('superadmin.edit', $row->id)
-                    : ($row->role === 'admin' ? route('admin.edit', $row->id) : route('user.edit', $row->id));
+                switch ($row->role) {
+                    case 'super_admin':
+                        $editUrl = route('superadmin.edit', $row->id);
+                        break;
+                    case 'admin':
+                        $editUrl = route('admin.edit', $row->id);
+                        break;
+                    case 'staff':
+                        $editUrl = route('staff.edit', $row->id);
+                        break;
+                    case 'inventory_manager':
+                        $editUrl = route('inventorymanager.edit', $row->id);
+                        break;
+                    case 'customer':
+                        $editUrl = route('customer.edit', $row->id);
+                        break;
+                    default:
+                        $editUrl = route('user.edit', $row->id);
+                        break;
+                }
 
                 return '
                     <div class="d-inline-flex align-items-center gap-1">

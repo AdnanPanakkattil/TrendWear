@@ -62,7 +62,7 @@
                 <div class="d-grid gap-2 col-10 col-lg-8 mx-auto">
                     <button class="btn btn-primary btn-lg redirect-button d-flex align-items-center justify-content-center py-2"
                         data-role="customer"
-                        data-url="{{ route('user.create', ['role' => 'customer']) }}"
+                        data-url="{{ route('backend.customer') }}"
                         type="button">
                         <i class="ti ti-users me-2 fs-5"></i>
                         <span>Customer</span>

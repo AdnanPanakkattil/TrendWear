@@ -111,9 +111,26 @@ class SuperadminController extends Controller
 
         return DataTables::eloquent($query)
             ->addColumn('actions', function ($row) {
-                $editUrl = $row->role === 'super_admin'
-                    ? route('superadmin.edit', $row->id)
-                    : ($row->role === 'admin' ? route('admin.edit', $row->id) : route('user.edit', $row->id));
+                switch ($row->role) {
+                    case 'super_admin':
+                        $editUrl = route('superadmin.edit', $row->id);
+                        break;
+                    case 'admin':
+                        $editUrl = route('admin.edit', $row->id);
+                        break;
+                    case 'staff':
+                        $editUrl = route('staff.edit', $row->id);
+                        break;
+                    case 'inventory_manager':
+                        $editUrl = route('inventorymanager.edit', $row->id);
+                        break;
+                    case 'customer':
+                        $editUrl = route('customer.edit', $row->id);
+                        break;
+                    default:
+                        $editUrl = route('user.edit', $row->id);
+                        break;
+                }
 
                 return '
                     <div class="d-inline-flex align-items-center gap-1">

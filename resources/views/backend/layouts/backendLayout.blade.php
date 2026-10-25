@@ -72,6 +72,12 @@
   @stack('styles')
 </head>
 <style>
+  /* SweetAlert2 button fix: Ensure hidden buttons remain hidden */
+  div.swal2-container .swal2-actions button[style*="display: none"],
+  div.swal2-container .swal2-actions button.swal2-hide-btn {
+    display: none !important;
+  }
+
   /* Reduce left and right content gaps */
   .custom-content {
     width: 100%;

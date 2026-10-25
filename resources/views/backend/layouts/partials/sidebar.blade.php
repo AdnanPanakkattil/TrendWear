@@ -40,7 +40,7 @@
       <span class="menu-header-text">Modules</span>
     </li>
 
-    <li class="menu-item {{ request()->routeIs('user.*', 'superadmin.*', 'backend.superadmin', 'backend.admin', 'backend.staff', 'backend.inventorymanager') ? 'active open' : '' }}" id="menu_user_management">
+    <li class="menu-item {{ request()->routeIs('user.*', 'superadmin.*', 'admin.*', 'staff.*', 'inventorymanager.*', 'customer.*', 'backend.superadmin', 'backend.admin', 'backend.staff', 'backend.inventorymanager', 'backend.customer') ? 'active open' : '' }}" id="menu_user_management">
       <a href="javascript:void(0);" class="menu-link menu-toggle">
         <i class="menu-icon ti ti-users"></i>
         <div>User Management</div>
@@ -50,16 +50,6 @@
         <li class="menu-item {{ request()->routeIs('user.index') ? 'active' : '' }}" id="menu_user_sub">
           <a href="{{ route('user.index') }}" class="menu-link">
             <div data-i18n="Users">All Users</div>
-          </a>
-        </li>
-        <li class="menu-item {{ request()->routeIs('backend.superadmin', 'superadmin.*') ? 'active' : '' }}" id="menu_superadmin_sub">
-          <a href="{{ route('backend.superadmin') }}" class="menu-link">
-            <div data-i18n="Super Admin">Super Admin</div>
-          </a>
-        </li>
-        <li class="menu-item {{ request()->routeIs('backend.admin', 'admin.*') ? 'active' : '' }}" id="menu_admin_sub">
-          <a href="{{ route('backend.admin') }}" class="menu-link">
-            <div data-i18n="Admin">Admin</div>
           </a>
         </li>
       </ul>

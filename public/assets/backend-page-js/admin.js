@@ -1,6 +1,6 @@
 $(document).ready(function () {
     // Active menu
-    $("#User_management_menu").addClass("active");
+    $("#User_management_menu, #menu_user_management").addClass("active");
 
     // CSRF Setup
     $.ajaxSetup({
@@ -10,7 +10,7 @@ $(document).ready(function () {
     });
 
     // Joined Date Picker
-    const joinedDatePicker = document.querySelector('#joined_date');
+    const joinedDatePicker = document.querySelector('#joined_date') || document.querySelector('.joined_date');
     if (joinedDatePicker && typeof flatpickr !== 'undefined') {
         flatpickr(joinedDatePicker, {
             monthSelectorType: 'static',
@@ -48,7 +48,18 @@ $(document).ready(function () {
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
-                    text: 'Unable to load user details.'
+                    text: 'Unable to load user details.',
+                    showConfirmButton: true,
+                    showCancelButton: false,
+                    showDenyButton: false,
+                    confirmButtonText: 'OK',
+                    customClass: {
+                        confirmButton: 'btn btn-primary'
+                    },
+                    buttonsStyling: false,
+                    willOpen: function (popup) {
+                        $(popup).find('.swal2-cancel, .swal2-deny').remove();
+                    }
                 });
             }
         });
@@ -99,7 +110,17 @@ $(document).ready(function () {
                         icon: 'success',
                         title: 'Success',
                         text: response.message,
-                        confirmButtonText: 'OK'
+                        showConfirmButton: true,
+                        showCancelButton: false,
+                        showDenyButton: false,
+                        confirmButtonText: 'OK',
+                        customClass: {
+                            confirmButton: 'btn btn-primary'
+                        },
+                        buttonsStyling: false,
+                        willOpen: function (popup) {
+                            $(popup).find('.swal2-cancel, .swal2-deny').remove();
+                        }
                     }).then(() => {
                         window.location.href = '/users';
                     });
@@ -116,7 +137,18 @@ $(document).ready(function () {
                     Swal.fire({
                         icon: 'error',
                         title: 'Error',
-                        text: xhr.responseJSON?.message || 'Something went wrong.'
+                        text: xhr.responseJSON?.message || 'Something went wrong.',
+                        showConfirmButton: true,
+                        showCancelButton: false,
+                        showDenyButton: false,
+                        confirmButtonText: 'OK',
+                        customClass: {
+                            confirmButton: 'btn btn-primary'
+                        },
+                        buttonsStyling: false,
+                        willOpen: function (popup) {
+                            $(popup).find('.swal2-cancel, .swal2-deny').remove();
+                        }
                     });
                 }
             },
