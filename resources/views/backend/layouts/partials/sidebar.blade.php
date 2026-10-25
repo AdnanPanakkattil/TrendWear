@@ -55,7 +55,7 @@
       </ul>
     </li>
 
-    <li class="menu-item {{ request()->routeIs('category.*') ? 'active open' : '' }}" id="menu_product_management">
+    <li class="menu-item {{ request()->routeIs('productmanagement.*', 'category.*', 'item_master*') ? 'active open' : '' }}" id="menu_product_management">
       <a href="javascript:void(0);" class="menu-link menu-toggle">
         <i class="menu-icon ti ti-box"></i>
         <div>Product Management</div>
@@ -63,17 +63,31 @@
       <div class="menu-floating-tooltip">Product Management</div>
 
       <ul class="menu-sub">
-        <li class="menu-item {{ request()->routeIs('category.*') ? 'active' : '' }}" id="menu_category_sub">
-          <a href="" class="menu-link">
+
+        <li class="menu-item {{ request()->routeIs('productmanagement.item_master', 'item_master*') ? 'active' : '' }}" id="menu_item_master_sub">
+          <a href="{{ route('productmanagement.item_master') }}" class="menu-link">
             <div data-i18n="Item Master">Item Master</div>
           </a>
         </li>
 
-        <li class="menu-item" id="menu_category_sub">
-          <a href="" class="menu-link">
+        <li class="menu-item {{ request()->routeIs('productmanagement.categories', 'categories*') ? 'active' : '' }}" id="menu_category_sub">
+          <a href="{{ route('productmanagement.categories') }}" class="menu-link">
             <div data-i18n="Categories">Categories</div>
           </a>
         </li>
+
+        <li class="menu-item {{ request()->routeIs('productmanagement.sub_categories', 'sub_categories*') ? 'active' : '' }}" id="menu_category_sub">
+          <a href="{{ route('productmanagement.sub_categories') }}" class="menu-link">
+            <div data-i18n="Sub Categories">Sub Categories</div>
+          </a>
+        </li>
+
+        <li class="menu-item {{ request()->routeIs('productmanagement.brands', 'brands*') ? 'active' : '' }}" id="menu_category_sub">
+          <a href="{{ route('productmanagement.brands') }}" class="menu-link">
+            <div data-i18n="Brand">Brand</div>
+          </a>
+        </li>
+
       </ul>
 
     </li>
