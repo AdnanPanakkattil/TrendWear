@@ -204,7 +204,7 @@
 @push('scripts')
 
 <script src="{{ asset('assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
-<script src="{{ asset('assets/backend-page-js/user.js') }}"></script>
+<script src="{{ asset('assets/backend-page-js/Users/user.js') }}"></script>
 <script>
     $(document).ready(function() {
         $(document).on('click', '.redirect-button', function() {

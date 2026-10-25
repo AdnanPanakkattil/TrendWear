@@ -89,6 +89,6 @@
 
 @push('scripts')
 
-<script src="{{ asset('assets/backend-page-js/customer.js') }}"></script>
+<script src="{{ asset('assets/backend-page-js/Users/customer.js') }}"></script>
 
 @endpush

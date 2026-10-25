@@ -173,6 +173,6 @@
 
 @push('scripts')
 
-<script src="{{ asset('assets/backend-page-js/admin.js') }}"></script>
+<script src="{{ asset('assets/backend-page-js/Users/admin.js') }}"></script>
 
 @endpush

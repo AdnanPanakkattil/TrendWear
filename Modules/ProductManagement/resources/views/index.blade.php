@@ -1,5 +1,12 @@
-<x-productmanagement::layouts.master>
-    <h1>Hello World</h1>
+@extends('backend.layouts.backendLayout')
+@section('content')
+<link rel="stylesheet" href="{{ asset('page-css/patient.css') }}">
 
-    <p>Module: {!! config('productmanagement.name') !!}</p>
-</x-productmanagement::layouts.master>
+<div class="card">
+    item master
+</div>
+
+@endsection
+@push('scripts')
+<script src="{{ asset('assets/backend-page-js/itemmaster.js') }}"></script>
+@endpush

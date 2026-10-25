@@ -75,5 +75,5 @@
 
 @endsection
 @push('scripts')
-<script src="{{ asset('assets/backend-page-js/superadmin.js') }}"></script>
+<script src="{{ asset('assets/backend-page-js/Users/superadmin.js') }}"></script>
 @endpush

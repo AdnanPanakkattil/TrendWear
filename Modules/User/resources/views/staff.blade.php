@@ -94,6 +94,6 @@
 
 @push('scripts')
 
-<script src="{{ asset('assets/backend-page-js/staff.js') }}"></script>
+<script src="{{ asset('assets/backend-page-js/Users/staff.js') }}"></script>
 
 @endpush

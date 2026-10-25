@@ -86,5 +86,5 @@
 
 @endsection
 @push('scripts')
-<script src="{{ asset('assets/backend-page-js/inventorymanager.js') }}"></script>
+<script src="{{ asset('assets/backend-page-js/Users/inventorymanager.js') }}"></script>
 @endpush
