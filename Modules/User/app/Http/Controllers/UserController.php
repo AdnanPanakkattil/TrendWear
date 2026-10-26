@@ -5,7 +5,6 @@ namespace Modules\User\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Modules\User\Http\Requests\UsersRequest;
 use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
@@ -95,6 +94,7 @@ class UserController extends Controller
     public function showUser($id)
     {
         $user = User::where('id', $id)->where('is_delete', 0)->firstOrFail();
+
         return response()->json([
             'success' => true,
             'data' => $user,
@@ -114,6 +114,7 @@ class UserController extends Controller
                 'email',
                 'mobile_no',
                 'role',
+                'active',
                 'joined_date',
             ])
             ->where('is_delete', 0);
@@ -143,10 +144,10 @@ class UserController extends Controller
 
                 return '
                     <div class="d-inline-flex align-items-center gap-1">
-                        <a href="' . $editUrl . '" class="btn btn-sm btn-icon rounded-pill edit-user-btn" title="Edit" style="color: #2b76ff !important;">
+                        <a href="'.$editUrl.'" class="btn btn-sm btn-icon rounded-pill edit-user-btn" title="Edit" style="color: #2b76ff !important;">
                             <i class="ti ti-pencil fs-5" style="color: #2b76ff !important;"></i>
                         </a>
-                        <button type="button" class="btn btn-sm btn-icon rounded-pill delete-user-btn" data-id="' . $row->id . '" data-name="' . htmlspecialchars($row->name_en ?? $row->username) . '" title="Delete" style="color: #ea5455 !important;">
+                        <button type="button" class="btn btn-sm btn-icon rounded-pill delete-user-btn" data-id="'.$row->id.'" data-name="'.htmlspecialchars($row->name_en ?? $row->username).'" title="Delete" style="color: #ea5455 !important;">
                             <i class="ti ti-trash fs-5" style="color: #ea5455 !important;"></i>
                         </button>
                     </div>

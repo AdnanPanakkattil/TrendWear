@@ -3,7 +3,6 @@
 namespace Modules\User\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
 use Illuminate\Validation\Rule;
 
 class UsersRequest extends FormRequest
@@ -11,7 +10,7 @@ class UsersRequest extends FormRequest
     public function rules(): array
     {
         $userId = $this->route('id') ?? $this->route('user') ?? $this->input('id');
-        $isUpdate = !empty($userId);
+        $isUpdate = ! empty($userId);
 
         return [
             'name_en' => 'required|string|max:100',
@@ -31,19 +30,20 @@ class UsersRequest extends FormRequest
             'password' => $isUpdate ? 'nullable|min:8' : 'required|min:8',
             'mobile_no' => 'nullable|string|max:20',
             'joined_date' => 'nullable|date',
+            'active' => 'sometimes|boolean',
         ];
     }
 
     public function messages(): array
     {
         return [
-            'name_en.required'     => 'English name is required.',
-            'name_ar.required'     => 'Arabic name is required.',
-            'username.required'    => 'Username is required.',
-            'email.required'       => 'Email address is required.',
-            'email.email'          => 'Please enter a valid email address.',
-            'password.required'    => 'Password is required.',
-            'mobile_no.required'   => 'Mobile number is required.',
+            'name_en.required' => 'English name is required.',
+            'name_ar.required' => 'Arabic name is required.',
+            'username.required' => 'Username is required.',
+            'email.required' => 'Email address is required.',
+            'email.email' => 'Please enter a valid email address.',
+            'password.required' => 'Password is required.',
+            'mobile_no.required' => 'Mobile number is required.',
             'joined_date.required' => 'Joined date is required.',
         ];
     }

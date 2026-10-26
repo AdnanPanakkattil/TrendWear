@@ -27,7 +27,7 @@ class SuperadminController extends Controller
 
         $validated['password'] = Hash::make($validated['password']);
         $validated['role'] = 'super_admin';
-        $validated['active'] = 1;
+        $validated['active'] = $request->has('active') ? (int) $request->boolean('active') : 1;
         $validated['is_delete'] = 0;
 
         $superadmin = User::create($validated);
@@ -55,13 +55,14 @@ class SuperadminController extends Controller
         $user = User::where('id', $id)->where('is_delete', 0)->firstOrFail();
         $validated = $request->validated();
 
-        if (!empty($validated['password'])) {
+        if (! empty($validated['password'])) {
             $validated['password'] = Hash::make($validated['password']);
         } else {
             unset($validated['password']);
         }
 
         $validated['role'] = 'super_admin';
+        $validated['active'] = $request->has('active') ? (int) $request->boolean('active') : $user->active;
         $user->update($validated);
 
         return response()->json([
@@ -98,6 +99,7 @@ class SuperadminController extends Controller
                 'email',
                 'mobile_no',
                 'role',
+                'active',
                 'joined_date',
             ])
             ->where('is_delete', 0)
@@ -134,10 +136,10 @@ class SuperadminController extends Controller
 
                 return '
                     <div class="d-inline-flex align-items-center gap-1">
-                        <a href="' . $editUrl . '" class="btn btn-sm btn-icon rounded-pill edit-user-btn" title="Edit" style="color: #2b76ff !important;">
+                        <a href="'.$editUrl.'" class="btn btn-sm btn-icon rounded-pill edit-user-btn" title="Edit" style="color: #2b76ff !important;">
                             <i class="ti ti-pencil fs-5" style="color: #2b76ff !important;"></i>
                         </a>
-                        <button type="button" class="btn btn-sm btn-icon rounded-pill delete-user-btn" data-id="' . $row->id . '" data-name="' . htmlspecialchars($row->name_en ?? $row->username) . '" title="Delete" style="color: #ea5455 !important;">
+                        <button type="button" class="btn btn-sm btn-icon rounded-pill delete-user-btn" data-id="'.$row->id.'" data-name="'.htmlspecialchars($row->name_en ?? $row->username).'" title="Delete" style="color: #ea5455 !important;">
                             <i class="ti ti-trash fs-5" style="color: #ea5455 !important;"></i>
                         </button>
                     </div>

@@ -47,6 +47,15 @@ $(document).ready(function () {
                 }
             },
             {
+                data: 'active',
+                name: 'active',
+                render: function (data) {
+                    const isActive = Number(data) === 1;
+
+                    return '<span class="badge ' + (isActive ? 'bg-label-success' : 'bg-label-secondary') + '">' + (isActive ? 'Active' : 'Inactive') + '</span>';
+                }
+            },
+            {
                 data: 'joined_date',
                 name: 'joined_date',
                 defaultContent: '-'

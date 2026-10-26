@@ -18,6 +18,11 @@ $(document).ready(function () {
         });
     }
 
+    // Active status toggle label
+    $('#active_toggle').on('change', function () {
+        $('#active_toggle_label').text(this.checked ? 'Active' : 'Inactive');
+    });
+
     // Edit function: Fetches user details via AJAX and sets values in form inputs
     function editUser(userId) {
         if (!userId) return;
@@ -36,6 +41,8 @@ $(document).ready(function () {
                     $('#mobile_no').val(u.mobile_no || '');
                     $('#email').val(u.email || '');
                     $('#joined_date').val(u.joined_date || '');
+                    $('#active_toggle').prop('checked', Number(u.active) === 1);
+                    $('#active_toggle_label').text(Number(u.active) === 1 ? 'Active' : 'Inactive');
 
                     // Change UI text for edit mode
                     $('#customer_title').text('Edit Customer');

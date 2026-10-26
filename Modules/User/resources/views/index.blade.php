@@ -156,6 +156,7 @@
                             <th>Email</th>
                             <th>Mobile</th>
                             <th>Role</th>
+                            <th>Status</th>
                             <th>Joined Date</th>
                             <th>Action</th>
                         </tr>
@@ -168,6 +169,7 @@
                             <th>Email</th>
                             <th>Mobile</th>
                             <th>Role</th>
+                            <th>Status</th>
                             <th>Joined Date</th>
                             <th>Action</th>
                         </tr>
