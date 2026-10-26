@@ -12,6 +12,10 @@ use Modules\ProductManagement\Http\Controllers\SubCategoriesController;
 Route::get('/item_master', [ItemMasterController::class, 'index'])
     ->name('productmanagement.item_master');
     
+
+Route::get('/add_item_master', [ItemMasterController::class, 'create'])
+    ->name('productmanagement.add_item_master');
+    
 // =====================================================================================================
 
 // =============== categories =========================================================================

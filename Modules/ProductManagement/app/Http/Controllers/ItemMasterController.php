@@ -17,6 +17,6 @@ class ItemMasterController extends Controller
 
     public function create()
     {
-        return view('productmanagement::create');
+        return view('productmanagement::add_item_master');
     }
 }

@@ -9,7 +9,7 @@
                 <h5 class="mb-0">Item Master</h5>
             </div>
             <div id="add_new_master_div">
-                <a href="" class="btn btn-primary">
+                <a href="{{ route('productmanagement.add_item_master') }}" class="btn btn-primary">
                     Add Item Master
                 </a>
             </div>
