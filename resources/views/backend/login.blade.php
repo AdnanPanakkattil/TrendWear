@@ -476,7 +476,7 @@
 
                 <h1>Login To Your Account</h1>
 
-                <form id="login-form" action="" method="POST">
+                <form id="login-form" action="{{ route('login.post') }}" method="POST">
                     @csrf
 
                     <!-- Email or Username Field -->
@@ -493,6 +493,7 @@
                                 class="form-control"
                                 id="email_or_username"
                                 name="email_or_username"
+                                value="{{ old('email_or_username') }}"
                                 placeholder="Enter your email or username"
                                 autofocus
                             >

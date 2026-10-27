@@ -42,4 +42,12 @@ class User extends Authenticatable
             'is_delete' => 'integer',
         ];
     }
+
+    /**
+     * Get the user's display name.
+     */
+    public function getNameAttribute(): string
+    {
+        return $this->name_en ?? $this->username ?? $this->email ?? '';
+    }
 }

@@ -3,7 +3,6 @@
 namespace Modules\ProductManagement\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 
 class ItemMasterController extends Controller
 {

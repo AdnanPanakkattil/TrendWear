@@ -2,8 +2,9 @@
 
 namespace Modules\User\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
 // use Modules\User\Database\Factories\UserFactory;
 
 class user extends Model
@@ -24,5 +25,4 @@ class user extends Model
         'joined_date',
         'active',
     ];
-
 }

@@ -606,7 +606,7 @@
                         </div>
 
                         <div class="header-icons">
-                            <a href="{{ route('backend.login') }}"
+                            <a href="{{ route('login') }}"
                                 class="icon-link"
                                 title="Profile">
                                 <i class="bi bi-person"></i>

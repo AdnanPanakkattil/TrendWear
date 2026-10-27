@@ -7,38 +7,33 @@ use Modules\ProductManagement\Http\Controllers\ItemMasterController;
 use Modules\ProductManagement\Http\Controllers\ProductManagementController;
 use Modules\ProductManagement\Http\Controllers\SubCategoriesController;
 
-// =============== item master =========================================================================
+Route::middleware('auth')->group(function () {
+    // =============== item master =========================================================================
+    Route::get('/item_master', [ItemMasterController::class, 'index'])
+        ->name('productmanagement.item_master');
 
-Route::get('/item_master', [ItemMasterController::class, 'index'])
-    ->name('productmanagement.item_master');
-    
+    Route::get('/add_item_master', [ItemMasterController::class, 'create'])
+        ->name('productmanagement.add_item_master');
 
-Route::get('/add_item_master', [ItemMasterController::class, 'create'])
-    ->name('productmanagement.add_item_master');
-    
-// =====================================================================================================
+    // =====================================================================================================
 
-// =============== categories =========================================================================
+    // =============== categories =========================================================================
+    Route::get('/categories', [CategoriesController::class, 'index'])
+        ->name('productmanagement.categories');
 
-Route::get('/categories', [CategoriesController::class, 'index'])
-    ->name('productmanagement.categories');
-    
-// =====================================================================================================
+    // =====================================================================================================
 
-// =============== Sub categories =========================================================================
+    // =============== Sub categories =========================================================================
+    Route::get('/sub_categories', [SubCategoriesController::class, 'index'])
+        ->name('productmanagement.sub_categories');
 
-Route::get('/sub_categories', [SubCategoriesController::class, 'index'])
-    ->name('productmanagement.sub_categories');
-    
-// =====================================================================================================
+    // =====================================================================================================
 
-// =============== brand =========================================================================
+    // =============== brand =========================================================================
+    Route::get('/brands', [BrandController::class, 'index'])
+        ->name('productmanagement.brands');
 
-Route::get('/brands', [BrandController::class, 'index'])
-    ->name('productmanagement.brands');
-    
-// =====================================================================================================
+    // =====================================================================================================
 
-// Route::middleware(['auth', 'verified'])->group(function () {
-//     Route::resource('productmanagements', ProductManagementController::class)->names('productmanagement');
-// });
+    Route::resource('productmanagements', ProductManagementController::class)->names('productmanagement');
+});
