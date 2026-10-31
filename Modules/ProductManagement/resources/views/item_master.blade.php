@@ -1,63 +1,61 @@
 @extends('backend.layouts.backendLayout')
 @section('content')
 
-<div class="mt-5">
+<div class="mt-4">
     <div class="col-12">
 
         <div class="divhead d-flex justify-content-between align-items-center mb-4">
             <div>
-                <h5 class="mb-0">Item Master</h5>
+                <h4 class="mb-1 font-weight-bold">Item Master</h4>
+                <p class="text-muted small mb-0">Manage catalog products, pricing, stock, and clothing attributes.</p>
             </div>
             <div id="add_new_master_div">
                 <a href="{{ route('productmanagement.add_item_master') }}" class="btn btn-primary">
-                    Add Item Master
+                    <i class="fa fa-plus me-1"></i> Add Item Master
                 </a>
             </div>
         </div>
 
-        <div class="card">
-            <br>
-
-            <div class="card-datatable table-responsive">
-                <table class="dt-advanced-search table item-master-table"
-                    id="lab_items_table">
-
-                    <thead>
+        <div class="card shadow-sm border-0">
+            <div class="card-datatable table-responsive p-3">
+                <table class="dt-advanced-search table table-hover item-master-table" id="lab_items_table">
+                    <thead class="table-light">
                         <tr>
-                            <th>slNo</th>
-                            <th>id</th>
-                            <th>code</th>
-                            <th>name en</th>
-                            <th>name ar</th>
-                            <th>category</th>
-                            <th>sub category</th>
-                            <th>cost price</th>
-                            <th>selling price</th>
-                            <th>offer price</th>
-                            <th>is featured</th>
-                            <th>created date</th>
-                            <th>actions</th>
+                            <th>#</th>
+                            <th>SKU / Code</th>
+                            <th>Product Name</th>
+                            <th>Category</th>
+                            <th>Subcategory</th>
+                            <th>Brand</th>
+                            <th>Cost Price</th>
+                            <th>Selling Price</th>
+                            <th>Offer Price</th>
+                            <th>Stock</th>
+                            <th>Status</th>
+                            <th>Featured</th>
+                            <th>New Arrival</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
 
                     <tfoot>
                         <tr>
-                            <th>slNo</th>
-                            <th>id</th>
-                            <th>code</th>
-                            <th>name en</th>
-                            <th>name ar</th>
-                            <th>category</th>
-                            <th>sub category</th>
-                            <th>cost price</th>
-                            <th>selling price</th>
-                            <th>offer price</th>
-                            <th>is featured</th>
-                            <th>created date</th>
-                            <th>actions</th>
+                            <th>#</th>
+                            <th>SKU / Code</th>
+                            <th>Product Name</th>
+                            <th>Category</th>
+                            <th>Subcategory</th>
+                            <th>Brand</th>
+                            <th>Cost Price</th>
+                            <th>Selling Price</th>
+                            <th>Offer Price</th>
+                            <th>Stock</th>
+                            <th>Status</th>
+                            <th>Featured</th>
+                            <th>New Arrival</th>
+                            <th>Actions</th>
                         </tr>
                     </tfoot>
-
                 </table>
             </div>
         </div>

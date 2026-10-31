@@ -3,1495 +3,1228 @@
 @section('content')
 
 <style>
-    :root {
-        --tw-primary: #ff5a1f;
-        --tw-primary-light: #fff0e9;
-        --tw-border: #e5e7eb;
-        --tw-text: #374151;
-        --tw-muted: #8a8fa3;
+    /* ==========================================================================
+       TrendWear Add Item Master - Ultra Premium Executive UI
+       ========================================================================== */
+    .item-master-page {
+        --tw-primary: #ff5722;
+        --tw-primary-hover: #e64a19;
+        --tw-primary-subtle: rgba(255, 87, 34, 0.08);
+        --tw-primary-border: rgba(255, 87, 34, 0.25);
+        --tw-card-border: #e9ecef;
+        --tw-card-bg: #ffffff;
+        --tw-text-title: #1e293b;
+        --tw-text-body: #475569;
+        --tw-text-muted: #94a3b8;
+        --card-radius: 14px;
+        font-family: inherit;
+        color: var(--tw-text-body);
     }
 
-    .product-create-wrapper {
-        padding: 20px;
-        background: #f8f9fc;
+    /* Page Header */
+    .item-master-page .page-header {
+        margin-bottom: 1.75rem;
     }
 
-    .product-create-wrapper .card {
-        border: 1px solid var(--tw-border);
-        border-radius: 12px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
-        margin-bottom: 20px;
-    }
-
-    .product-create-wrapper .card-header {
-        background: #fff;
-        padding: 18px 22px;
-        border-bottom: 1px solid var(--tw-border);
-        border-radius: 12px 12px 0 0;
-    }
-
-    .product-create-wrapper .card-body {
-        padding: 22px;
-    }
-
-    .product-create-wrapper .section-title {
-        font-size: 15px;
+    .item-master-page .page-header h4 {
         font-weight: 700;
-        color: #252a34;
+        letter-spacing: -0.025em;
+        color: var(--tw-text-title);
+    }
+
+    /* Premium Modern Card */
+    .item-master-page .card {
+        border-radius: var(--card-radius);
+        border: 1px solid var(--tw-card-border);
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.03);
+        margin-bottom: 1.5rem;
+        background: var(--tw-card-bg);
+        transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .item-master-page .card:hover {
+        box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.06);
+    }
+
+    .item-master-page .card-header {
+        background: #ffffff;
+        padding: 1.15rem 1.4rem;
+        border-bottom: 1px solid #f1f5f9;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .item-master-page .card-body {
+        padding: 1.4rem;
+    }
+
+    .item-master-page .card-title-wrap {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .item-master-page .card-icon-badge {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        background: var(--tw-primary-subtle);
+        color: var(--tw-primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        flex-shrink: 0;
+    }
+
+    .item-master-page .card-title {
+        font-size: 0.96rem;
+        font-weight: 700;
+        margin: 0;
+        color: var(--tw-text-title);
+    }
+
+    .item-master-page .card-subtitle {
+        font-size: 0.77rem;
+        color: var(--tw-text-muted);
+        margin: 2px 0 0 0;
+    }
+
+    /* Form Labels & Badges */
+    .item-master-page .form-label {
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: #334155;
+        margin-bottom: 0.45rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .item-master-page .required-star {
+        color: #ef4444;
+        font-weight: 700;
+        margin-left: 2px;
+    }
+
+    .item-master-page .badge-mandatory {
+        font-size: 0.67rem;
+        font-weight: 600;
+        color: #dc2626;
+        background: #fee2e2;
+        padding: 2px 7px;
+        border-radius: 4px;
+        letter-spacing: 0.02em;
+    }
+
+    .item-master-page .badge-recommended {
+        font-size: 0.67rem;
+        font-weight: 600;
+        color: #0284c7;
+        background: #e0f2fe;
+        padding: 2px 7px;
+        border-radius: 4px;
+    }
+
+    .item-master-page .badge-optional {
+        font-size: 0.67rem;
+        font-weight: 500;
+        color: #64748b;
+        background: #f1f5f9;
+        padding: 2px 7px;
+        border-radius: 4px;
+    }
+
+    /* Modern Form Inputs */
+    .item-master-page .form-control,
+    .item-master-page .form-select {
+        border-radius: 9px;
+        border: 1px solid #cbd5e1;
+        padding: 0.62rem 0.9rem;
+        font-size: 0.875rem;
+        color: #1e293b;
+        background-color: #ffffff;
+        transition: all 0.15s ease-in-out;
+    }
+
+    .item-master-page .form-control:focus,
+    .item-master-page .form-select:focus {
+        border-color: var(--tw-primary);
+        box-shadow: 0 0 0 3px var(--tw-primary-subtle);
+        outline: none;
+    }
+
+    .item-master-page .input-group-text {
+        border-radius: 9px;
+        background-color: #f8fafc;
+        border: 1px solid #cbd5e1;
+        color: #64748b;
+        font-size: 0.875rem;
+        font-weight: 500;
+    }
+
+    .item-master-page .form-hint {
+        font-size: 0.74rem;
+        color: var(--tw-text-muted);
+        margin-top: 0.35rem;
+        display: block;
+    }
+
+    /* Pricing & Stock Grid Cards */
+    .item-master-page .metric-input-card {
+        background: #fafbfc;
+        border: 1px solid #e2e8f0;
+        border-radius: 11px;
+        padding: 0.9rem;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transition: all 0.2s ease;
+    }
+
+    .item-master-page .metric-input-card:focus-within {
+        background: #ffffff;
+        border-color: var(--tw-primary);
+        box-shadow: 0 2px 10px rgba(255, 87, 34, 0.08);
+    }
+
+    .item-master-page .metric-input-card.highlight {
+        background: #fff8f5;
+        border-color: #ffccbc;
+    }
+
+    /* Financial Analytics Strip */
+    .item-master-page .profit-analytics-strip {
+        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 1rem 1.25rem;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+        gap: 1rem;
+        align-items: center;
+    }
+
+    .item-master-page .profit-item-title {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: #64748b;
+        letter-spacing: 0.05em;
+        margin-bottom: 2px;
+    }
+
+    .item-master-page .profit-item-value {
+        font-size: 1.15rem;
+        font-weight: 800;
+        color: #0f172a;
+        line-height: 1.2;
+    }
+
+    /* Size Selector Pills */
+    .item-master-page .size-selector-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+    }
+
+    .item-master-page .size-pill-label {
+        position: relative;
+        cursor: pointer;
+        user-select: none;
+        margin: 0;
+    }
+
+    .item-master-page .size-pill-label input {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .item-master-page .size-pill-box {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        min-width: 48px;
+        height: 40px;
+        padding: 0 14px;
+        border: 1.5px solid #e2e8f0;
+        border-radius: 9px;
+        background: #ffffff;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #334155;
+        transition: all 0.2s ease;
+    }
+
+    .item-master-page .size-pill-box:hover {
+        border-color: #cbd5e1;
+        background: #f8fafc;
+        transform: translateY(-1px);
+    }
+
+    .item-master-page .size-pill-label input:checked + .size-pill-box {
+        background: var(--tw-primary);
+        border-color: var(--tw-primary);
+        color: #ffffff;
+        box-shadow: 0 3px 10px rgba(255, 87, 34, 0.35);
+        transform: translateY(-1px);
+    }
+
+    /* Color Swatch Badges */
+    .item-master-page .color-swatch-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.65rem;
+    }
+
+    .item-master-page .color-swatch-label {
+        position: relative;
+        cursor: pointer;
+        user-select: none;
+        margin: 0;
+    }
+
+    .item-master-page .color-swatch-label input {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .item-master-page .color-swatch-box {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 14px;
+        border: 1.5px solid #e2e8f0;
+        border-radius: 30px;
+        background: #ffffff;
+        font-size: 0.82rem;
+        font-weight: 500;
+        color: #334155;
+        transition: all 0.2s ease;
+    }
+
+    .item-master-page .color-swatch-box:hover {
+        border-color: #cbd5e1;
+        background: #f8fafc;
+    }
+
+    .item-master-page .color-circle {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        display: inline-block;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    .item-master-page .color-swatch-label input:checked + .color-swatch-box {
+        background: #fff7ed;
+        border-color: var(--tw-primary);
+        color: var(--tw-primary);
+        font-weight: 700;
+        box-shadow: 0 2px 8px rgba(255, 87, 34, 0.2);
+    }
+
+    /* Media Upload Dropzone */
+    .item-master-page .dropzone-container {
+        border: 2px dashed #cbd5e1;
+        background: #f8fafc;
+        border-radius: 12px;
+        padding: 1.6rem 1.2rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        position: relative;
+    }
+
+    .item-master-page .dropzone-container:hover {
+        border-color: var(--tw-primary);
+        background: #fff8f5;
+        transform: translateY(-1px);
+    }
+
+    .item-master-page .dropzone-icon-circle {
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        background: #ffffff;
+        color: var(--tw-primary);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 19px;
+        margin-bottom: 0.6rem;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        transition: transform 0.2s ease;
+    }
+
+    .item-master-page .dropzone-container:hover .dropzone-icon-circle {
+        transform: scale(1.08);
+        background: #ffede6;
+    }
+
+    .item-master-page .dropzone-title {
+        font-size: 0.88rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 0.2rem;
+    }
+
+    .item-master-page .dropzone-desc {
+        font-size: 0.74rem;
+        color: var(--tw-text-muted);
         margin-bottom: 0;
     }
 
-    .product-create-wrapper .section-subtitle {
-        font-size: 12px;
-        color: var(--tw-muted);
-        margin-top: 5px;
+    .item-master-page .image-preview-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+        gap: 0.75rem;
+        margin-top: 1rem;
     }
 
-    .product-create-wrapper label {
-        font-size: 13px;
+    .item-master-page .image-preview-card {
+        position: relative;
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid #e2e8f0;
+        background: #ffffff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        aspect-ratio: 1;
+    }
+
+    .item-master-page .image-preview-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .item-master-page .image-preview-badge {
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        background: rgba(15, 23, 42, 0.75);
+        color: #ffffff;
+        font-size: 0.64rem;
+        padding: 2px 6px;
+        border-radius: 4px;
         font-weight: 600;
-        color: var(--tw-text);
-        margin-bottom: 7px;
+        backdrop-filter: blur(4px);
     }
 
-    .product-create-wrapper .form-control,
-    .product-create-wrapper .form-select {
-        min-height: 42px;
-        border: 1px solid #e2e5ec;
-        border-radius: 7px;
-        font-size: 13px;
-        color: #374151;
+    /* Switch Pill Cards (Sidebar) */
+    .item-master-page .switch-pill-card {
+        background-color: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 11px;
+        padding: 0.85rem 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 0.85rem;
+        transition: all 0.2s ease;
     }
 
-    .product-create-wrapper .form-control:focus,
-    .product-create-wrapper .form-select:focus {
-        border-color: var(--tw-primary);
-        box-shadow: 0 0 0 3px rgba(255, 90, 31, 0.08);
+    .item-master-page .switch-pill-card:hover {
+        background-color: #ffffff;
+        border-color: #cbd5e1;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     }
 
-    .product-create-wrapper textarea.form-control {
-        min-height: 100px;
+    .item-master-page .switch-label-group h6 {
+        margin: 0;
+        font-size: 0.86rem;
+        font-weight: 600;
+        color: #1e293b;
     }
 
-    .product-create-wrapper .required {
-        color: #e53935;
+    .item-master-page .switch-label-group p {
+        margin: 2px 0 0 0;
+        font-size: 0.73rem;
+        color: #64748b;
     }
 
-    .product-create-wrapper .form-check-input:checked {
+    .item-master-page .form-check-input {
+        width: 2.6rem;
+        height: 1.35rem;
+        cursor: pointer;
+    }
+
+    .item-master-page .form-check-input:checked {
         background-color: var(--tw-primary);
         border-color: var(--tw-primary);
     }
 
-    .product-create-wrapper .btn-primary {
-        background: var(--tw-primary);
-        border-color: var(--tw-primary);
+    /* Live Storefront Preview Card (In Sidebar) */
+    .item-master-page .storefront-preview-card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
     }
 
-    .product-create-wrapper .btn-primary:hover {
-        background: #e94c13;
-        border-color: #e94c13;
-    }
-
-    .product-create-wrapper .btn-outline-primary {
-        color: var(--tw-primary);
-        border-color: var(--tw-primary);
-    }
-
-    .product-create-wrapper .btn-outline-primary:hover {
-        background: var(--tw-primary);
-        color: #fff;
-    }
-
-    .product-create-wrapper .image-upload-box {
-        border: 2px dashed #d7dce5;
-        border-radius: 10px;
-        padding: 25px;
-        text-align: center;
-        background: #fafbfc;
-        cursor: pointer;
-        transition: 0.2s;
-    }
-
-    .product-create-wrapper .image-upload-box:hover {
-        border-color: var(--tw-primary);
-        background: var(--tw-primary-light);
-    }
-
-    .product-create-wrapper .image-upload-box i {
-        font-size: 30px;
-        color: var(--tw-primary);
-        margin-bottom: 10px;
-    }
-
-    .product-create-wrapper .image-preview {
+    .item-master-page .storefront-preview-img-wrap {
+        width: 100%;
+        height: 180px;
+        background: #f1f5f9;
         display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin-top: 15px;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
     }
 
-    .product-create-wrapper .image-preview img {
-        width: 90px;
-        height: 90px;
-        object-fit: cover;
-        border-radius: 8px;
-        border: 1px solid var(--tw-border);
-    }
-
-    .product-create-wrapper .variant-table th {
-        font-size: 12px;
-        font-weight: 700;
-        background: #f8f9fc;
-        color: #555;
-        white-space: nowrap;
-    }
-
-    .product-create-wrapper .variant-table td {
-        vertical-align: middle;
-    }
-
-    .product-create-wrapper .variant-table input,
-    .product-create-wrapper .variant-table select {
-        min-width: 90px;
-        font-size: 12px;
-    }
-
-    .product-create-wrapper .status-box {
-        background: #fafbfc;
-        border: 1px solid var(--tw-border);
-        border-radius: 8px;
-        padding: 15px;
+    .item-master-page .storefront-preview-img-wrap img {
+        width: 100%;
         height: 100%;
+        object-fit: cover;
     }
 
-    .product-create-wrapper .status-box .form-check {
-        margin-bottom: 12px;
+    .item-master-page .storefront-preview-badges {
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        z-index: 2;
     }
 
-    .product-create-wrapper .status-box .form-check:last-child {
-        margin-bottom: 0;
+    .item-master-page .storefront-preview-body {
+        padding: 1rem;
     }
 
-    .product-create-wrapper .sticky-footer {
+    /* Sticky Bottom Action Bar */
+    .item-master-page .sticky-action-bar {
         position: sticky;
-        bottom: 0;
-        background: #fff;
-        padding: 15px 20px;
-        border: 1px solid var(--tw-border);
-        border-radius: 10px;
-        z-index: 10;
-        box-shadow: 0 -3px 12px rgba(0, 0, 0, 0.04);
+        bottom: 14px;
+        background: rgba(255, 255, 255, 0.94);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        border-radius: 14px;
+        padding: 0.9rem 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.09);
+        z-index: 100;
+        margin-top: 1.75rem;
     }
 
-    @media (max-width: 768px) {
-        .product-create-wrapper {
-            padding: 10px;
-        }
+    .item-master-page .btn-primary {
+        background-color: var(--tw-primary);
+        border-color: var(--tw-primary);
+        font-weight: 600;
+        border-radius: 9px;
+        padding: 0.6rem 1.4rem;
+        box-shadow: 0 2px 8px rgba(255, 87, 34, 0.25);
+        transition: all 0.2s ease;
+    }
 
-        .product-create-wrapper .card-body {
-            padding: 15px;
+    .item-master-page .btn-primary:hover {
+        background-color: var(--tw-primary-hover);
+        border-color: var(--tw-primary-hover);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(255, 87, 34, 0.35);
+    }
+
+    .item-master-page .btn-outline-secondary {
+        border-radius: 9px;
+        font-weight: 600;
+        padding: 0.6rem 1.25rem;
+        border-color: #cbd5e1;
+        color: #475569;
+    }
+
+    .item-master-page .btn-outline-secondary:hover {
+        background-color: #f1f5f9;
+        border-color: #94a3b8;
+        color: #1e293b;
+    }
+
+    @media (max-width: 991.98px) {
+        .item-master-page .sticky-action-bar {
+            bottom: 0;
+            border-radius: 0;
+            margin-left: -12px;
+            margin-right: -12px;
+            padding: 0.75rem 1rem;
         }
     }
 </style>
 
+<div class="item-master-page container-fluid px-0">
 
-<div class="product-create-wrapper">
-
-    {{-- PAGE HEADER --}}
-    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
-
+    {{-- TOP PAGE HEADER --}}
+    <div class="page-header d-flex flex-wrap align-items-center justify-content-between gap-3">
         <div>
-            <h4 class="fw-bold mb-1">Create Product</h4>
-
-            <p class="text-muted mb-0" style="font-size: 13px;">
-                Add a new product to your TrendWear store
+            <div class="d-flex align-items-center gap-2 mb-1">
+                <a href="{{ route('productmanagement.item_master') }}" class="btn btn-sm btn-icon btn-outline-secondary rounded-circle" title="Back to Item Master" style="width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center;">
+                    <i class="fa fa-arrow-left"></i>
+                </a>
+                <h4 class="mb-0">Add Item Master</h4>
+                <span class="badge bg-label-primary ms-1" style="font-size: 0.72rem; padding: 4px 8px;">Product Master</span>
+            </div>
+            <p class="text-muted small mb-0 ms-1">
+                Configure essential product details, pricing, apparel attributes, and visual assets.
             </p>
         </div>
 
-        <a href="{{ url()->previous() }}"
-           class="btn btn-outline-secondary btn-sm">
-
-            <i class="fa fa-arrow-left me-1"></i>
-            Back
-
-        </a>
-
+        <div class="d-flex align-items-center gap-2">
+            <a href="{{ route('productmanagement.item_master') }}" class="btn btn-outline-secondary btn-sm px-3">
+                <i class="fa fa-xmark me-1"></i> Discard
+            </a>
+            <button type="button" class="btn btn-primary btn-sm px-4" onclick="document.getElementById('productCreateForm').requestSubmit()">
+                <i class="fa fa-check me-1"></i> Save Product
+            </button>
+        </div>
     </div>
 
 
-    {{-- FORM START --}}
-    <form id="productCreateForm"
-          action=""
-          method="POST"
-          enctype="multipart/form-data">
-
+    {{-- MAIN FORM START --}}
+    <form id="productCreateForm" action="" method="POST" enctype="multipart/form-data">
         @csrf
 
+        <div class="row g-4">
 
-        {{-- BASIC INFORMATION --}}
-        <div class="card">
+            {{-- =========================================================================
+                 LEFT COLUMN: PRIMARY PRODUCT INFORMATION (8 COLS)
+                 ========================================================================= --}}
+            <div class="col-lg-8">
 
-            <div class="card-body">
-
-                <div class="row g-3">
-
-                    {{-- PRODUCT NAME --}}
-                    <div class="col-md-6">
-
-                        <label>
-                            Product Name (English)
-                            <span class="required">*</span>
-                        </label>
-
-                        <input type="text"
-                               name="name_en"
-                               class="form-control"
-                               placeholder="Example: Classic Cotton Shirt"
-                               required>
-
+                {{-- 1. BASIC INFORMATION (Product Name, SKU, Description) --}}
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title-wrap">
+                            <div class="card-icon-badge">
+                                <i class="fa fa-tag"></i>
+                            </div>
+                            <div>
+                                <h6 class="card-title">Basic Information</h6>
+                                <p class="card-subtitle">Official product title, unique SKU identifier, and description</p>
+                            </div>
+                        </div>
                     </div>
 
-
-                    {{-- ARABIC NAME --}}
-                    <div class="col-md-6">
-
-                        <label>
-                            Product Name (Arabic)
-                        </label>
-
-                        <input type="text"
-                               name="name_ar"
-                               class="form-control"
-                               dir="rtl"
-                               placeholder="اسم المنتج">
-
-                    </div>
-
-
-                    {{-- SKU --}}
-                    <div class="col-md-4">
-
-                        <label>
-                            SKU
-                            <span class="required">*</span>
-                        </label>
-
-                        <input type="text"
-                               name="sku"
-                               class="form-control"
-                               placeholder="TW-MEN-001"
-                               required>
-
-                    </div>
-
-
-                    {{-- BARCODE --}}
-                    <div class="col-md-4">
-
-                        <label>
-                            Barcode
-                        </label>
-
-                        <input type="text"
-                               name="barcode"
-                               class="form-control"
-                               placeholder="Enter barcode">
-
-                    </div>
-
-
-                    {{-- PRODUCT TYPE --}}
-                    <div class="col-md-4">
-
-                        <label>
-                            Product Type
-                            <span class="required">*</span>
-                        </label>
-
-                        <select name="product_type"
-                                id="product_type"
-                                class="form-select"
-                                required>
-
-                            <option value="">Select Product Type</option>
-
-                            <option value="simple">Simple Product</option>
-
-                            <option value="variable">Variable Product</option>
-
-                        </select>
-
-                    </div>
-
-
-                    {{-- DESCRIPTION --}}
-                    <div class="col-md-12">
-
-                        <label>
-                            Product Description
-                            <span class="required">*</span>
-                        </label>
-
-                        <textarea name="description"
-                                  class="form-control"
-                                  placeholder="Describe the product, material, design and features..."
-                                  required></textarea>
-
-                    </div>
-
-
-                    {{-- SHORT DESCRIPTION --}}
-                    <div class="col-md-12">
-
-                        <label>
-                            Short Description
-                        </label>
-
-                        <textarea name="short_description"
-                                  class="form-control"
-                                  rows="2"
-                                  placeholder="Short description displayed on product cards"></textarea>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-
-        {{-- CATEGORY INFORMATION --}}
-        <div class="card">
-
-            <div class="card-header">
-
-                <h6 class="section-title">
-                    <i class="fa fa-layer-group me-2 text-primary"></i>
-                    Category & Classification
-                </h6>
-
-                <p class="section-subtitle">
-                    Organize your product into the correct category.
-                </p>
-
-            </div>
-
-            <div class="card-body">
-
-                <div class="row g-3">
-
-                    {{-- CATEGORY --}}
-                    <div class="col-md-4">
-
-                        <label>
-                            Category
-                            <span class="required">*</span>
-                        </label>
-
-                        <select name="category_id"
-                                id="category_id"
-                                class="form-select"
-                                required>
-
-                            <option value="">Select Category</option>
-
-                            <option value="1">Men</option>
-
-                            <option value="2">Women</option>
-
-                            <option value="3">Kids</option>
-
-                            <option value="4">Accessories</option>
-
-                        </select>
-
-                    </div>
-
-
-                    {{-- SUB CATEGORY --}}
-                    <div class="col-md-4">
-
-                        <label>
-                            Sub Category
-                            <span class="required">*</span>
-                        </label>
-
-                        <select name="subcategory_id"
-                                id="subcategory_id"
-                                class="form-select"
-                                required>
-
-                            <option value="">Select Sub Category</option>
-
-                            <option value="1">T-Shirts</option>
-
-                            <option value="2">Shirts</option>
-
-                            <option value="3">Jeans</option>
-
-                            <option value="4">Dresses</option>
-
-                            <option value="5">Hoodies</option>
-
-                            <option value="6">Jackets</option>
-
-                            <option value="7">Shoes</option>
-
-                        </select>
-
-                    </div>
-
-
-                    {{-- BRAND --}}
-                    <div class="col-md-4">
-
-                        <label>
-                            Brand
-                            <span class="required">*</span>
-                        </label>
-
-                        <select name="brand_id"
-                                id="brand_id"
-                                class="form-select"
-                                required>
-
-                            <option value="">Select Brand</option>
-
-                            <option value="1">TrendWear</option>
-
-                        </select>
-
-                    </div>
-
-
-                    {{-- GENDER --}}
-                    <div class="col-md-4">
-
-                        <label>
-                            Gender
-                            <span class="required">*</span>
-                        </label>
-
-                        <select name="gender"
-                                class="form-select"
-                                required>
-
-                            <option value="">Select Gender</option>
-
-                            <option value="men">Men</option>
-
-                            <option value="women">Women</option>
-
-                            <option value="kids">Kids</option>
-
-                            <option value="unisex">Unisex</option>
-
-                        </select>
-
-                    </div>
-
-
-                    {{-- AGE GROUP --}}
-                    <div class="col-md-4">
-
-                        <label>
-                            Age Group
-                        </label>
-
-                        <select name="age_group"
-                                class="form-select">
-
-                            <option value="">Select Age Group</option>
-
-                            <option value="baby">Baby</option>
-
-                            <option value="kids">Kids</option>
-
-                            <option value="teen">Teen</option>
-
-                            <option value="adult">Adult</option>
-
-                        </select>
-
-                    </div>
-
-
-                    {{-- COLLECTION --}}
-                    <div class="col-md-4">
-
-                        <label>
-                            Collection
-                        </label>
-
-                        <select name="collection"
-                                class="form-select">
-
-                            <option value="">Select Collection</option>
-
-                            <option value="new_arrivals">New Arrivals</option>
-
-                            <option value="summer">Summer Collection</option>
-
-                            <option value="winter">Winter Collection</option>
-
-                            <option value="casual">Casual Collection</option>
-
-                            <option value="formal">Formal Collection</option>
-
-                        </select>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-
-        {{-- CLOTHING DETAILS --}}
-        <div class="card">
-
-            <div class="card-header">
-
-                <h6 class="section-title">
-                    <i class="fa fa-shirt me-2 text-primary"></i>
-                    Clothing Details
-                </h6>
-
-                <p class="section-subtitle">
-                    Add product specifications for your customers.
-                </p>
-
-            </div>
-
-            <div class="card-body">
-
-                <div class="row g-3">
-
-                    {{-- FABRIC --}}
-                    <div class="col-md-4">
-
-                        <label>
-                            Fabric / Material
-                        </label>
-
-                        <select name="fabric"
-                                class="form-select">
-
-                            <option value="">Select Fabric</option>
-
-                            <option value="cotton">Cotton</option>
-
-                            <option value="polyester">Polyester</option>
-
-                            <option value="linen">Linen</option>
-
-                            <option value="denim">Denim</option>
-
-                            <option value="silk">Silk</option>
-
-                            <option value="wool">Wool</option>
-
-                            <option value="blended">Blended</option>
-
-                            <option value="other">Other</option>
-
-                        </select>
-
-                    </div>
-
-
-                    {{-- FIT TYPE --}}
-                    <div class="col-md-4">
-
-                        <label>
-                            Fit Type
-                        </label>
-
-                        <select name="fit_type"
-                                class="form-select">
-
-                            <option value="">Select Fit</option>
-
-                            <option value="slim">Slim Fit</option>
-
-                            <option value="regular">Regular Fit</option>
-
-                            <option value="relaxed">Relaxed Fit</option>
-
-                            <option value="oversized">Oversized</option>
-
-                        </select>
-
-                    </div>
-
-
-                    {{-- PATTERN --}}
-                    <div class="col-md-4">
-
-                        <label>
-                            Pattern
-                        </label>
-
-                        <select name="pattern"
-                                class="form-select">
-
-                            <option value="">Select Pattern</option>
-
-                            <option value="solid">Solid</option>
-
-                            <option value="printed">Printed</option>
-
-                            <option value="striped">Striped</option>
-
-                            <option value="checked">Checked</option>
-
-                            <option value="floral">Floral</option>
-
-                            <option value="graphic">Graphic</option>
-
-                        </select>
-
-                    </div>
-
-
-                    {{-- SLEEVE --}}
-                    <div class="col-md-4">
-
-                        <label>
-                            Sleeve Type
-                        </label>
-
-                        <select name="sleeve_type"
-                                class="form-select">
-
-                            <option value="">Select Sleeve</option>
-
-                            <option value="full">Full Sleeve</option>
-
-                            <option value="half">Half Sleeve</option>
-
-                            <option value="short">Short Sleeve</option>
-
-                            <option value="sleeveless">Sleeveless</option>
-
-                        </select>
-
-                    </div>
-
-
-                    {{-- NECK TYPE --}}
-                    <div class="col-md-4">
-
-                        <label>
-                            Neck Type
-                        </label>
-
-                        <select name="neck_type"
-                                class="form-select">
-
-                            <option value="">Select Neck Type</option>
-
-                            <option value="round">Round Neck</option>
-
-                            <option value="v_neck">V Neck</option>
-
-                            <option value="collar">Collar</option>
-
-                            <option value="hooded">Hooded</option>
-
-                        </select>
-
-                    </div>
-
-
-                    {{-- CARE INSTRUCTIONS --}}
-                    <div class="col-md-4">
-
-                        <label>
-                            Care Instructions
-                        </label>
-
-                        <select name="care_instructions"
-                                class="form-select">
-
-                            <option value="">Select Care Instructions</option>
-
-                            <option value="machine_wash">Machine Wash</option>
-
-                            <option value="hand_wash">Hand Wash</option>
-
-                            <option value="dry_clean">Dry Clean</option>
-
-                            <option value="do_not_bleach">Do Not Bleach</option>
-
-                        </select>
-
-                    </div>
-
-
-                    {{-- PRODUCT WEIGHT --}}
-                    <div class="col-md-4">
-
-                        <label>
-                            Product Weight (g)
-                        </label>
-
-                        <input type="number"
-                               name="weight"
-                               class="form-control"
-                               min="0"
-                               placeholder="250">
-
-                    </div>
-
-
-                    {{-- COUNTRY --}}
-                    <div class="col-md-4">
-
-                        <label>
-                            Country of Origin
-                        </label>
-
-                        <input type="text"
-                               name="country_of_origin"
-                               class="form-control"
-                               placeholder="India">
-
-                    </div>
-
-
-                    {{-- WASH CARE --}}
-                    <div class="col-md-4">
-
-                        <label>
-                            Wash Care
-                        </label>
-
-                        <input type="text"
-                               name="wash_care"
-                               class="form-control"
-                               placeholder="Wash with similar colors">
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-
-        {{-- PRICING --}}
-        <div class="card">
-
-            <div class="card-header">
-
-                <h6 class="section-title">
-                    <i class="fa fa-indian-rupee-sign me-2 text-primary"></i>
-                    Pricing & Inventory
-                </h6>
-
-                <p class="section-subtitle">
-                    Manage product price, discounts and available stock.
-                </p>
-
-            </div>
-
-            <div class="card-body">
-
-                <div class="row g-3">
-
-                    {{-- COST PRICE --}}
-                    <div class="col-md-3">
-
-                        <label>
-                            Cost Price
-                        </label>
-
-                        <input type="number"
-                               name="cost_price"
-                               id="cost_price"
-                               class="form-control"
-                               min="0"
-                               step="0.01"
-                               placeholder="0.00">
-
-                    </div>
-
-
-                    {{-- SELLING PRICE --}}
-                    <div class="col-md-3">
-
-                        <label>
-                            Selling Price
-                            <span class="required">*</span>
-                        </label>
-
-                        <input type="number"
-                               name="selling_price"
-                               id="selling_price"
-                               class="form-control"
-                               min="0"
-                               step="0.01"
-                               placeholder="1499.00"
-                               required>
-
-                    </div>
-
-
-                    {{-- OFFER PRICE --}}
-                    <div class="col-md-3">
-
-                        <label>
-                            Offer Price
-                        </label>
-
-                        <input type="number"
-                               name="offer_price"
-                               id="offer_price"
-                               class="form-control"
-                               min="0"
-                               step="0.01"
-                               placeholder="999.00">
-
-                    </div>
-
-
-                    {{-- TAX --}}
-                    <div class="col-md-3">
-
-                        <label>
-                            Tax (%)
-                        </label>
-
-                        <input type="number"
-                               name="tax"
-                               class="form-control"
-                               min="0"
-                               max="100"
-                               step="0.01"
-                               placeholder="5">
-
-                    </div>
-
-
-                    {{-- STOCK --}}
-                    <div class="col-md-4">
-
-                        <label>
-                            Stock Quantity
-                            <span class="required">*</span>
-                        </label>
-
-                        <input type="number"
-                               name="stock_quantity"
-                               id="stock_quantity"
-                               class="form-control"
-                               min="0"
-                               placeholder="100"
-                               required>
-
-                    </div>
-
-
-                    {{-- LOW STOCK --}}
-                    <div class="col-md-4">
-
-                        <label>
-                            Low Stock Alert
-                        </label>
-
-                        <input type="number"
-                               name="low_stock_alert"
-                               class="form-control"
-                               min="0"
-                               placeholder="5">
-
-                    </div>
-
-
-                    {{-- STOCK STATUS --}}
-                    <div class="col-md-4">
-
-                        <label>
-                            Stock Status
-                        </label>
-
-                        <select name="stock_status"
-                                class="form-select">
-
-                            <option value="in_stock">In Stock</option>
-
-                            <option value="out_of_stock">Out of Stock</option>
-
-                            <option value="backorder">Allow Backorders</option>
-
-                        </select>
-
-                    </div>
-
-
-                    {{-- OFFER ENABLE --}}
-                    <div class="col-md-12">
-
-                        <div class="form-check form-switch">
-
-                            <input class="form-check-input"
-                                   type="checkbox"
-                                   name="offer_status"
-                                   id="offer_status"
-                                   value="1">
-
-                            <label class="form-check-label"
-                                   for="offer_status">
-
-                                Enable Product Offer
-
-                            </label>
+                    <div class="card-body">
+                        <div class="row g-3">
+
+                            {{-- Field 1: Product Name (Required) --}}
+                            <div class="col-md-8">
+                                <label class="form-label" for="name">
+                                    <span>Product Name <span class="required-star">*</span></span>
+                                    <span class="badge-mandatory">Mandatory</span>
+                                </label>
+                                <input type="text"
+                                       id="name"
+                                       name="name"
+                                       class="form-control"
+                                       placeholder="e.g. Classic Slim Fit Oxford Cotton Shirt"
+                                       required>
+                                <span class="form-hint">Displayed prominently as the primary headline in the catalog.</span>
+                            </div>
+
+                            {{-- Field 2: SKU / Product Code (Required) --}}
+                            <div class="col-md-4">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <label class="form-label m-0" for="sku">
+                                        <span>SKU / Product Code <span class="required-star">*</span></span>
+                                    </label>
+                                    <button type="button" id="generateSkuBtn" class="btn btn-link p-0 text-primary text-decoration-none" style="font-size: 0.72rem; font-weight: 600;">
+                                        <i class="fa fa-wand-magic-sparkles me-1"></i> Auto
+                                    </button>
+                                </div>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fa fa-barcode"></i></span>
+                                    <input type="text"
+                                           id="sku"
+                                           name="sku"
+                                           class="form-control text-uppercase"
+                                           placeholder="TW-SHIRT-001"
+                                           required>
+                                </div>
+                                <span class="form-hint">Unique Stock Keeping Unit.</span>
+                            </div>
+
+                            {{-- Field 6: Description (Recommended) --}}
+                            <div class="col-12">
+                                <label class="form-label" for="description">
+                                    <span>Description</span>
+                                    <span class="badge-recommended">Recommended</span>
+                                </label>
+                                <textarea name="description"
+                                          id="description"
+                                          class="form-control"
+                                          rows="4"
+                                          placeholder="Provide rich details about craftsmanship, styling recommendations, fabric weave, and care..."></textarea>
+                                <span class="form-hint">Detailed product narrative visible on product detail pages.</span>
+                            </div>
 
                         </div>
-
                     </div>
-
-
-                    {{-- OFFER DATES --}}
-                    <div class="col-md-6 offer-fields">
-
-                        <label>
-                            Offer Start Date
-                        </label>
-
-                        <input type="datetime-local"
-                               name="offer_start_date"
-                               class="form-control">
-
-                    </div>
-
-
-                    <div class="col-md-6 offer-fields">
-
-                        <label>
-                            Offer End Date
-                        </label>
-
-                        <input type="datetime-local"
-                               name="offer_end_date"
-                               class="form-control">
-
-                    </div>
-
                 </div>
 
-            </div>
 
-        </div>
+                {{-- 2. PRICING & INVENTORY (Symmetrical 4-Card Metric Grid) --}}
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title-wrap">
+                            <div class="card-icon-badge">
+                                <i class="fa fa-coins"></i>
+                            </div>
+                            <div>
+                                <h6 class="card-title">Pricing & Stock Inventory</h6>
+                                <p class="card-subtitle">Retail pricing, customer offer rates, cost calculation, and warehouse count</p>
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="card-body">
+                        <div class="row g-3">
 
+                            {{-- Field 8: Selling Price (Required) --}}
+                            <div class="col-md-3 col-sm-6">
+                                <div class="metric-input-card highlight">
+                                    <label class="form-label" for="selling_price">
+                                        <span>Selling Price <span class="required-star">*</span></span>
+                                        <span class="badge-mandatory">Required</span>
+                                    </label>
+                                    <div class="input-group mt-1">
+                                        <span class="input-group-text fw-bold text-dark">₹</span>
+                                        <input type="number"
+                                               name="selling_price"
+                                               id="selling_price"
+                                               class="form-control fw-bold"
+                                               min="0"
+                                               step="0.01"
+                                               placeholder="1499.00"
+                                               required>
+                                    </div>
+                                    <span class="form-hint">Standard retail selling price.</span>
+                                </div>
+                            </div>
 
-        {{-- VARIANTS --}}
-        <div class="card">
+                            {{-- Field 9: Offer Price (Optional) --}}
+                            <div class="col-md-3 col-sm-6">
+                                <div class="metric-input-card">
+                                    <label class="form-label" for="offer_price">
+                                        <span>Offer Price</span>
+                                        <span class="badge-optional">Optional</span>
+                                    </label>
+                                    <div class="input-group mt-1">
+                                        <span class="input-group-text text-danger fw-bold">₹</span>
+                                        <input type="number"
+                                               name="offer_price"
+                                               id="offer_price"
+                                               class="form-control text-danger fw-bold"
+                                               min="0"
+                                               step="0.01"
+                                               placeholder="999.00">
+                                    </div>
+                                    <span class="form-hint">Discounted checkout price.</span>
+                                </div>
+                            </div>
 
-            <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+                            {{-- Field 10: Cost Price (Optional - Admin Profit) --}}
+                            <div class="col-md-3 col-sm-6">
+                                <div class="metric-input-card">
+                                    <label class="form-label" for="cost_price">
+                                        <span>Cost Price</span>
+                                        <span class="badge-optional">Admin Only</span>
+                                    </label>
+                                    <div class="input-group mt-1">
+                                        <span class="input-group-text">₹</span>
+                                        <input type="number"
+                                               name="cost_price"
+                                               id="cost_price"
+                                               class="form-control"
+                                               min="0"
+                                               step="0.01"
+                                               placeholder="600.00">
+                                    </div>
+                                    <span class="form-hint">For profit margin calculation.</span>
+                                </div>
+                            </div>
 
-                <div>
+                            {{-- Field 11: Stock Quantity (Inventory) --}}
+                            <div class="col-md-3 col-sm-6">
+                                <div class="metric-input-card">
+                                    <label class="form-label" for="stock_quantity">
+                                        <span>Stock Quantity</span>
+                                        <span class="badge-optional">Inventory</span>
+                                    </label>
+                                    <div class="input-group mt-1">
+                                        <span class="input-group-text"><i class="fa fa-boxes-stacked"></i></span>
+                                        <input type="number"
+                                               name="stock_quantity"
+                                               id="stock_quantity"
+                                               class="form-control fw-bold"
+                                               min="0"
+                                               placeholder="100">
+                                    </div>
+                                    <span class="form-hint">Units currently in stock.</span>
+                                </div>
+                            </div>
 
-                    <h6 class="section-title">
-                        <i class="fa fa-sliders me-2 text-primary"></i>
-                        Product Variants
-                    </h6>
+                            {{-- Financial Analytics & Discount Strip --}}
+                            <div class="col-12 mt-3">
+                                <div class="profit-analytics-strip">
+                                    <div>
+                                        <div class="profit-item-title">Estimated Gross Profit</div>
+                                        <div id="calculatedProfit" class="profit-item-value text-muted">₹0.00</div>
+                                    </div>
+                                    <div>
+                                        <div class="profit-item-title">Profit Margin</div>
+                                        <div id="calculatedMargin" class="profit-item-value text-muted">0%</div>
+                                    </div>
+                                    <div>
+                                        <div class="profit-item-title">Customer Savings</div>
+                                        <div id="calculatedDiscount" class="profit-item-value text-muted">No Offer</div>
+                                    </div>
+                                    <div>
+                                        <div class="profit-item-title">Stock Valuation</div>
+                                        <div id="calculatedStockValue" class="profit-item-value text-muted">₹0.00</div>
+                                    </div>
+                                </div>
+                            </div>
 
-                    <p class="section-subtitle">
-                        Add different sizes, colors, SKUs and stock quantities.
-                    </p>
-
+                        </div>
+                    </div>
                 </div>
 
-                <button type="button"
-                        class="btn btn-outline-primary btn-sm"
-                        id="addVariantBtn">
 
-                    <i class="fa fa-plus me-1"></i>
-                    Add Variant
+                {{-- 3. CLOTHING SPECIFICATIONS (Size, Color, Material / Fabric) --}}
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title-wrap">
+                            <div class="card-icon-badge">
+                                <i class="fa fa-shirt"></i>
+                            </div>
+                            <div>
+                                <h6 class="card-title">Clothing Specifications</h6>
+                                <p class="card-subtitle">Select available apparel sizes, color swatches, and fabric composition</p>
+                            </div>
+                        </div>
+                    </div>
 
-                </button>
+                    <div class="card-body">
+                        <div class="row g-4">
 
-            </div>
+                            {{-- Field 12: Size (Apparel Required) --}}
+                            <div class="col-12">
+                                <div class="d-flex align-items-center justify-content-between mb-2">
+                                    <label class="form-label m-0">
+                                        <span>Available Sizes <span class="text-primary fw-normal">(Clothing Required)</span></span>
+                                    </label>
+                                    <span class="badge-recommended">Apparel Required</span>
+                                </div>
 
-            <div class="card-body">
+                                <div class="size-selector-grid">
+                                    @php
+                                        $standardSizes = ['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL', 'Free Size'];
+                                    @endphp
+                                    @foreach($standardSizes as $size)
+                                        <label class="size-pill-label">
+                                            <input type="checkbox" name="sizes[]" value="{{ $size }}" {{ in_array($size, ['M', 'L']) ? 'checked' : '' }}>
+                                            <span class="size-pill-box">
+                                                <i class="fa fa-check d-none" style="font-size: 0.7rem;"></i>
+                                                {{ $size }}
+                                            </span>
+                                        </label>
+                                    @endforeach
+                                </div>
 
-                <div class="table-responsive">
-
-                    <table class="table table-bordered variant-table">
-
-                        <thead>
-
-                            <tr>
-
-                                <th>Size</th>
-
-                                <th>Color</th>
-
-                                <th>SKU</th>
-
-                                <th>Price</th>
-
-                                <th>Stock</th>
-
-                                <th>Action</th>
-
-                            </tr>
-
-                        </thead>
-
-                        <tbody id="variantTableBody">
-
-                            <tr>
-
-                                <td>
-
-                                    <select name="variants[0][size]"
-                                            class="form-select">
-
-                                        <option value="">Size</option>
-
-                                        <option value="XS">XS</option>
-
-                                        <option value="S">S</option>
-
-                                        <option value="M">M</option>
-
-                                        <option value="L">L</option>
-
-                                        <option value="XL">XL</option>
-
-                                        <option value="XXL">XXL</option>
-
-                                        <option value="3XL">3XL</option>
-
-                                        <option value="Free Size">Free Size</option>
-
-                                    </select>
-
-                                </td>
-
-                                <td>
-
+                                <div class="input-group input-group-sm mt-2" style="max-width: 480px;">
+                                    <span class="input-group-text"><i class="fa fa-plus me-1"></i> Custom</span>
                                     <input type="text"
-                                           name="variants[0][color]"
+                                           name="custom_sizes"
+                                           id="custom_sizes"
                                            class="form-control"
-                                           placeholder="Black">
+                                           placeholder="Additional sizes (e.g. 28, 30, 32, 34, 36)">
+                                </div>
+                                <span class="form-hint">Click on size pills to toggle availability on product pages.</span>
+                            </div>
 
-                                </td>
+                            {{-- Field 13: Color (Apparel Required) --}}
+                            <div class="col-12">
+                                <div class="d-flex align-items-center justify-content-between mb-2">
+                                    <label class="form-label m-0">
+                                        <span>Available Colors <span class="text-primary fw-normal">(Clothing Required)</span></span>
+                                    </label>
+                                    <span class="badge-recommended">Apparel Required</span>
+                                </div>
 
-                                <td>
+                                <div class="color-swatch-grid">
+                                    @php
+                                        $standardColors = [
+                                            ['name' => 'Black', 'hex' => '#111827'],
+                                            ['name' => 'White', 'hex' => '#ffffff'],
+                                            ['name' => 'Navy', 'hex' => '#1e3a8a'],
+                                            ['name' => 'Royal Blue', 'hex' => '#2563eb'],
+                                            ['name' => 'Red', 'hex' => '#dc2626'],
+                                            ['name' => 'Grey', 'hex' => '#6b7280'],
+                                            ['name' => 'Olive', 'hex' => '#556b2f'],
+                                            ['name' => 'Beige', 'hex' => '#f5f5dc'],
+                                            ['name' => 'Maroon', 'hex' => '#800000'],
+                                            ['name' => 'Yellow', 'hex' => '#eab308'],
+                                        ];
+                                    @endphp
+                                    @foreach($standardColors as $c)
+                                        <label class="color-swatch-label">
+                                            <input type="checkbox" name="colors[]" value="{{ $c['name'] }}" {{ in_array($c['name'], ['Black', 'Navy']) ? 'checked' : '' }}>
+                                            <span class="color-swatch-box">
+                                                <span class="color-circle" style="background-color: {{ $c['hex'] }};"></span>
+                                                {{ $c['name'] }}
+                                            </span>
+                                        </label>
+                                    @endforeach
+                                </div>
 
+                                <div class="input-group input-group-sm mt-2" style="max-width: 480px;">
+                                    <span class="input-group-text"><i class="fa fa-palette me-1"></i> Custom</span>
                                     <input type="text"
-                                           name="variants[0][sku]"
+                                           name="custom_colors"
+                                           id="custom_colors"
                                            class="form-control"
-                                           placeholder="TW-001-M-BLK">
+                                           placeholder="Additional colors (e.g. Lavender, Sage Green, Coral)">
+                                </div>
+                                <span class="form-hint">Click on color swatches to enable color variations for this clothing item.</span>
+                            </div>
 
-                                </td>
+                            {{-- Field 14: Material / Fabric (Optional) --}}
+                            <div class="col-md-6">
+                                <label class="form-label" for="material">
+                                    <span>Material / Fabric</span>
+                                    <span class="badge-optional">Optional</span>
+                                </label>
+                                <select name="material" id="material" class="form-select">
+                                    <option value="">Select Material / Fabric</option>
+                                    <option value="100% Pure Cotton" selected>100% Pure Cotton</option>
+                                    <option value="Denim">Denim</option>
+                                    <option value="Pure Linen">Pure Linen</option>
+                                    <option value="Polyester">Polyester</option>
+                                    <option value="Silk">Silk</option>
+                                    <option value="Wool">Wool</option>
+                                    <option value="Cotton-Poly Blend">Cotton-Poly Blend</option>
+                                    <option value="Rayon">Rayon</option>
+                                    <option value="Spandex / Stretch">Spandex / Stretch</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                                <span class="form-hint">Dominant garment fabric composition.</span>
+                            </div>
 
-                                <td>
-
-                                    <input type="number"
-                                           name="variants[0][price]"
-                                           class="form-control"
-                                           min="0"
-                                           step="0.01"
-                                           placeholder="1499">
-
-                                </td>
-
-                                <td>
-
-                                    <input type="number"
-                                           name="variants[0][stock]"
-                                           class="form-control"
-                                           min="0"
-                                           placeholder="20">
-
-                                </td>
-
-                                <td>
-
-                                    <button type="button"
-                                            class="btn btn-sm btn-outline-danger removeVariantBtn">
-
-                                        <i class="fa fa-trash"></i>
-
-                                    </button>
-
-                                </td>
-
-                            </tr>
-
-                        </tbody>
-
-                    </table>
-
+                        </div>
+                    </div>
                 </div>
 
-                <small class="text-muted">
 
-                    Example: Black / M / TW-001-M-BLK / ₹1499 / 20 pieces
-
-                </small>
-
-            </div>
-
-        </div>
-
-
-
-        {{-- PRODUCT IMAGES --}}
-        <div class="card">
-
-            <div class="card-header">
-
-                <h6 class="section-title">
-                    <i class="fa fa-images me-2 text-primary"></i>
-                    Product Images
-                </h6>
-
-                <p class="section-subtitle">
-                    Upload the main product image and additional gallery images.
-                </p>
-
-            </div>
-
-            <div class="card-body">
-
-                <div class="row g-4">
-
-                    {{-- COVER IMAGE --}}
-                    <div class="col-md-6">
-
-                        <label>
-                            Main Product Image
-                            <span class="required">*</span>
-                        </label>
-
-                        <label for="cover_image"
-                               class="image-upload-box w-100">
-
-                            <i class="fa fa-cloud-arrow-up d-block"></i>
-
-                            <strong>Upload Main Image</strong>
-
-                            <p class="text-muted small mb-0 mt-2">
-
-                                JPG, PNG or WEBP
-
-                            </p>
-
-                            <p class="text-muted small mb-0">
-
-                                Recommended ratio: 1:1
-
-                            </p>
-
-                        </label>
-
-                        <input type="file"
-                               name="cover_image"
-                               id="cover_image"
-                               class="form-control d-none"
-                               accept="image/jpeg,image/png,image/webp"
-                               required>
-
-                        <div id="coverPreview"
-                             class="image-preview"></div>
-
+                {{-- 4. PRODUCT IMAGES (Required) --}}
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title-wrap">
+                            <div class="card-icon-badge">
+                                <i class="fa fa-images"></i>
+                            </div>
+                            <div>
+                                <h6 class="card-title">Product Images</h6>
+                                <p class="card-subtitle">Main showcase image and multi-angle frontend gallery</p>
+                            </div>
+                        </div>
+                        <span class="badge bg-label-primary" style="font-size: 0.7rem;">Required</span>
                     </div>
 
+                    <div class="card-body">
+                        <div class="row g-4">
 
-                    {{-- GALLERY --}}
-                    <div class="col-md-6">
+                            {{-- Field 7a: Main Product Image (Required) --}}
+                            <div class="col-md-6">
+                                <label class="form-label" for="cover_image">
+                                    <span>Main Product Image <span class="required-star">*</span></span>
+                                    <span class="badge-mandatory">Primary Photo</span>
+                                </label>
 
-                        <label>
-                            Product Gallery
-                        </label>
+                                <label for="cover_image" class="dropzone-container d-block" id="coverDropzone">
+                                    <div class="dropzone-icon-circle">
+                                        <i class="fa fa-cloud-arrow-up"></i>
+                                    </div>
+                                    <div class="dropzone-title">Upload Main Image</div>
+                                    <p class="dropzone-desc">JPG, PNG, WEBP (Square 1:1 Recommended)</p>
+                                </label>
 
-                        <label for="gallery_images"
-                               class="image-upload-box w-100">
+                                <input type="file"
+                                       name="cover_image"
+                                       id="cover_image"
+                                       class="d-none"
+                                       accept="image/*"
+                                       required>
 
-                            <i class="fa fa-images d-block"></i>
+                                <div id="coverPreview" class="image-preview-grid"></div>
+                            </div>
 
-                            <strong>Upload Gallery Images</strong>
+                            {{-- Field 7b: Additional Images (Optional / Gallery) --}}
+                            <div class="col-md-6">
+                                <label class="form-label" for="gallery_images">
+                                    <span>Additional Images</span>
+                                    <span class="badge-optional">Gallery Photos</span>
+                                </label>
 
-                            <p class="text-muted small mb-0 mt-2">
+                                <label for="gallery_images" class="dropzone-container d-block" id="galleryDropzone">
+                                    <div class="dropzone-icon-circle">
+                                        <i class="fa fa-photo-film"></i>
+                                    </div>
+                                    <div class="dropzone-title">Upload Gallery Photos</div>
+                                    <p class="dropzone-desc">Back view, fabric zoom, and model styling shots</p>
+                                </label>
 
-                                Select multiple images
+                                <input type="file"
+                                       name="gallery_images[]"
+                                       id="gallery_images"
+                                       class="d-none"
+                                       accept="image/*"
+                                       multiple>
 
-                            </p>
+                                <div id="galleryPreview" class="image-preview-grid"></div>
+                            </div>
 
-                        </label>
-
-                        <input type="file"
-                               name="gallery_images[]"
-                               id="gallery_images"
-                               class="form-control d-none"
-                               accept="image/jpeg,image/png,image/webp"
-                               multiple>
-
-                        <div id="galleryPreview"
-                             class="image-preview"></div>
-
+                        </div>
                     </div>
-
                 </div>
 
             </div>
 
-        </div>
 
+            {{-- =========================================================================
+                 RIGHT COLUMN: SIDEBAR (STATUS, TAXONOMY & LIVE PREVIEW) (4 COLS)
+                 ========================================================================= --}}
+            <div class="col-lg-4">
 
+                {{-- CARD 1: STATUS & VISIBILITY FLAGS --}}
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title-wrap">
+                            <div class="card-icon-badge">
+                                <i class="fa fa-toggle-on"></i>
+                            </div>
+                            <div>
+                                <h6 class="card-title">Status & Visibility</h6>
+                                <p class="card-subtitle">Storefront publication and tags</p>
+                            </div>
+                        </div>
+                    </div>
 
-        {{-- PRODUCT STATUS --}}
-        <div class="card">
+                    <div class="card-body">
 
-            <div class="card-header">
-
-                <h6 class="section-title">
-                    <i class="fa fa-toggle-on me-2 text-primary"></i>
-                    Product Status & Visibility
-                </h6>
-
-                <p class="section-subtitle">
-                    Control how your product appears on the website.
-                </p>
-
-            </div>
-
-            <div class="card-body">
-
-                <div class="row g-3">
-
-                    {{-- PRODUCT STATUS --}}
-                    <div class="col-md-4">
-
-                        <div class="status-box">
-
-                            <h6 class="fw-bold mb-3">
-                                Product Status
-                            </h6>
-
-                            <div class="form-check form-switch">
-
+                        {{-- Field 15: Status (Required - Active / Inactive) --}}
+                        <div class="switch-pill-card">
+                            <div class="switch-label-group">
+                                <h6>Product Status <span class="required-star">*</span></h6>
+                                <p id="statusLabelText" class="text-success fw-semibold">Active (Visible in Store)</p>
+                            </div>
+                            <div class="form-check form-switch m-0">
                                 <input class="form-check-input"
                                        type="checkbox"
                                        name="status"
                                        id="status"
                                        value="1"
                                        checked>
-
-                                <label class="form-check-label"
-                                       for="status">
-
-                                    Active Product
-
-                                </label>
-
                             </div>
-
-                            <small class="text-muted">
-
-                                Enable to make the product active.
-
-                            </small>
-
                         </div>
 
-                    </div>
-
-
-                    {{-- ECOMMERCE --}}
-                    <div class="col-md-4">
-
-                        <div class="status-box">
-
-                            <h6 class="fw-bold mb-3">
-                                E-commerce Visibility
-                            </h6>
-
-                            <div class="form-check form-switch">
-
+                        {{-- Field 16: Featured Product (Optional) --}}
+                        <div class="switch-pill-card">
+                            <div class="switch-label-group">
+                                <h6><i class="fa fa-star text-warning me-1"></i> Featured Product</h6>
+                                <p>Pin to homepage featured shelf</p>
+                            </div>
+                            <div class="form-check form-switch m-0">
                                 <input class="form-check-input"
                                        type="checkbox"
-                                       name="ecommerce_status"
-                                       id="ecommerce_status"
+                                       name="is_featured"
+                                       id="is_featured"
+                                       value="1">
+                            </div>
+                        </div>
+
+                        {{-- Field 17: New Arrival (Optional) --}}
+                        <div class="switch-pill-card">
+                            <div class="switch-label-group">
+                                <h6><i class="fa fa-sparkles text-info me-1"></i> New Arrival Tag</h6>
+                                <p>Display highlighted NEW badge</p>
+                            </div>
+                            <div class="form-check form-switch m-0">
+                                <input class="form-check-input"
+                                       type="checkbox"
+                                       name="is_new_arrival"
+                                       id="is_new_arrival"
                                        value="1"
                                        checked>
-
-                                <label class="form-check-label"
-                                       for="ecommerce_status">
-
-                                    Show on Website
-
-                                </label>
-
                             </div>
+                        </div>
 
-                            <small class="text-muted">
+                        <hr class="my-3 opacity-25">
 
-                                Enable to display this product on the storefront.
-
-                            </small>
-
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fa fa-check me-1"></i> Save Product
+                            </button>
+                            <a href="{{ route('productmanagement.item_master') }}" class="btn btn-outline-secondary">
+                                <i class="fa fa-arrow-left me-1"></i> Discard & Return
+                            </a>
                         </div>
 
                     </div>
+                </div>
 
 
-                    {{-- FEATURED --}}
-                    <div class="col-md-4">
+                {{-- CARD 2: CATEGORY & CLASSIFICATION (Category, Subcategory, Brand) --}}
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title-wrap">
+                            <div class="card-icon-badge">
+                                <i class="fa fa-layer-group"></i>
+                            </div>
+                            <div>
+                                <h6 class="card-title">Classification</h6>
+                                <p class="card-subtitle">Taxonomy hierarchy & brand association</p>
+                            </div>
+                        </div>
+                    </div>
 
-                        <div class="status-box">
+                    <div class="card-body">
+                        <div class="d-flex flex-column gap-3">
 
-                            <h6 class="fw-bold mb-3">
-                                Product Highlights
-                            </h6>
-
-                            <div class="form-check form-switch">
-
-                                <input class="form-check-input"
-                                       type="checkbox"
-                                       name="featured_status"
-                                       id="featured_status"
-                                       value="1">
-
-                                <label class="form-check-label"
-                                       for="featured_status">
-
-                                    Featured Product
-
+                            {{-- Field 3: Category (Required) --}}
+                            <div>
+                                <label class="form-label" for="category_id">
+                                    <span>Category <span class="required-star">*</span></span>
+                                    <span class="badge-mandatory">Mandatory</span>
                                 </label>
-
+                                <select name="category_id" id="category_id" class="form-select" required>
+                                    <option value="">Select Category</option>
+                                    <option value="Men" selected>Men</option>
+                                    <option value="Women">Women</option>
+                                    <option value="Kids">Kids</option>
+                                </select>
+                                <span class="form-hint">E.g. Men, Women, Kids.</span>
                             </div>
 
-
-                            <div class="form-check form-switch">
-
-                                <input class="form-check-input"
-                                       type="checkbox"
-                                       name="new_arrival_status"
-                                       id="new_arrival_status"
-                                       value="1">
-
-                                <label class="form-check-label"
-                                       for="new_arrival_status">
-
-                                    New Arrival
-
+                            {{-- Field 4: Subcategory (Recommended) --}}
+                            <div>
+                                <label class="form-label" for="subcategory_id">
+                                    <span>Subcategory</span>
+                                    <span class="badge-recommended">Recommended</span>
                                 </label>
-
+                                <select name="subcategory_id" id="subcategory_id" class="form-select">
+                                    <option value="">Select Subcategory</option>
+                                    <option value="T-Shirts" selected>T-Shirts</option>
+                                    <option value="Jeans">Jeans</option>
+                                    <option value="Dresses">Dresses</option>
+                                    <option value="Shirts">Shirts</option>
+                                    <option value="Trousers">Trousers</option>
+                                    <option value="Jackets">Jackets</option>
+                                    <option value="Hoodies">Hoodies</option>
+                                </select>
+                                <span class="form-hint">E.g. T-Shirts, Jeans, Dresses.</span>
                             </div>
 
-
-                            <div class="form-check form-switch">
-
-                                <input class="form-check-input"
-                                       type="checkbox"
-                                       name="best_selling_status"
-                                       id="best_selling_status"
-                                       value="1">
-
-                                <label class="form-check-label"
-                                       for="best_selling_status">
-
-                                    Best Seller
-
+                            {{-- Field 5: Brand (Optional) --}}
+                            <div>
+                                <label class="form-label" for="brand_id">
+                                    <span>Brand</span>
+                                    <span class="badge-optional">Optional</span>
                                 </label>
-
+                                <select name="brand_id" id="brand_id" class="form-select">
+                                    <option value="">Select Brand</option>
+                                    <option value="TrendWear" selected>TrendWear</option>
+                                    <option value="Zara">Zara</option>
+                                    <option value="H&M">H&M</option>
+                                    <option value="Levi's">Levi's</option>
+                                </select>
+                                <span class="form-hint">Brand label or manufacturer.</span>
                             </div>
 
                         </div>
+                    </div>
+                </div>
 
+
+                {{-- CARD 3: LIVE STOREFRONT PRODUCT CARD PREVIEW --}}
+                <div class="card">
+                    <div class="card-header py-3">
+                        <div class="card-title-wrap">
+                            <div class="card-icon-badge" style="background: rgba(2, 132, 199, 0.1); color: #0284c7;">
+                                <i class="fa fa-eye"></i>
+                            </div>
+                            <div>
+                                <h6 class="card-title" style="font-size: 0.88rem;">Storefront Live Preview</h6>
+                                <p class="card-subtitle">How shoppers see this on TrendWear</p>
+                            </div>
+                        </div>
                     </div>
 
+                    <div class="card-body p-3">
+                        <div class="storefront-preview-card">
+                            <div class="storefront-preview-img-wrap" id="previewImgWrap">
+                                <div class="storefront-preview-badges">
+                                    <span id="previewNewBadge" class="badge bg-dark text-white fw-bold" style="font-size: 0.65rem; padding: 4px 8px;">NEW</span>
+                                    <span id="previewFeaturedBadge" class="badge bg-warning text-dark fw-bold d-none" style="font-size: 0.65rem; padding: 4px 8px;"><i class="fa fa-star me-1"></i>FEATURED</span>
+                                </div>
+                                <img id="livePreviewImg" src="" alt="Product Preview" style="display: none;">
+                                <div id="previewPlaceholder" class="text-center text-muted">
+                                    <i class="fa fa-image fs-1 mb-1 opacity-50"></i>
+                                    <p class="small mb-0">Product Image Preview</p>
+                                </div>
+                            </div>
+                            <div class="storefront-preview-body">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span id="previewBrand" class="text-uppercase text-muted fw-bold" style="font-size: 0.68rem; letter-spacing: 0.05em;">TrendWear</span>
+                                    <span id="previewCategory" class="badge bg-label-secondary" style="font-size: 0.68rem;">Men &bull; T-Shirts</span>
+                                </div>
+                                <h6 id="previewTitle" class="fw-bold mb-2 text-truncate" style="font-size: 0.92rem; color: #1e293b;">Classic Slim Fit Oxford Cotton Shirt</h6>
+                                <div class="d-flex align-items-baseline gap-2">
+                                    <span id="previewOfferPrice" class="fw-bold text-danger" style="font-size: 1.1rem;">₹999</span>
+                                    <span id="previewSellingPrice" class="text-muted text-decoration-line-through small">₹1,499</span>
+                                    <span id="previewDiscountBadge" class="badge bg-label-danger" style="font-size: 0.68rem;">33% OFF</span>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-between mt-2 pt-2 border-top">
+                                    <span id="previewStockStatus" class="small text-success fw-semibold"><i class="fa fa-circle-check me-1"></i>In Stock (100)</span>
+                                    <span id="previewMaterial" class="small text-muted">Cotton</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
 
         </div>
 
-
-
-        {{-- SEO --}}
-        <div class="card">
-
-            <div class="card-header">
-
-                <h6 class="section-title">
-                    <i class="fa fa-search me-2 text-primary"></i>
-                    SEO Information
-                </h6>
-
-                <p class="section-subtitle">
-                    Improve product visibility on search engines.
-                </p>
-
-            </div>
-
-            <div class="card-body">
-
-                <div class="row g-3">
-
-                    {{-- SEO TITLE --}}
-                    <div class="col-md-12">
-
-                        <label>
-                            Meta Title
-                        </label>
-
-                        <input type="text"
-                               name="meta_title"
-                               class="form-control"
-                               placeholder="Classic Cotton Shirt | TrendWear">
-
-                    </div>
-
-
-                    {{-- SEO DESCRIPTION --}}
-                    <div class="col-md-12">
-
-                        <label>
-                            Meta Description
-                        </label>
-
-                        <textarea name="meta_description"
-                                  class="form-control"
-                                  rows="3"
-                                  placeholder="Write a short SEO description for this product"></textarea>
-
-                    </div>
-
-
-                    {{-- SEO KEYWORDS --}}
-                    <div class="col-md-12">
-
-                        <label>
-                            Meta Keywords
-                        </label>
-
-                        <input type="text"
-                               name="meta_keywords"
-                               class="form-control"
-                               placeholder="cotton shirt, men shirt, trendwear">
-
-                    </div>
-
+        {{-- STICKY BOTTOM ACTION BAR --}}
+        <div class="sticky-action-bar">
+            <div class="d-flex align-items-center gap-2">
+                <i class="fa fa-circle-check text-success fs-5 d-none d-sm-inline"></i>
+                <div>
+                    <strong class="d-block text-dark" style="font-size: 0.88rem;">Ready to save this item?</strong>
+                    <span class="text-muted small">All 17 fields are validated and formatted for optimal catalog performance.</span>
                 </div>
-
             </div>
 
+            <div class="d-flex align-items-center gap-2">
+                <a href="{{ route('productmanagement.item_master') }}" class="btn btn-outline-secondary btn-sm px-3">
+                    Cancel
+                </a>
+                <button type="submit" class="btn btn-primary btn-sm px-4">
+                    <i class="fa fa-check me-1"></i> Save Product
+                </button>
+            </div>
         </div>
 
     </form>
@@ -1499,289 +1232,264 @@
 </div>
 
 
-
-{{-- JAVASCRIPT --}}
+{{-- JAVASCRIPT LOGIC --}}
 <script>
-
 document.addEventListener('DOMContentLoaded', function () {
 
     /*
     |--------------------------------------------------------------------------
-    | PRODUCT VARIANTS
+    | FORM INPUT REFERENCES
     |--------------------------------------------------------------------------
     */
+    const nameInput = document.getElementById('name');
+    const skuInput = document.getElementById('sku');
+    const generateSkuBtn = document.getElementById('generateSkuBtn');
+    const sellingPriceInput = document.getElementById('selling_price');
+    const offerPriceInput = document.getElementById('offer_price');
+    const costPriceInput = document.getElementById('cost_price');
+    const stockQuantityInput = document.getElementById('stock_quantity');
+    const categorySelect = document.getElementById('category_id');
+    const subcategorySelect = document.getElementById('subcategory_id');
+    const brandSelect = document.getElementById('brand_id');
+    const materialSelect = document.getElementById('material');
+    const statusCheckbox = document.getElementById('status');
+    const statusLabelText = document.getElementById('statusLabelText');
+    const featuredCheckbox = document.getElementById('is_featured');
+    const newArrivalCheckbox = document.getElementById('is_new_arrival');
 
-    let variantIndex = 1;
+    // Financial Analytics Elements
+    const profitEl = document.getElementById('calculatedProfit');
+    const marginEl = document.getElementById('calculatedMargin');
+    const discountEl = document.getElementById('calculatedDiscount');
+    const stockValueEl = document.getElementById('calculatedStockValue');
 
-    const variantTableBody = document.getElementById('variantTableBody');
-
-    const addVariantBtn = document.getElementById('addVariantBtn');
-
-
-    addVariantBtn.addEventListener('click', function () {
-
-        const row = document.createElement('tr');
-
-        row.innerHTML = `
-            <td>
-                <select name="variants[${variantIndex}][size]"
-                        class="form-select">
-
-                    <option value="">Size</option>
-                    <option value="XS">XS</option>
-                    <option value="S">S</option>
-                    <option value="M">M</option>
-                    <option value="L">L</option>
-                    <option value="XL">XL</option>
-                    <option value="XXL">XXL</option>
-                    <option value="3XL">3XL</option>
-                    <option value="Free Size">Free Size</option>
-
-                </select>
-            </td>
-
-            <td>
-                <input type="text"
-                       name="variants[${variantIndex}][color]"
-                       class="form-control"
-                       placeholder="Black">
-            </td>
-
-            <td>
-                <input type="text"
-                       name="variants[${variantIndex}][sku]"
-                       class="form-control"
-                       placeholder="TW-001-M-BLK">
-            </td>
-
-            <td>
-                <input type="number"
-                       name="variants[${variantIndex}][price]"
-                       class="form-control"
-                       min="0"
-                       step="0.01"
-                       placeholder="1499">
-            </td>
-
-            <td>
-                <input type="number"
-                       name="variants[${variantIndex}][stock]"
-                       class="form-control"
-                       min="0"
-                       placeholder="20">
-            </td>
-
-            <td>
-                <button type="button"
-                        class="btn btn-sm btn-outline-danger removeVariantBtn">
-
-                    <i class="fa fa-trash"></i>
-
-                </button>
-            </td>
-        `;
-
-        variantTableBody.appendChild(row);
-
-        variantIndex++;
-
-    });
+    // Preview Elements
+    const livePreviewImg = document.getElementById('livePreviewImg');
+    const previewPlaceholder = document.getElementById('previewPlaceholder');
+    const previewTitle = document.getElementById('previewTitle');
+    const previewBrand = document.getElementById('previewBrand');
+    const previewCategory = document.getElementById('previewCategory');
+    const previewOfferPrice = document.getElementById('previewOfferPrice');
+    const previewSellingPrice = document.getElementById('previewSellingPrice');
+    const previewDiscountBadge = document.getElementById('previewDiscountBadge');
+    const previewStockStatus = document.getElementById('previewStockStatus');
+    const previewMaterial = document.getElementById('previewMaterial');
+    const previewNewBadge = document.getElementById('previewNewBadge');
+    const previewFeaturedBadge = document.getElementById('previewFeaturedBadge');
 
 
     /*
     |--------------------------------------------------------------------------
-    | REMOVE VARIANT
+    | FINANCIAL CALCULATIONS & LIVE PREVIEW UPDATES
     |--------------------------------------------------------------------------
     */
+    function updateCalculationsAndPreview() {
+        const sell = parseFloat(sellingPriceInput.value) || 0;
+        const offer = parseFloat(offerPriceInput.value) || 0;
+        const cost = parseFloat(costPriceInput.value) || 0;
+        const stock = parseInt(stockQuantityInput.value) || 0;
 
-    variantTableBody.addEventListener('click', function (event) {
+        // 1. Profit & Margin calculation (Effective price = Offer if valid, else Sell)
+        const effectivePrice = (offer > 0 && offer < sell) ? offer : sell;
+        if (effectivePrice > 0 && cost > 0) {
+            const profit = effectivePrice - cost;
+            const margin = (profit / effectivePrice) * 100;
+            profitEl.textContent = '₹' + profit.toFixed(2);
+            marginEl.textContent = margin.toFixed(1) + '%';
 
-        const removeButton = event.target.closest('.removeVariantBtn');
-
-        if (removeButton) {
-
-            const row = removeButton.closest('tr');
-
-            row.remove();
-
+            if (profit < 0) {
+                profitEl.className = 'profit-item-value text-danger';
+                marginEl.className = 'profit-item-value text-danger';
+            } else {
+                profitEl.className = 'profit-item-value text-success';
+                marginEl.className = 'profit-item-value text-success';
+            }
+        } else if (effectivePrice > 0) {
+            profitEl.textContent = '₹' + effectivePrice.toFixed(2);
+            marginEl.textContent = '100%';
+            profitEl.className = 'profit-item-value text-primary';
+            marginEl.className = 'profit-item-value text-primary';
+        } else {
+            profitEl.textContent = '₹0.00';
+            marginEl.textContent = '0%';
+            profitEl.className = 'profit-item-value text-muted';
+            marginEl.className = 'profit-item-value text-muted';
         }
 
+        // 2. Customer Savings / Discount calculation
+        if (sell > 0 && offer > 0 && offer < sell) {
+            const savings = sell - offer;
+            const discountPct = Math.round((savings / sell) * 100);
+            discountEl.textContent = `${discountPct}% (₹${savings.toFixed(0)} off)`;
+            discountEl.className = 'profit-item-value text-danger';
+
+            previewOfferPrice.textContent = '₹' + offer.toFixed(0);
+            previewOfferPrice.style.display = 'inline';
+            previewSellingPrice.textContent = '₹' + sell.toFixed(0);
+            previewSellingPrice.style.display = 'inline';
+            previewDiscountBadge.textContent = discountPct + '% OFF';
+            previewDiscountBadge.style.display = 'inline';
+        } else if (sell > 0) {
+            discountEl.textContent = 'Regular Price';
+            discountEl.className = 'profit-item-value text-muted';
+
+            previewOfferPrice.textContent = '₹' + sell.toFixed(0);
+            previewOfferPrice.className = 'fw-bold text-dark';
+            previewSellingPrice.style.display = 'none';
+            previewDiscountBadge.style.display = 'none';
+        } else {
+            discountEl.textContent = 'No Price Set';
+            discountEl.className = 'profit-item-value text-muted';
+            previewOfferPrice.textContent = '₹0';
+            previewSellingPrice.style.display = 'none';
+            previewDiscountBadge.style.display = 'none';
+        }
+
+        // 3. Stock Valuation calculation
+        if (cost > 0 && stock > 0) {
+            stockValueEl.textContent = '₹' + (cost * stock).toLocaleString();
+            stockValueEl.className = 'profit-item-value text-dark';
+        } else if (sell > 0 && stock > 0) {
+            stockValueEl.textContent = '₹' + (sell * stock).toLocaleString();
+            stockValueEl.className = 'profit-item-value text-dark';
+        } else {
+            stockValueEl.textContent = '₹0.00';
+            stockValueEl.className = 'profit-item-value text-muted';
+        }
+
+        // 4. Update preview titles & details
+        previewTitle.textContent = nameInput.value.trim() || 'Product Name Preview';
+        previewBrand.textContent = brandSelect.value || 'TrendWear';
+
+        const catText = categorySelect.value || 'Clothing';
+        const subCatText = subcategorySelect.value || '';
+        previewCategory.textContent = subCatText ? `${catText} • ${subCatText}` : catText;
+
+        previewMaterial.textContent = materialSelect.value || 'Standard';
+
+        // 5. Stock status badge
+        if (stock > 0) {
+            previewStockStatus.innerHTML = `<i class="fa fa-circle-check me-1"></i>In Stock (${stock})`;
+            previewStockStatus.className = 'small text-success fw-semibold';
+        } else if (stockQuantityInput.value !== '') {
+            previewStockStatus.innerHTML = `<i class="fa fa-circle-xmark me-1"></i>Out of Stock`;
+            previewStockStatus.className = 'small text-danger fw-semibold';
+        } else {
+            previewStockStatus.innerHTML = `<i class="fa fa-cubes me-1"></i>Available`;
+            previewStockStatus.className = 'small text-muted';
+        }
+
+        // 6. Badges preview
+        previewNewBadge.classList.toggle('d-none', !newArrivalCheckbox.checked);
+        previewFeaturedBadge.classList.toggle('d-none', !featuredCheckbox.checked);
+    }
+
+    [nameInput, sellingPriceInput, offerPriceInput, costPriceInput, stockQuantityInput, categorySelect, subcategorySelect, brandSelect, materialSelect].forEach(function (el) {
+        el.addEventListener('input', updateCalculationsAndPreview);
+        el.addEventListener('change', updateCalculationsAndPreview);
     });
 
+    featuredCheckbox.addEventListener('change', updateCalculationsAndPreview);
+    newArrivalCheckbox.addEventListener('change', updateCalculationsAndPreview);
+    updateCalculationsAndPreview();
 
 
     /*
     |--------------------------------------------------------------------------
-    | COVER IMAGE PREVIEW
+    | AUTO SKU GENERATOR
     |--------------------------------------------------------------------------
     */
+    generateSkuBtn.addEventListener('click', function () {
+        const cat = (categorySelect.value || 'TW').substring(0, 3).toUpperCase();
+        const sub = (subcategorySelect.value || 'PROD').substring(0, 3).toUpperCase();
+        const randomNum = Math.floor(100 + Math.random() * 900);
+        skuInput.value = `TW-${cat}-${sub}-${randomNum}`;
+        skuInput.dispatchEvent(new Event('input'));
+    });
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | STATUS TOGGLE LABEL
+    |--------------------------------------------------------------------------
+    */
+    function updateStatusLabel() {
+        if (statusCheckbox.checked) {
+            statusLabelText.textContent = 'Active (Visible in Store)';
+            statusLabelText.className = 'text-success fw-semibold m-0 small';
+        } else {
+            statusLabelText.textContent = 'Inactive (Hidden from Store)';
+            statusLabelText.className = 'text-muted fw-semibold m-0 small';
+        }
+    }
+
+    statusCheckbox.addEventListener('change', updateStatusLabel);
+    updateStatusLabel();
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | IMAGE UPLOAD & PREVIEWS WITH REMOVE SUPPORT
+    |--------------------------------------------------------------------------
+    */
     const coverImageInput = document.getElementById('cover_image');
-
     const coverPreview = document.getElementById('coverPreview');
 
-
     coverImageInput.addEventListener('change', function () {
-
         coverPreview.innerHTML = '';
-
         const file = this.files[0];
-
         if (file) {
+            const objectUrl = URL.createObjectURL(file);
 
-            const image = document.createElement('img');
+            // Preview in form card
+            const card = document.createElement('div');
+            card.className = 'image-preview-card';
 
-            image.src = URL.createObjectURL(file);
+            const img = document.createElement('img');
+            img.src = objectUrl;
 
-            image.onload = function () {
+            const badge = document.createElement('span');
+            badge.className = 'image-preview-badge';
+            badge.textContent = 'Cover';
 
-                URL.revokeObjectURL(image.src);
+            card.appendChild(img);
+            card.appendChild(badge);
+            coverPreview.appendChild(card);
 
-            };
-
-            coverPreview.appendChild(image);
-
+            // Live Storefront Card Preview
+            livePreviewImg.src = objectUrl;
+            livePreviewImg.style.display = 'block';
+            previewPlaceholder.style.display = 'none';
+        } else {
+            livePreviewImg.style.display = 'none';
+            previewPlaceholder.style.display = 'block';
         }
-
     });
-
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | GALLERY IMAGE PREVIEW
-    |--------------------------------------------------------------------------
-    */
 
     const galleryInput = document.getElementById('gallery_images');
-
     const galleryPreview = document.getElementById('galleryPreview');
 
-
     galleryInput.addEventListener('change', function () {
-
         galleryPreview.innerHTML = '';
+        Array.from(this.files).forEach(function (file, idx) {
+            const card = document.createElement('div');
+            card.className = 'image-preview-card';
 
-        Array.from(this.files).forEach(function (file) {
-
-            const image = document.createElement('img');
-
-            image.src = URL.createObjectURL(file);
-
-            image.onload = function () {
-
-                URL.revokeObjectURL(image.src);
-
+            const img = document.createElement('img');
+            img.src = URL.createObjectURL(file);
+            img.onload = function () {
+                URL.revokeObjectURL(img.src);
             };
 
-            galleryPreview.appendChild(image);
+            const badge = document.createElement('span');
+            badge.className = 'image-preview-badge';
+            badge.textContent = '#' + (idx + 1);
 
+            card.appendChild(img);
+            card.appendChild(badge);
+            galleryPreview.appendChild(card);
         });
-
     });
-
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | OFFER FIELDS
-    |--------------------------------------------------------------------------
-    */
-
-    const offerStatus = document.getElementById('offer_status');
-
-    const offerFields = document.querySelectorAll('.offer-fields');
-
-
-    function toggleOfferFields() {
-
-        offerFields.forEach(function (field) {
-
-            field.style.display = offerStatus.checked ? 'block' : 'none';
-
-        });
-
-    }
-
-
-    offerStatus.addEventListener('change', toggleOfferFields);
-
-    toggleOfferFields();
-
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | PRODUCT TYPE
-    |--------------------------------------------------------------------------
-    */
-
-    const productType = document.getElementById('product_type');
-
-    const variantSection = document.getElementById('variantTableBody')
-        .closest('.card');
-
-
-    function toggleVariants() {
-
-        if (productType.value === 'variable') {
-
-            variantSection.style.display = 'block';
-
-        } else {
-
-            variantSection.style.display = 'none';
-
-        }
-
-    }
-
-
-    productType.addEventListener('change', toggleVariants);
-
-    toggleVariants();
-
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | OFFER PRICE VALIDATION
-    |--------------------------------------------------------------------------
-    */
-
-    const sellingPrice = document.getElementById('selling_price');
-
-    const offerPrice = document.getElementById('offer_price');
-
-
-    offerPrice.addEventListener('input', function () {
-
-        const selling = parseFloat(sellingPrice.value);
-
-        const offer = parseFloat(offerPrice.value);
-
-
-        if (!isNaN(selling) && !isNaN(offer) && offer > selling) {
-
-            offerPrice.setCustomValidity(
-                'Offer price must be less than or equal to selling price.'
-            );
-
-        } else {
-
-            offerPrice.setCustomValidity('');
-
-        }
-
-    });
-
-
-    sellingPrice.addEventListener('input', function () {
-
-        offerPrice.dispatchEvent(new Event('input'));
-
-    });
-
 
 
     /*
@@ -1789,43 +1497,38 @@ document.addEventListener('DOMContentLoaded', function () {
     | FORM VALIDATION
     |--------------------------------------------------------------------------
     */
-
     const form = document.getElementById('productCreateForm');
 
+    offerPriceInput.addEventListener('input', function () {
+        const selling = parseFloat(sellingPriceInput.value);
+        const offer = parseFloat(offerPriceInput.value);
+
+        if (!isNaN(selling) && !isNaN(offer) && offer > selling) {
+            offerPriceInput.setCustomValidity('Offer price cannot be greater than selling price.');
+        } else {
+            offerPriceInput.setCustomValidity('');
+        }
+    });
 
     form.addEventListener('submit', function (event) {
-
         if (!form.checkValidity()) {
-
             event.preventDefault();
-
             form.reportValidity();
-
             return false;
-
         }
 
-        const selling = parseFloat(sellingPrice.value);
+        const selling = parseFloat(sellingPriceInput.value);
+        const offer = parseFloat(offerPriceInput.value);
 
-        const offer = parseFloat(offerPrice.value);
-
-
-        if (offerPrice.value !== '' && offer > selling) {
-
+        if (offerPriceInput.value !== '' && offer > selling) {
             event.preventDefault();
-
             alert('Offer price cannot be greater than selling price.');
-
-            offerPrice.focus();
-
+            offerPriceInput.focus();
             return false;
-
         }
-
     });
 
 });
-
 </script>
 
 @endsection
