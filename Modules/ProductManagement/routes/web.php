@@ -52,6 +52,16 @@ Route::middleware('auth')->group(function () {
     // =============== brand =========================================================================
     Route::get('/brands', [BrandController::class, 'index'])
         ->name('productmanagement.brands');
+    Route::get('/brands/data', [BrandController::class, 'data'])
+        ->name('productmanagement.brands.data');
+    Route::get('/brands/edit/{id}', [BrandController::class, 'edit'])
+        ->name('productmanagement.brands.edit');
+    Route::post('/brands/store', [BrandController::class, 'store'])
+        ->name('productmanagement.brands.store');
+    Route::post('/brands/update/{id}', [BrandController::class, 'update'])
+        ->name('productmanagement.brands.update');
+    Route::post('/brands/delete/{id}', [BrandController::class, 'destroy'])
+        ->name('productmanagement.brands.destroy');
 
     // =====================================================================================================
 

@@ -3,7 +3,11 @@
 namespace Modules\ProductManagement\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Storage;
+use Modules\ProductManagement\Http\Requests\BrandRequest;
+use Modules\ProductManagement\Models\Brand;
+use Yajra\DataTables\Facades\DataTables;
 
 class BrandController extends Controller
 {
@@ -16,41 +20,132 @@ class BrandController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * DataTable data source for brands.
      */
-    public function create()
+    public function data()
     {
-        return view('productmanagement::create');
+        $query = Brand::query()
+            ->select(['id', 'name_en', 'name_ar', 'image', 'is_delete', 'created_at'])
+            ->where('is_delete', 0);
+
+        return DataTables::eloquent($query)
+            ->addColumn('image_preview', function (Brand $brand): string {
+                return $this->imagePreview($brand->image, $brand->name_en);
+            })
+            ->addColumn('actions', function (Brand $brand): string {
+                return $this->actionButtons($brand->id, $brand->name_en);
+            })
+            ->rawColumns(['image_preview', 'actions'])
+            ->toJson();
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created brand in storage.
      */
-    public function store(Request $request) {}
-
-    /**
-     * Show the specified resource.
-     */
-    public function show($id)
+    public function store(BrandRequest $request): JsonResponse
     {
-        return view('productmanagement::show');
+        $validated = $request->validated();
+
+        if ($request->hasFile('image')) {
+            $validated['image'] = $request->file('image')->store('brands', 'public');
+        }
+
+        $brand = Brand::create($validated);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Brand created successfully.',
+            'id' => $brand->id,
+        ], 201);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Get the specified brand as JSON for editing.
      */
-    public function edit($id)
+    public function edit($id): JsonResponse
     {
-        return view('productmanagement::edit');
+        $brand = Brand::where('id', $id)->where('is_delete', 0)->firstOrFail();
+
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'id' => $brand->id,
+                'name_en' => $brand->name_en,
+                'name_ar' => $brand->name_ar,
+                'image' => $brand->image,
+                'is_delete' => $brand->is_delete,
+                'image_url' => $brand->image ? Storage::disk('public')->url($brand->image) : null,
+            ],
+        ]);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified brand in storage.
      */
-    public function update(Request $request, $id) {}
+    public function update(BrandRequest $request, $id): JsonResponse
+    {
+        $brand = Brand::where('id', $id)->where('is_delete', 0)->firstOrFail();
+        $validated = $request->validated();
+
+        if ($request->hasFile('image')) {
+            if ($brand->image && Storage::disk('public')->exists($brand->image)) {
+                Storage::disk('public')->delete($brand->image);
+            }
+
+            $validated['image'] = $request->file('image')->store('brands', 'public');
+        }
+
+        $brand->update($validated);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Brand updated successfully.',
+            'id' => $brand->id,
+        ]);
+    }
 
     /**
-     * Remove the specified resource from storage.
+     * Soft delete the specified brand by setting is_delete to 1.
      */
-    public function destroy($id) {}
+    public function destroy($id): JsonResponse
+    {
+        $brand = Brand::where('id', $id)->where('is_delete', 0)->firstOrFail();
+        $brand->update(['is_delete' => 1]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Brand deleted successfully.',
+        ]);
+    }
+
+    /**
+     * Build the brand image thumbnail column.
+     */
+    private function imagePreview(?string $image, ?string $name): string
+    {
+        if (! $image) {
+            return '<span class="text-muted">-</span>';
+        }
+
+        $url = Storage::disk('public')->url($image);
+
+        return '<img src="'.e($url).'" alt="'.e($name ?? '').'" class="rounded" style="width: 40px; height: 40px; object-fit: cover;">';
+    }
+
+    /**
+     * Build the brand action buttons column.
+     */
+    private function actionButtons(int $id, ?string $name): string
+    {
+        return '
+            <div class="d-inline-flex align-items-center gap-1">
+                <button type="button" class="btn btn-sm btn-icon rounded-pill edit-brand-btn" data-id="'.$id.'" title="Edit" style="color: #2b76ff !important;">
+                    <i class="ti ti-pencil fs-5" style="color: #2b76ff !important;"></i>
+                </button>
+                <button type="button" class="btn btn-sm btn-icon rounded-pill delete-brand-btn" data-id="'.$id.'" data-name="'.e($name ?? '').'" title="Delete" style="color: #ea5455 !important;">
+                    <i class="ti ti-trash fs-5" style="color: #ea5455 !important;"></i>
+                </button>
+            </div>
+        ';
+    }
 }
