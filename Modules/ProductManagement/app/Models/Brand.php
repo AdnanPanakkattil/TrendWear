@@ -2,10 +2,13 @@
 
 namespace Modules\ProductManagement\Models;
 
+use App\Traits\HasMedia;
 use Illuminate\Database\Eloquent\Model;
 
 class Brand extends Model
 {
+    use HasMedia;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -14,7 +17,6 @@ class Brand extends Model
     protected $fillable = [
         'name_en',
         'name_ar',
-        'image',
         'is_delete',
     ];
 }

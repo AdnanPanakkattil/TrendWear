@@ -4,7 +4,7 @@ namespace Modules\ProductManagement\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Arr;
 use Modules\ProductManagement\Http\Requests\SubCategoryRequest;
 use Modules\ProductManagement\Models\Category;
 use Modules\ProductManagement\Models\SubCategory;
@@ -30,15 +30,18 @@ class SubCategoriesController extends Controller
     public function data()
     {
         $query = SubCategory::query()
-            ->with('category:id,name_en')
-            ->select(['id', 'category_id', 'name_en', 'name_ar', 'image', 'created_at']);
+            ->with([
+                'category:id,name_en',
+                'mediaFile:id,mediable_type,mediable_id,disk,path',
+            ])
+            ->select(['id', 'category_id', 'name_en', 'name_ar', 'created_at']);
 
         return DataTables::eloquent($query)
             ->addColumn('category_name', function (SubCategory $subCategory): string {
                 return e($subCategory->category?->name_en ?? '-');
             })
             ->addColumn('image_preview', function (SubCategory $subCategory): string {
-                return $this->imagePreview($subCategory->image, $subCategory->name_en);
+                return $this->imagePreview($subCategory->mediaFile?->url, $subCategory->name_en);
             })
             ->addColumn('actions', function (SubCategory $subCategory): string {
                 return $this->actionButtons($subCategory->id, $subCategory->name_en);
@@ -52,13 +55,12 @@ class SubCategoriesController extends Controller
      */
     public function store(SubCategoryRequest $request): JsonResponse
     {
-        $validated = $request->validated();
+        $validated = Arr::except($request->validated(), ['image']);
+        $subCategory = SubCategory::create($validated);
 
         if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('sub_categories', 'public');
+            $subCategory->syncMediaFile($request->file('image'), 'sub_categories');
         }
-
-        $subCategory = SubCategory::create($validated);
 
         return response()->json([
             'success' => true,
@@ -72,7 +74,7 @@ class SubCategoriesController extends Controller
      */
     public function edit($id): JsonResponse
     {
-        $subCategory = SubCategory::findOrFail($id);
+        $subCategory = SubCategory::with('mediaFile')->findOrFail($id);
 
         return response()->json([
             'success' => true,
@@ -81,8 +83,8 @@ class SubCategoriesController extends Controller
                 'category_id' => $subCategory->category_id,
                 'name_en' => $subCategory->name_en,
                 'name_ar' => $subCategory->name_ar,
-                'image' => $subCategory->image,
-                'image_url' => $subCategory->image ? Storage::disk('public')->url($subCategory->image) : null,
+                'image' => $subCategory->mediaFile?->path,
+                'image_url' => $subCategory->mediaFile?->url,
             ],
         ]);
     }
@@ -93,17 +95,13 @@ class SubCategoriesController extends Controller
     public function update(SubCategoryRequest $request, $id): JsonResponse
     {
         $subCategory = SubCategory::findOrFail($id);
-        $validated = $request->validated();
-
-        if ($request->hasFile('image')) {
-            if ($subCategory->image && Storage::disk('public')->exists($subCategory->image)) {
-                Storage::disk('public')->delete($subCategory->image);
-            }
-
-            $validated['image'] = $request->file('image')->store('sub_categories', 'public');
-        }
+        $validated = Arr::except($request->validated(), ['image']);
 
         $subCategory->update($validated);
+
+        if ($request->hasFile('image')) {
+            $subCategory->syncMediaFile($request->file('image'), 'sub_categories');
+        }
 
         return response()->json([
             'success' => true,
@@ -129,15 +127,13 @@ class SubCategoriesController extends Controller
     /**
      * Build the sub category image thumbnail column.
      */
-    private function imagePreview(?string $image, ?string $name): string
+    private function imagePreview(?string $imageUrl, ?string $name): string
     {
-        if (! $image) {
+        if (! $imageUrl) {
             return '<span class="text-muted">-</span>';
         }
 
-        $url = Storage::disk('public')->url($image);
-
-        return '<img src="'.e($url).'" alt="'.e($name ?? '').'" class="rounded" style="width: 40px; height: 40px; object-fit: cover;">';
+        return '<img src="'.e($imageUrl).'" alt="'.e($name ?? '').'" class="rounded" style="width: 40px; height: 40px; object-fit: cover;">';
     }
 
     /**

@@ -2,13 +2,14 @@
 
 namespace Modules\ProductManagement\Models;
 
+use App\Traits\HasMedia;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends Model
 {
-    use SoftDeletes;
+    use HasMedia, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -18,7 +19,6 @@ class Category extends Model
     protected $fillable = [
         'name_en',
         'name_ar',
-        'image',
     ];
 
     /**

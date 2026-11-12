@@ -4,7 +4,7 @@ namespace Modules\ProductManagement\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Arr;
 use Modules\ProductManagement\Http\Requests\CategoryRequest;
 use Modules\ProductManagement\Models\Category;
 use Yajra\DataTables\Facades\DataTables;
@@ -25,11 +25,12 @@ class CategoriesController extends Controller
     public function data()
     {
         $query = Category::query()
-            ->select(['id', 'name_en', 'name_ar', 'image', 'created_at']);
+            ->with('mediaFile:id,mediable_type,mediable_id,disk,path')
+            ->select(['id', 'name_en', 'name_ar', 'created_at']);
 
         return DataTables::eloquent($query)
             ->addColumn('image_preview', function (Category $category): string {
-                return $this->imagePreview($category->image, $category->name_en);
+                return $this->imagePreview($category->mediaFile?->url, $category->name_en);
             })
             ->addColumn('actions', function (Category $category): string {
                 return $this->actionButtons($category->id, $category->name_en);
@@ -43,13 +44,12 @@ class CategoriesController extends Controller
      */
     public function store(CategoryRequest $request): JsonResponse
     {
-        $validated = $request->validated();
+        $validated = Arr::except($request->validated(), ['image']);
+        $category = Category::create($validated);
 
         if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('categories', 'public');
+            $category->syncMediaFile($request->file('image'), 'categories');
         }
-
-        $category = Category::create($validated);
 
         return response()->json([
             'success' => true,
@@ -63,7 +63,7 @@ class CategoriesController extends Controller
      */
     public function edit($id): JsonResponse
     {
-        $category = Category::findOrFail($id);
+        $category = Category::with('mediaFile')->findOrFail($id);
 
         return response()->json([
             'success' => true,
@@ -71,8 +71,8 @@ class CategoriesController extends Controller
                 'id' => $category->id,
                 'name_en' => $category->name_en,
                 'name_ar' => $category->name_ar,
-                'image' => $category->image,
-                'image_url' => $category->image ? Storage::disk('public')->url($category->image) : null,
+                'image' => $category->mediaFile?->path,
+                'image_url' => $category->mediaFile?->url,
             ],
         ]);
     }
@@ -83,17 +83,13 @@ class CategoriesController extends Controller
     public function update(CategoryRequest $request, $id): JsonResponse
     {
         $category = Category::findOrFail($id);
-        $validated = $request->validated();
-
-        if ($request->hasFile('image')) {
-            if ($category->image && Storage::disk('public')->exists($category->image)) {
-                Storage::disk('public')->delete($category->image);
-            }
-
-            $validated['image'] = $request->file('image')->store('categories', 'public');
-        }
+        $validated = Arr::except($request->validated(), ['image']);
 
         $category->update($validated);
+
+        if ($request->hasFile('image')) {
+            $category->syncMediaFile($request->file('image'), 'categories');
+        }
 
         return response()->json([
             'success' => true,
@@ -119,15 +115,13 @@ class CategoriesController extends Controller
     /**
      * Build the category image thumbnail column.
      */
-    private function imagePreview(?string $image, ?string $name): string
+    private function imagePreview(?string $imageUrl, ?string $name): string
     {
-        if (! $image) {
+        if (! $imageUrl) {
             return '<span class="text-muted">-</span>';
         }
 
-        $url = Storage::disk('public')->url($image);
-
-        return '<img src="'.e($url).'" alt="'.e($name ?? '').'" class="rounded" style="width: 40px; height: 40px; object-fit: cover;">';
+        return '<img src="'.e($imageUrl).'" alt="'.e($name ?? '').'" class="rounded" style="width: 40px; height: 40px; object-fit: cover;">';
     }
 
     /**

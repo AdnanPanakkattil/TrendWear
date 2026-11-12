@@ -4,7 +4,7 @@ namespace Modules\ProductManagement\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Arr;
 use Modules\ProductManagement\Http\Requests\BrandRequest;
 use Modules\ProductManagement\Models\Brand;
 use Yajra\DataTables\Facades\DataTables;
@@ -25,12 +25,13 @@ class BrandController extends Controller
     public function data()
     {
         $query = Brand::query()
-            ->select(['id', 'name_en', 'name_ar', 'image', 'is_delete', 'created_at'])
+            ->with('mediaFile:id,mediable_type,mediable_id,disk,path')
+            ->select(['id', 'name_en', 'name_ar', 'is_delete', 'created_at'])
             ->where('is_delete', 0);
 
         return DataTables::eloquent($query)
             ->addColumn('image_preview', function (Brand $brand): string {
-                return $this->imagePreview($brand->image, $brand->name_en);
+                return $this->imagePreview($brand->mediaFile?->url, $brand->name_en);
             })
             ->addColumn('actions', function (Brand $brand): string {
                 return $this->actionButtons($brand->id, $brand->name_en);
@@ -44,13 +45,12 @@ class BrandController extends Controller
      */
     public function store(BrandRequest $request): JsonResponse
     {
-        $validated = $request->validated();
+        $validated = Arr::except($request->validated(), ['image']);
+        $brand = Brand::create($validated);
 
         if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('brands', 'public');
+            $brand->syncMediaFile($request->file('image'), 'brands');
         }
-
-        $brand = Brand::create($validated);
 
         return response()->json([
             'success' => true,
@@ -64,7 +64,10 @@ class BrandController extends Controller
      */
     public function edit($id): JsonResponse
     {
-        $brand = Brand::where('id', $id)->where('is_delete', 0)->firstOrFail();
+        $brand = Brand::with('mediaFile')
+            ->where('id', $id)
+            ->where('is_delete', 0)
+            ->firstOrFail();
 
         return response()->json([
             'success' => true,
@@ -72,9 +75,9 @@ class BrandController extends Controller
                 'id' => $brand->id,
                 'name_en' => $brand->name_en,
                 'name_ar' => $brand->name_ar,
-                'image' => $brand->image,
+                'image' => $brand->mediaFile?->path,
                 'is_delete' => $brand->is_delete,
-                'image_url' => $brand->image ? Storage::disk('public')->url($brand->image) : null,
+                'image_url' => $brand->mediaFile?->url,
             ],
         ]);
     }
@@ -85,17 +88,13 @@ class BrandController extends Controller
     public function update(BrandRequest $request, $id): JsonResponse
     {
         $brand = Brand::where('id', $id)->where('is_delete', 0)->firstOrFail();
-        $validated = $request->validated();
-
-        if ($request->hasFile('image')) {
-            if ($brand->image && Storage::disk('public')->exists($brand->image)) {
-                Storage::disk('public')->delete($brand->image);
-            }
-
-            $validated['image'] = $request->file('image')->store('brands', 'public');
-        }
+        $validated = Arr::except($request->validated(), ['image']);
 
         $brand->update($validated);
+
+        if ($request->hasFile('image')) {
+            $brand->syncMediaFile($request->file('image'), 'brands');
+        }
 
         return response()->json([
             'success' => true,
@@ -121,15 +120,13 @@ class BrandController extends Controller
     /**
      * Build the brand image thumbnail column.
      */
-    private function imagePreview(?string $image, ?string $name): string
+    private function imagePreview(?string $imageUrl, ?string $name): string
     {
-        if (! $image) {
+        if (! $imageUrl) {
             return '<span class="text-muted">-</span>';
         }
 
-        $url = Storage::disk('public')->url($image);
-
-        return '<img src="'.e($url).'" alt="'.e($name ?? '').'" class="rounded" style="width: 40px; height: 40px; object-fit: cover;">';
+        return '<img src="'.e($imageUrl).'" alt="'.e($name ?? '').'" class="rounded" style="width: 40px; height: 40px; object-fit: cover;">';
     }
 
     /**

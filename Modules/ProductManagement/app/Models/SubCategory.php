@@ -2,13 +2,14 @@
 
 namespace Modules\ProductManagement\Models;
 
+use App\Traits\HasMedia;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SubCategory extends Model
 {
-    use SoftDeletes;
+    use HasMedia, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -19,7 +20,6 @@ class SubCategory extends Model
         'category_id',
         'name_en',
         'name_ar',
-        'image',
     ];
 
     /**
