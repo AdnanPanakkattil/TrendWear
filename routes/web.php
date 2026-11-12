@@ -20,6 +20,7 @@ Route::get('/backend/login', fn () => redirect()->route('login'))->name('backend
 // Protected backend routes
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [BackendController::class, 'index'])->name('backend.dashboard');
+    Route::get('/profile', [BackendController::class, 'profile'])->name('backend.profile');
     Route::post('/dashboard/theme-color', [ThemeSettingsController::class, 'update'])->name('backend.theme-color.update');
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 });

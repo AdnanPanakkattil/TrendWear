@@ -403,7 +403,7 @@
         </a>
         <ul class="dropdown-menu dropdown-menu-end">
           <li>
-            <a class="dropdown-item mt-0" href="pages-account-settings-account.html">
+            <a class="dropdown-item mt-0" href="{{ route('backend.profile') }}">
               <div class="d-flex align-items-center">
                 <div class="flex-shrink-0 me-2">
                   <div class="avatar avatar-online">
@@ -421,7 +421,7 @@
             <div class="dropdown-divider my-1 mx-n2"></div>
           </li>
           <li>
-            <a class="dropdown-item" href="javascript:void(0);">
+            <a class="dropdown-item" href="{{ route('backend.profile') }}">
               <i class="ti ti-user me-3 ti-md"></i><span class="align-middle">My Profile</span>
             </a>
           </li>
