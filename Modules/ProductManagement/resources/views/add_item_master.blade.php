@@ -72,8 +72,8 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        background: rgba(255, 111, 76, 0.12);
-        color: #ff6f4c;
+        background: rgba(var(--tw-primary-rgb), 0.12);
+        color: var(--tw-primary);
         font-size: 1.15rem;
         flex-shrink: 0;
     }
@@ -89,8 +89,8 @@
         font-weight: 600;
         padding: 4px 10px;
         border-radius: 999px;
-        background: rgba(255, 111, 76, 0.1);
-        color: #ff6f4c;
+        background: rgba(var(--tw-primary-rgb), 0.12);
+        color: var(--tw-primary);
         white-space: nowrap;
     }
 
@@ -116,9 +116,9 @@
 
     .item-dropzone.dropzone:hover,
     .item-dropzone.dropzone.dz-drag-hover {
-        border-color: #ff6f4c !important;
-        background: linear-gradient(180deg, #fff8f6 0%, #fff2ee 100%) !important;
-        box-shadow: 0 6px 20px rgba(255, 111, 76, 0.12);
+        border-color: var(--tw-primary) !important;
+        background: linear-gradient(180deg, rgba(var(--tw-primary-rgb), 0.04) 0%, rgba(var(--tw-primary-rgb), 0.08) 100%) !important;
+        box-shadow: 0 6px 20px rgba(var(--tw-primary-rgb), 0.12);
     }
 
     .item-dropzone .dz-message {
@@ -137,7 +137,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #ff6f4c;
+        color: var(--tw-primary);
         font-size: 1.5rem;
         transition: transform 0.2s ease;
     }

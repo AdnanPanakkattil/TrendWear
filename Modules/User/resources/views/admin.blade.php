@@ -191,13 +191,13 @@
 @push('styles')
 <style>
     .status-toggle:checked {
-        background-color: #ff5722 !important;
-        border-color: #ff5722 !important;
+        background-color: var(--tw-primary) !important;
+        border-color: var(--tw-primary) !important;
     }
 
     .status-toggle:focus {
-        border-color: #ff5722 !important;
-        box-shadow: 0 0 0 0.2rem rgba(255, 87, 34, 0.25) !important;
+        border-color: var(--tw-primary) !important;
+        box-shadow: 0 0 0 0.2rem rgba(var(--tw-primary-rgb), 0.25) !important;
     }
 </style>
 @endpush

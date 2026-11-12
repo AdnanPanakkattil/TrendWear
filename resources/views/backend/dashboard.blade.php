@@ -176,8 +176,8 @@
 
                 <!-- Location Pins -->
                 <!-- Canada -->
-                <circle cx="165" cy="115" r="4.5" fill="#ff5722" />
-                <circle cx="165" cy="115" r="9" fill="#ff5722" opacity="0.25" />
+                <circle cx="165" cy="115" r="4.5" fill="var(--tw-primary)" />
+                <circle cx="165" cy="115" r="9" fill="var(--tw-primary)" opacity="0.25" />
                 <text x="178" y="119" font-size="11" font-weight="600">Canada</text>
 
                 <!-- Greenland -->
@@ -186,8 +186,8 @@
                 <text x="353" y="69" font-size="11" font-weight="600">Greenland</text>
 
                 <!-- Russia -->
-                <circle cx="610" cy="95" r="4.5" fill="#e64a19" />
-                <circle cx="610" cy="95" r="9" fill="#e64a19" opacity="0.25" />
+                <circle cx="610" cy="95" r="4.5" fill="var(--tw-primary-dark)" />
+                <circle cx="610" cy="95" r="9" fill="var(--tw-primary-dark)" opacity="0.25" />
                 <text x="623" y="99" font-size="11" font-weight="600">Russia</text>
 
                 <!-- Palestine -->
@@ -225,7 +225,7 @@
                   <span class="fw-bold">82%</span>
                 </div>
                 <div class="progress" style="height: 5px;">
-                  <div class="progress-bar" role="progressbar" style="width: 82%; background-color: #e64a19;" aria-valuenow="82" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="progress-bar" role="progressbar" style="width: 82%; background-color: var(--tw-primary-dark);" aria-valuenow="82" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
               </div>
             </div>
@@ -1061,7 +1061,7 @@
             stops: [0, 100, 100, 100]
           }
         },
-        colors: ['#ff5722', '#0ab39c', '#f06548'],
+        colors: [getComputedStyle(document.documentElement).getPropertyValue('--tw-primary').trim() || '#ff5722', '#0ab39c', '#f06548'],
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
         markers: {
           size: [0, 0, 0]
@@ -1123,7 +1123,7 @@
           fontFamily: 'inherit',
           foreColor: isDark ? '#8285a0' : '#878a99'
         },
-        colors: ['#ff5722', '#0ab39c', '#f7b84b', '#f06548', '#299cdb'],
+        colors: [getComputedStyle(document.documentElement).getPropertyValue('--tw-primary').trim() || '#ff5722', '#0ab39c', '#f7b84b', '#f06548', '#299cdb'],
         dataLabels: {
           enabled: false
         },
@@ -1194,6 +1194,20 @@
     observer.observe(document.documentElement, {
       attributes: true,
       attributeFilter: ['class', 'data-style']
+    });
+
+    document.addEventListener('tw:theme-color-changed', function (e) {
+      var primary = (e.detail && e.detail.primary) ? e.detail.primary : '#ff5722';
+      if (revenueChart) {
+        revenueChart.updateOptions({
+          colors: [primary, '#0ab39c', '#f06548']
+        });
+      }
+      if (donutChart) {
+        donutChart.updateOptions({
+          colors: [primary, '#0ab39c', '#f7b84b', '#f06548', '#299cdb']
+        });
+      }
     });
   });
 </script>

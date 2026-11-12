@@ -70,7 +70,31 @@
   <link rel="stylesheet" href="{{ asset('assets/vendor/libs/flatpickr/flatpickr.css')}}" />
 
   @stack('styles')
-  <link rel="stylesheet" href="{{ asset('assets/css/trendwear-admin.css') }}" />
+  <link rel="stylesheet" href="{{ asset('assets/css/trendwear-admin.css') }}?v={{ filemtime(public_path('assets/css/trendwear-admin.css')) }}" />
+  @php
+    $userThemePalette = \App\Models\User::resolveThemePalette(auth()->user()?->theme_color);
+  @endphp
+  <style id="tw-user-theme-vars">
+    :root,
+    html:not(.dark-style),
+    [data-style="light"] {
+      --tw-primary: {{ $userThemePalette['primary'] }};
+      --tw-primary-dark: {{ $userThemePalette['primary_dark'] }};
+      --tw-primary-rgb: {{ $userThemePalette['primary_rgb'] }};
+      --tw-primary-light: rgba({{ $userThemePalette['primary_rgb'] }}, 0.12);
+      --bs-primary: {{ $userThemePalette['primary'] }};
+      --bs-primary-rgb: {{ $userThemePalette['primary_rgb'] }};
+    }
+    html.dark-style,
+    [data-style="dark"] {
+      --tw-primary: {{ $userThemePalette['primary'] }};
+      --tw-primary-dark: {{ $userThemePalette['primary_dark'] }};
+      --tw-primary-rgb: {{ $userThemePalette['primary_rgb'] }};
+      --tw-primary-light: rgba({{ $userThemePalette['primary_rgb'] }}, 0.15) !important;
+      --bs-primary: {{ $userThemePalette['primary'] }};
+      --bs-primary-rgb: {{ $userThemePalette['primary_rgb'] }};
+    }
+  </style>
 </head>
 
 <body>
@@ -144,6 +168,16 @@
   <script src="{{ asset('assets/vendor/libs/sweetalert2/sweetalert2.js')}}"></script>
   <script src="{{ asset('assets/js/extended-ui-sweetalert2.js')}}"></script>
   <script src="{{ asset('assets/vendor/libs/flatpickr/flatpickr.js') }}"></script>
+
+  <script>
+    window.TrendWearThemeConfig = {
+      defaultColor: @json(\App\Models\User::DEFAULT_THEME_COLOR),
+      currentColor: @json($userThemePalette['primary']),
+      presets: @json(\App\Models\User::THEME_COLOR_PRESETS),
+      saveUrl: @json(route('backend.theme-color.update'))
+    };
+  </script>
+  <script src="{{ asset('assets/js/theme-color-customizer.js') }}?v={{ filemtime(public_path('assets/js/theme-color-customizer.js')) }}"></script>
 
   @stack('scripts')
 </body>

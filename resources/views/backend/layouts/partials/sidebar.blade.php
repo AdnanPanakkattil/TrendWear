@@ -2,8 +2,11 @@
   <div class="app-brand demo">
     <a href="{{ route('backend.dashboard') }}" class="app-brand-link">
       <span class="app-brand-logo demo">
-        <img src="{{ asset('assets/img/logo-img/logo2.png') }}" alt="TrendWear Logo"
-          style="height: 52px; width: auto; object-fit: contain; vertical-align: middle;">
+        <svg class="tw-brand-logo-svg" viewBox="0 0 568 372" fill="currentColor" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="TrendWear Logo"
+          style="height: 26px; width: auto; color: var(--tw-primary); vertical-align: middle; transition: color 0.15s ease;">
+          <path d="M2 0 L287 0 L302 10 L309 24 L326 68 L145 70 L172 103 L179 117 L180 327 L177 371 L118 328 L111 315 L111 70 L39 69 L31 66 L24 59 L3 12 Z" />
+          <path d="M503 98 L566 98 L567 102 L463 360 L452 366 L418 366 L407 360 L349 244 L298 355 L284 366 L271 363 L263 352 L200 191 L201 133 L237 131 L247 139 L284 234 L328 139 L340 131 L360 134 L370 145 L426 258 L481 117 L489 106 Z" />
+        </svg>
       </span>
       <span class="app-brand-text demo menu-text fw-bold" style="vertical-align: middle;">Trend wear</span>
     </a>

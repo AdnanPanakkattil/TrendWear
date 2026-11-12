@@ -3,6 +3,7 @@
 use App\Http\Controllers\BackendController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ThemeSettingsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('index');
@@ -19,5 +20,6 @@ Route::get('/backend/login', fn () => redirect()->route('login'))->name('backend
 // Protected backend routes
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [BackendController::class, 'index'])->name('backend.dashboard');
+    Route::post('/dashboard/theme-color', [ThemeSettingsController::class, 'update'])->name('backend.theme-color.update');
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 });
