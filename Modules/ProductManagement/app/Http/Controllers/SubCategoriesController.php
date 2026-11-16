@@ -141,14 +141,23 @@ class SubCategoriesController extends Controller
      */
     private function actionButtons(int $id, ?string $name): string
     {
+        $safeName = e($name ?? 'this subcategory');
+
         return '
-            <div class="d-inline-flex align-items-center gap-1">
-                <button type="button" class="btn btn-sm btn-icon rounded-pill edit-subcategory-btn" data-id="'.$id.'" title="Edit" style="color: #2b76ff !important;">
-                    <i class="ti ti-pencil fs-5" style="color: #2b76ff !important;"></i>
+            <div class="dropdown table-action-dropdown d-inline-block">
+                <button type="button" class="btn btn-sm btn-icon btn-text-secondary rounded-pill dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false" title="Actions">
+                    <i class="ti ti-dots-vertical fs-5"></i>
                 </button>
-                <button type="button" class="btn btn-sm btn-icon rounded-pill delete-subcategory-btn" data-id="'.$id.'" data-name="'.e($name ?? '').'" title="Delete" style="color: #ea5455 !important;">
-                    <i class="ti ti-trash fs-5" style="color: #ea5455 !important;"></i>
-                </button>
+                <div class="dropdown-menu dropdown-menu-end m-0 shadow-sm border">
+                    <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center py-2 edit-subcategory-btn" data-id="'.$id.'">
+                        <i class="ti ti-pencil me-2 text-primary fs-5"></i>
+                        <span>Edit</span>
+                    </a>
+                    <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center py-2 text-danger delete-subcategory-btn" data-id="'.$id.'" data-name="'.$safeName.'">
+                        <i class="ti ti-trash me-2 text-danger fs-5"></i>
+                        <span>Delete</span>
+                    </a>
+                </div>
             </div>
         ';
     }

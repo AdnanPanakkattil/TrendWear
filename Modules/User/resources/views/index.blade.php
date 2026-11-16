@@ -1,21 +1,6 @@
 @extends('backend.layouts.backendLayout')
 @section('content')
 
-<style>
-.edit-user-btn, .edit-user-btn i {
-    color: #2b76ff !important;
-}
-.edit-user-btn:hover {
-    background-color: rgba(43, 118, 255, 0.12) !important;
-}
-.delete-user-btn, .delete-user-btn i {
-    color: #ea5455 !important;
-}
-.delete-user-btn:hover {
-    background-color: rgba(234, 84, 85, 0.12) !important;
-}
-</style>
-
 <div class="col-md-12" style="zoom: 85% !important">
     <div class="card h-100" style="overflow: hidden;">
         <div class="card-header d-flex justify-content-between">
