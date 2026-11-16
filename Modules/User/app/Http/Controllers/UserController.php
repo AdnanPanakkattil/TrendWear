@@ -104,7 +104,7 @@ class UserController extends Controller
     /**
      * DataTable data source for users
      */
-    public function data()
+    public function data(Request $request)
     {
         $query = User::query()
             ->select([
@@ -118,6 +118,14 @@ class UserController extends Controller
                 'joined_date',
             ])
             ->where('is_delete', 0);
+
+        if ($request->filled('role')) {
+            $query->where('role', $request->role);
+        }
+
+        if ($request->has('status') && $request->input('status') !== null && $request->input('status') !== '') {
+            $query->where('active', (int) $request->input('status'));
+        }
 
         return DataTables::eloquent($query)
             ->addColumn('actions', function ($row) {

@@ -1477,3 +1477,172 @@ div.dataTables_processing > div:last-child > div {
   color: var(--tw-text-muted);
   text-transform: uppercase;
 }
+
+/* ==========================================================
+   10. UNIVERSAL TRENDWEAR SELECT BOX COMPONENT (.tw-select)
+   Reusable across the entire application for any <select>
+   ========================================================== */
+.tw-select,
+.tw-select-box,
+select.form-select.tw-select {
+  height: 38px;
+  min-height: 38px;
+  padding: 0.45rem 2.25rem 0.45rem 0.85rem;
+  font-size: 0.9rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--tw-text-title);
+  background-color: var(--tw-card-bg);
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238285a0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 15px 15px;
+  border: 1px solid var(--tw-border-color, #dbdade);
+  border-radius: 0.375rem;
+  box-shadow: none;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  cursor: pointer;
+}
+
+.tw-select:focus,
+.tw-select-box:focus,
+select.form-select.tw-select:focus {
+  border-color: var(--tw-primary) !important;
+  box-shadow: 0 0 0 0.2rem rgba(var(--tw-primary-rgb), 0.15) !important;
+  outline: none;
+}
+
+/* Select2 Container Overrides for .tw-select */
+.tw-select-wrapper {
+  width: 100%;
+}
+
+.tw-select-wrapper .select2-container {
+  width: 100% !important;
+  display: block !important;
+}
+
+.tw-select-wrapper .select2-container .select2-selection--single {
+  height: 38px !important;
+  min-height: 38px !important;
+  border: 1px solid var(--tw-border-color, #dbdade) !important;
+  border-radius: 0.375rem !important;
+  background-color: var(--tw-card-bg) !important;
+  display: flex !important;
+  align-items: center !important;
+  padding: 0 0.85rem !important;
+  box-shadow: none !important;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !important;
+  cursor: pointer;
+}
+
+.tw-select-wrapper .select2-container .select2-selection--single .select2-selection__rendered {
+  padding-left: 0 !important;
+  padding-right: 1.75rem !important;
+  line-height: 36px !important;
+  color: var(--tw-text-title) !important;
+  font-size: 0.9rem !important;
+  font-weight: 400 !important;
+}
+
+.tw-select-wrapper .select2-container .select2-selection--single .select2-selection__arrow {
+  height: 36px !important;
+  right: 8px !important;
+  width: 20px !important;
+  top: 0 !important;
+  position: absolute !important;
+}
+
+.tw-select-wrapper .select2-container .select2-selection--single .select2-selection__arrow b {
+  border: none !important;
+  width: 15px !important;
+  height: 15px !important;
+  top: 50% !important;
+  left: 50% !important;
+  margin: 0 !important;
+  transform: translate(-50%, -50%) !important;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238285a0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  transition: transform 0.2s ease !important;
+}
+
+.tw-select-wrapper .select2-container--open .select2-selection--single .select2-selection__arrow b {
+  transform: translate(-50%, -50%) rotate(180deg) !important;
+}
+
+.tw-select-wrapper .select2-container--open .select2-selection--single,
+.tw-select-wrapper .select2-container--focus .select2-selection--single {
+  border-color: var(--tw-primary) !important;
+  box-shadow: 0 0 0 0.2rem rgba(var(--tw-primary-rgb), 0.15) !important;
+}
+
+/* Select2 Dropdown Popup */
+.tw-select-wrapper .select2-dropdown {
+  border: 1px solid var(--tw-border-color, #edf0f5) !important;
+  border-radius: 0.5rem !important;
+  background-color: var(--tw-card-bg) !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.04) !important;
+  margin-top: 4px !important;
+  overflow: hidden !important;
+  z-index: 1065 !important;
+}
+
+.tw-select-wrapper .select2-results__options {
+  padding: 6px !important;
+  max-height: 250px !important;
+}
+
+.tw-select-wrapper .select2-results__option {
+  padding: 8px 12px !important;
+  font-size: 0.88rem !important;
+  border-radius: 0.375rem !important;
+  color: var(--tw-text-body) !important;
+  margin-bottom: 2px !important;
+  transition: background-color 0.15s ease, color 0.15s ease !important;
+}
+
+.tw-select-wrapper .select2-results__option--highlighted[aria-selected] {
+  background-color: var(--tw-primary) !important;
+  color: #ffffff !important;
+}
+
+.tw-select-wrapper .select2-results__option[aria-selected="true"] {
+  background-color: rgba(var(--tw-primary-rgb), 0.12) !important;
+  color: var(--tw-primary) !important;
+  font-weight: 600 !important;
+}
+
+/* Dark style adaptations */
+html.dark-style .tw-select,
+html.dark-style .tw-select-box,
+html.dark-style select.form-select.tw-select {
+  background-color: var(--tw-input-bg, #2f3349) !important;
+  border-color: var(--tw-border-color, #434968) !important;
+  color: var(--tw-text-title, #cfcce4) !important;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b2b1cb' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+}
+
+html.dark-style .tw-select-wrapper .select2-container .select2-selection--single {
+  background-color: var(--tw-input-bg, #2f3349) !important;
+  border-color: var(--tw-border-color, #434968) !important;
+}
+
+html.dark-style .tw-select-wrapper .select2-container .select2-selection--single .select2-selection__rendered {
+  color: var(--tw-text-title, #cfcce4) !important;
+}
+
+html.dark-style .tw-select-wrapper .select2-dropdown {
+  background-color: #2f3349 !important;
+  border-color: #434968 !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4) !important;
+}
+
+html.dark-style .tw-select-wrapper .select2-results__option {
+  color: #b2b1cb !important;
+}
+
+html.dark-style .tw-select-wrapper .select2-container .select2-selection--single .select2-selection__arrow b {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b2b1cb' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") !important;
+}

@@ -28,7 +28,7 @@
                     <div class="row">
 
                         <div class="col">
-                            <div class="d-flex align-items-center">
+                            <div class="d-flex align-items-center role-filter-trigger" data-role="" style="cursor: pointer;" title="Show All Users">
                                 <div class="badge rounded bg-label-success me-4 p-3">
                                     <i class="fa-solid fa-users"></i>
                                 </div>
@@ -40,7 +40,7 @@
                         </div>
 
                         <div class="col">
-                            <div class="d-flex align-items-center">
+                            <div class="d-flex align-items-center role-filter-trigger" data-role="super_admin" style="cursor: pointer;" title="Filter Super Admins">
                                 <div class="badge rounded bg-label-warning me-4 p-3">
                                     <i class="fa-solid fa-user-shield fa-lg"></i>
                                 </div>
@@ -52,7 +52,7 @@
                         </div>
 
                         <div class="col">
-                            <div class="d-flex align-items-center">
+                            <div class="d-flex align-items-center role-filter-trigger" data-role="admin" style="cursor: pointer;" title="Filter Admins">
                                 <div class="badge rounded bg-label-danger me-4 p-3">
                                     <i class="fa-solid fa-user-tie fa-lg"></i>
                                 </div>
@@ -65,7 +65,7 @@
                         </div>
 
                         <div class="col">
-                            <div class="d-flex align-items-center">
+                            <div class="d-flex align-items-center role-filter-trigger" data-role="staff" style="cursor: pointer;" title="Filter Staff">
                                 <div class="badge rounded bg-label-info me-4 p-3">
                                     <i class="fa-solid fa-user-gear fa-lg"></i>
                                 </div>
@@ -78,7 +78,7 @@
                         </div>
 
                         <div class="col">
-                            <div class="d-flex align-items-center">
+                            <div class="d-flex align-items-center role-filter-trigger" data-role="customer" style="cursor: pointer;" title="Filter Customers">
                                 <div class="badge rounded bg-label-primary me-4 p-3">
                                     <i class="fa-solid fa-user fa-lg"></i>
                                 </div>
@@ -105,44 +105,44 @@
         </div>
 
         <div class="card" style="zoom: 80%;">
-            <div class="card-body">
-                <div class="col-12 divhead p-0 d-flex justify-content-between align-items-center mb-3">
+            <div class="card-body pb-0">
+                <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4">
+                    <div class="d-flex flex-wrap align-items-end gap-3 flex-grow-1">
+                        <div style="min-width: 220px; max-width: 280px;" class="flex-grow-1">
+                            <label class="form-label fw-semibold mb-1" for="filter_role">
+                                <i class="ti ti-shield me-1"></i>Role
+                            </label>
+                            <select id="filter_role" class="form-select tw-select">
+                                <option value="">All Roles</option>
+                                <option value="super_admin">Super Admin</option>
+                                <option value="admin">Admin</option>
+                                <option value="staff">Staff</option>
+                                <option value="inventory_manager">Inventory Manager</option>
+                                <option value="customer">Customer</option>
+                            </select>
+                        </div>
 
-                    <button class="btn btn-primary me-5 mb-4 " type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                        filter<i class="menu-icon tf-icons ti ti-filter me-0 ms-2"></i>
-                    </button>
-
-                    <button type="button"
-                        class="btn btn-primary"
-                        data-bs-toggle="offcanvas"
-                        data-bs-target="#offcanvasAddUser"
-                        aria-controls="offcanvasAddUser">
-
-                        <i class="ti ti-user-plus me-1"></i>
-                        Add User
-                    </button>
-
-                </div>
-                <div class="mb-2">
+                        <div style="min-width: 200px; max-width: 260px;" class="flex-grow-1">
+                            <label class="form-label fw-semibold mb-1" for="filter_status">
+                                <i class="ti ti-activity me-1"></i>Status
+                            </label>
+                            <select id="filter_status" class="form-select tw-select">
+                                <option value="">All Status</option>
+                                <option value="1">Active</option>
+                                <option value="0">Inactive</option>
+                            </select>
+                        </div>
+                    </div>
 
                     <div>
-                        <form class="dt_adv_search" method="GET">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="collapse" id="collapseExample">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <div class="row g-3 align-items-end">
-
-                                                    filter
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
+                        <button type="button"
+                            class="btn btn-primary"
+                            data-bs-toggle="offcanvas"
+                            data-bs-target="#offcanvasAddUser"
+                            aria-controls="offcanvasAddUser">
+                            <i class="ti ti-user-plus me-1"></i>
+                            Add User
+                        </button>
                     </div>
                 </div>
             </div>

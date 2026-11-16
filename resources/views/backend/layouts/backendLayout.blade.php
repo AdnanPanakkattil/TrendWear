@@ -68,6 +68,7 @@
 
   <link rel="stylesheet" href="{{ asset('assets/vendor/libs/sweetalert2/sweetalert2.css')}}" />
   <link rel="stylesheet" href="{{ asset('assets/vendor/libs/flatpickr/flatpickr.css')}}" />
+  <link rel="stylesheet" href="{{ asset('assets/vendor/libs/select2/select2.css')}}" />
 
   @stack('styles')
   <link rel="stylesheet" href="{{ asset('assets/css/trendwear-admin.css') }}?v={{ filemtime(public_path('assets/css/trendwear-admin.css')) }}" />
@@ -168,6 +169,43 @@
   <script src="{{ asset('assets/vendor/libs/sweetalert2/sweetalert2.js')}}"></script>
   <script src="{{ asset('assets/js/extended-ui-sweetalert2.js')}}"></script>
   <script src="{{ asset('assets/vendor/libs/flatpickr/flatpickr.js') }}"></script>
+  <script src="{{ asset('assets/vendor/libs/select2/select2.js') }}"></script>
+
+  <script>
+    // Global TrendWear Selectbox (.tw-select) auto-initializer
+    window.initTwSelect = function (context) {
+      if (typeof $.fn.select2 === 'undefined') return;
+      var $ctx = context ? $(context) : $(document);
+      $ctx.find('select.tw-select, select.tw-select-box').each(function () {
+        var $el = $(this);
+        if ($el.hasClass('select2-hidden-accessible')) return;
+
+        var hasSearch = $el.data('search') === true || $el.data('search') === 'true';
+        var placeholder = $el.data('placeholder') || '';
+
+        if (!$el.parent().hasClass('tw-select-wrapper')) {
+          $el.wrap('<div class="position-relative tw-select-wrapper"></div>');
+        }
+
+        var select2Config = {
+          minimumResultsForSearch: hasSearch ? 0 : Infinity,
+          dropdownParent: $el.closest('.tw-select-wrapper'),
+          width: '100%'
+        };
+
+        if (placeholder) {
+          select2Config.placeholder = placeholder;
+          select2Config.allowClear = $el.data('allow-clear') === true;
+        }
+
+        $el.select2(select2Config);
+      });
+    };
+
+    $(document).ready(function () {
+      window.initTwSelect();
+    });
+  </script>
 
   <script>
     window.TrendWearThemeConfig = {

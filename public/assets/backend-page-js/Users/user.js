@@ -12,7 +12,11 @@ $(document).ready(function () {
         serverSide: true,
         ajax: {
             url: '/users/data',
-            type: 'GET'
+            type: 'GET',
+            data: function (d) {
+                d.role = $('#filter_role').val();
+                d.status = $('#filter_status').val();
+            }
         },
         columns: [
             { data: 'id', name: 'id' },
@@ -68,6 +72,19 @@ $(document).ready(function () {
                 defaultContent: '-'
             }
         ]
+    });
+
+    // --------------------------------------------------------------------
+    // User Filters (Role and Active/Inactive Status)
+    // --------------------------------------------------------------------
+    $('#filter_role, #filter_status').on('change', function () {
+        userTable.draw();
+    });
+
+    // Quick filter from overview stat cards
+    $(document).on('click', '.role-filter-trigger', function () {
+        const role = $(this).data('role') || '';
+        $('#filter_role').val(role).trigger('change');
     });
 
     // Delete user handler with SweetAlert2 (Soft delete with is_delete = 1)
