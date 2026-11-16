@@ -55,7 +55,27 @@ class CategoriesController extends Controller
             'success' => true,
             'message' => 'Category created successfully.',
             'id' => $category->id,
+            'data' => [
+                'id' => $category->id,
+                'name_en' => $category->name_en,
+                'name_ar' => $category->name_ar,
+            ],
         ], 201);
+    }
+
+    /**
+     * Get all categories as JSON.
+     */
+    public function list(): JsonResponse
+    {
+        $categories = Category::with(['subCategories' => function ($query) {
+            $query->orderBy('name_en');
+        }])->orderBy('name_en')->get(['id', 'name_en', 'name_ar']);
+
+        return response()->json([
+            'success' => true,
+            'data' => $categories,
+        ]);
     }
 
     /**

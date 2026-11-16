@@ -18,22 +18,17 @@
 
         <div class="card shadow-sm border-0">
             <div class="card-datatable table-responsive p-3">
-                <table class="dt-advanced-search table table-hover item-master-table" id="lab_items_table">
+                <table class="dt-advanced-search table table-hover item-master-table" id="item_master_table">
                     <thead class="table-light">
                         <tr>
                             <th>#</th>
+                            <th>Image</th>
                             <th>SKU / Code</th>
                             <th>Product Name</th>
                             <th>Category</th>
                             <th>Subcategory</th>
-                            <th>Brand</th>
-                            <th>Cost Price</th>
-                            <th>Selling Price</th>
-                            <th>Offer Price</th>
-                            <th>Stock</th>
+                            <th>Min Retail Price</th>
                             <th>Status</th>
-                            <th>Featured</th>
-                            <th>New Arrival</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -41,18 +36,13 @@
                     <tfoot>
                         <tr>
                             <th>#</th>
+                            <th>Image</th>
                             <th>SKU / Code</th>
                             <th>Product Name</th>
                             <th>Category</th>
                             <th>Subcategory</th>
-                            <th>Brand</th>
-                            <th>Cost Price</th>
-                            <th>Selling Price</th>
-                            <th>Offer Price</th>
-                            <th>Stock</th>
+                            <th>Min Retail Price</th>
                             <th>Status</th>
-                            <th>Featured</th>
-                            <th>New Arrival</th>
                             <th>Actions</th>
                         </tr>
                     </tfoot>

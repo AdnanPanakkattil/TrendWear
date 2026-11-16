@@ -66,7 +66,28 @@ class SubCategoriesController extends Controller
             'success' => true,
             'message' => 'Sub category created successfully.',
             'id' => $subCategory->id,
+            'data' => [
+                'id' => $subCategory->id,
+                'category_id' => $subCategory->category_id,
+                'name_en' => $subCategory->name_en,
+                'name_ar' => $subCategory->name_ar,
+            ],
         ], 201);
+    }
+
+    /**
+     * Get sub categories by category id.
+     */
+    public function getByCategory($categoryId): JsonResponse
+    {
+        $subCategories = SubCategory::where('category_id', $categoryId)
+            ->orderBy('name_en')
+            ->get(['id', 'category_id', 'name_en', 'name_ar']);
+
+        return response()->json([
+            'success' => true,
+            'data' => $subCategories,
+        ]);
     }
 
     /**

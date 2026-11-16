@@ -11,15 +11,28 @@ Route::middleware('auth')->group(function () {
     // =============== item master =========================================================================
     Route::get('/item_master', [ItemMasterController::class, 'index'])
         ->name('productmanagement.item_master');
-
+    Route::get('/item_master/data', [ItemMasterController::class, 'data'])
+        ->name('productmanagement.item_master.data');
     Route::get('/add_item_master', [ItemMasterController::class, 'create'])
         ->name('productmanagement.add_item_master');
+    Route::post('/item_master/store', [ItemMasterController::class, 'store'])
+        ->name('productmanagement.item_master.store');
+    Route::get('/item_master/edit/{id}', [ItemMasterController::class, 'edit'])
+        ->name('productmanagement.item_master.edit');
+    Route::post('/item_master/update/{id}', [ItemMasterController::class, 'update'])
+        ->name('productmanagement.item_master.update');
+    Route::post('/item_master/delete/{id}', [ItemMasterController::class, 'destroy'])
+        ->name('productmanagement.item_master.destroy');
+    Route::post('/item_master/{id}/media/delete/{mediaId}', [ItemMasterController::class, 'deleteMedia'])
+        ->name('productmanagement.item_master.media.delete');
 
     // =====================================================================================================
 
     // =============== categories =========================================================================
     Route::get('/categories', [CategoriesController::class, 'index'])
         ->name('productmanagement.categories');
+    Route::get('/categories/list', [CategoriesController::class, 'list'])
+        ->name('productmanagement.categories.list');
     Route::get('/categories/data', [CategoriesController::class, 'data'])
         ->name('productmanagement.categories.data');
     Route::get('/categories/edit/{id}', [CategoriesController::class, 'edit'])
@@ -36,6 +49,8 @@ Route::middleware('auth')->group(function () {
     // =============== Sub categories =========================================================================
     Route::get('/sub_categories', [SubCategoriesController::class, 'index'])
         ->name('productmanagement.sub_categories');
+    Route::get('/sub_categories/by-category/{categoryId}', [SubCategoriesController::class, 'getByCategory'])
+        ->name('productmanagement.sub_categories.by_category');
     Route::get('/sub_categories/data', [SubCategoriesController::class, 'data'])
         ->name('productmanagement.sub_categories.data');
     Route::get('/sub_categories/edit/{id}', [SubCategoriesController::class, 'edit'])
