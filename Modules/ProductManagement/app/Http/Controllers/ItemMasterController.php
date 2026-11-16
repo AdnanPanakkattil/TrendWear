@@ -262,10 +262,10 @@ class ItemMasterController extends Controller
     private function imagePreview(?string $imageUrl, ?string $name): string
     {
         if (! $imageUrl) {
-            return '<div class="avatar avatar-sm"><span class="avatar-initial rounded bg-label-secondary"><i class="ti ti-photo"></i></span></div>';
+            return '<span class="text-muted">-</span>';
         }
 
-        return '<img src="'.e($imageUrl).'" alt="'.e($name ?? '').'" class="rounded" style="width: 44px; height: 44px; object-fit: cover;">';
+        return '<img src="'.e($imageUrl).'" alt="'.e($name ?? '').'" class="rounded" style="width: 40px; height: 40px; object-fit: cover;">';
     }
 
     /**
