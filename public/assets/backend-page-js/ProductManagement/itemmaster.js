@@ -5,7 +5,7 @@ $(document).ready(function () {
         },
     });
 
-    const itemMasterTable = $('#item_master_table').DataTable({
+    const itemMasterTable = $('#ItemMaster_table').DataTable({
         processing: true,
         serverSide: true,
         ajax: {
@@ -14,16 +14,13 @@ $(document).ready(function () {
         },
         columns: [
             { data: 'id', name: 'id' },
-            { data: 'image_preview', name: 'image_preview', orderable: false, searchable: false },
-            { data: 'sku_code', name: 'sku' },
+            { data: 'category_name', name: 'category_name', orderable: false, searchable: false },
+            { data: 'sub_category_name', name: 'sub_category_name', orderable: false, searchable: false },
             { data: 'name_en', name: 'name_en' },
-            { data: 'category_name', name: 'category.name_en', defaultContent: '-' },
-            { data: 'sub_category_name', name: 'subCategory.name_en', defaultContent: '-' },
-            { data: 'formatted_price', name: 'min_retail_price' },
-            { data: 'status_badge', name: 'ecommerce_status' },
+            { data: 'name_ar', name: 'name_ar', defaultContent: '-' },
+            { data: 'image_preview', name: 'image_preview', orderable: false, searchable: false, defaultContent: '-' },
             { data: 'actions', name: 'actions', orderable: false, searchable: false },
         ],
-        order: [[0, 'desc']],
     });
 
     $(document).on('click', '.delete-itemmaster-btn', function () {
@@ -32,7 +29,7 @@ $(document).ready(function () {
 
         Swal.fire({
             title: 'Are you sure?',
-            text: 'Do you want to delete "' + itemName + '"?',
+            text: 'You will not be able to recover "' + itemName + '"!',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonText: 'Yes, delete it!',
