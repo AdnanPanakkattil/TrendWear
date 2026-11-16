@@ -71,7 +71,12 @@ $(document).ready(function () {
                 searchable: false,
                 defaultContent: '-'
             }
-        ]
+        ],
+        initComplete: function () {
+            if (window.initTwSelect) {
+                window.initTwSelect($('#Users_table').closest('.card-datatable, .dataTables_wrapper'));
+            }
+        }
     });
 
     // --------------------------------------------------------------------

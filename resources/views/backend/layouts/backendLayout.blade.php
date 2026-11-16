@@ -176,7 +176,7 @@
     window.initTwSelect = function (context) {
       if (typeof $.fn.select2 === 'undefined') return;
       var $ctx = context ? $(context) : $(document);
-      $ctx.find('select.tw-select, select.tw-select-box').each(function () {
+      $ctx.find('select.tw-select, select.tw-select-box, .dataTables_length select').each(function () {
         var $el = $(this);
         if ($el.hasClass('select2-hidden-accessible')) return;
 
@@ -184,7 +184,7 @@
         var placeholder = $el.data('placeholder') || '';
 
         if (!$el.parent().hasClass('tw-select-wrapper')) {
-          $el.wrap('<div class="position-relative tw-select-wrapper"></div>');
+          $el.wrap('<div class="position-relative tw-select-wrapper d-inline-block"></div>');
         }
 
         var select2Config = {
@@ -204,6 +204,14 @@
 
     $(document).ready(function () {
       window.initTwSelect();
+    });
+
+    // Auto-apply to any DataTables length dropdown whenever a DataTable initializes
+    $(document).on('init.dt', function (e, settings) {
+      if (window.initTwSelect) {
+        var api = new $.fn.dataTable.Api(settings);
+        window.initTwSelect($(api.table().container()));
+      }
     });
   </script>
 
