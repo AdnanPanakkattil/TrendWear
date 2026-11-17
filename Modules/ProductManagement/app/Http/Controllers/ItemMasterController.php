@@ -10,6 +10,7 @@ use Modules\ProductManagement\Http\Requests\ItemMasterRequest;
 use Modules\ProductManagement\Models\Brand;
 use Modules\ProductManagement\Models\Category;
 use Modules\ProductManagement\Models\ItemMaster;
+use Modules\ProductManagement\Models\Size;
 use Yajra\DataTables\Facades\DataTables;
 
 class ItemMasterController extends Controller
@@ -48,7 +49,6 @@ class ItemMasterController extends Controller
                 'offer_price',
                 'min_retail_price',
                 'min_qty',
-                'ecommerce_status',
                 'offer_product_status',
                 'best_selling_status',
                 'featured_product',
@@ -104,15 +104,10 @@ class ItemMasterController extends Controller
 
                 return number_format((float) $item->min_retail_price, 2);
             })
-            ->addColumn('status_badge', function (ItemMaster $item): string {
-                return $item->ecommerce_status
-                    ? '<span class="badge bg-label-success">Active</span>'
-                    : '<span class="badge bg-label-secondary">Inactive</span>';
-            })
             ->addColumn('actions', function (ItemMaster $item): string {
                 return $this->actionButtons($item->id, $item->name_en);
             })
-            ->rawColumns(['image_preview', 'sku_code', 'status_badge', 'offer_price_formatted', 'featured_switch', 'actions'])
+            ->rawColumns(['image_preview', 'sku_code', 'offer_price_formatted', 'featured_switch', 'actions'])
             ->toJson();
     }
 
@@ -127,7 +122,9 @@ class ItemMasterController extends Controller
 
         $brands = Brand::where('is_delete', 0)->orderBy('name_en')->get();
 
-        return view('productmanagement::add_item_master', compact('categories', 'brands'));
+        $nextItemCode = ItemMaster::generateNextItemCode();
+
+        return view('productmanagement::add_item_master', compact('categories', 'brands', 'nextItemCode'));
     }
 
     /**
@@ -136,6 +133,13 @@ class ItemMasterController extends Controller
     public function store(ItemMasterRequest $request): JsonResponse
     {
         $payload = $this->mapPayload($request);
+
+        $requestedCode = $request->input('itemcodeId', $request->input('item_code'));
+        if (empty($requestedCode) || is_numeric($requestedCode)) {
+            $payload['item_code'] = ItemMaster::generateNextItemCode();
+        } else {
+            $payload['item_code'] = $requestedCode;
+        }
 
         $itemMaster = ItemMaster::create($payload);
 
@@ -186,7 +190,17 @@ class ItemMasterController extends Controller
 
         $brands = Brand::where('is_delete', 0)->orderBy('name_en')->get();
 
-        return view('productmanagement::add_item_master', compact('itemMaster', 'categories', 'brands'));
+        $availableSizes = collect();
+        if ($itemMaster->category_id) {
+            $availableSizes = Size::query()
+                ->where('category_id', $itemMaster->category_id)
+                ->where('is_delete', 0)
+                ->where('status', 1)
+                ->orderBy('id')
+                ->get();
+        }
+
+        return view('productmanagement::add_item_master', compact('itemMaster', 'categories', 'brands', 'availableSizes'));
     }
 
     /**
@@ -197,6 +211,7 @@ class ItemMasterController extends Controller
         $itemMaster = ItemMaster::findOrFail($id);
 
         $payload = $this->mapPayload($request);
+        $payload['item_code'] = $itemMaster->item_code ?? ItemMaster::generateNextItemCode();
 
         $itemMaster->update($payload);
 
@@ -286,6 +301,15 @@ class ItemMasterController extends Controller
     {
         $offerEnabled = $request->boolean('offer_product_status');
 
+        $sizeInput = $request->input('size');
+        if (is_string($sizeInput)) {
+            $decoded = json_decode($sizeInput, true);
+            $sizeInput = is_array($decoded) ? $decoded : explode(',', $sizeInput);
+        }
+        $sizeIds = ! empty($sizeInput)
+            ? array_values(array_filter(array_map('intval', (array) $sizeInput)))
+            : null;
+
         return [
             'sku' => $request->input('sku'),
             'item_code' => $request->input('itemcodeId', $request->input('item_code')),
@@ -295,6 +319,7 @@ class ItemMasterController extends Controller
             'category_id' => $request->filled('category_id') ? $request->input('category_id') : null,
             'sub_category_id' => $request->filled('sub_category_id') ? $request->input('sub_category_id') : null,
             'brand_id' => $request->filled('brand_id') ? $request->input('brand_id') : ($request->filled('brand') ? $request->input('brand') : null),
+            'size' => $sizeIds,
             'cost_price' => $request->filled('cost_price') ? $request->input('cost_price') : null,
             'selling_price' => $request->filled('selling_price') ? $request->input('selling_price') : null,
             'offer_price' => $offerEnabled && $request->filled('offer_price') ? $request->input('offer_price') : null,
@@ -309,7 +334,6 @@ class ItemMasterController extends Controller
             'tests' => $request->input('itemTests', $request->input('tests')),
             'sample' => $request->input('itemSample', $request->input('sample')),
             'results' => $request->input('itemResults', $request->input('results')),
-            'ecommerce_status' => $request->boolean('ecommerce_status'),
             'offer_product_status' => $offerEnabled,
             'best_selling_status' => $request->boolean('best_selling_status'),
             'featured_product' => $request->boolean('featured_product'),

@@ -86,6 +86,8 @@ Route::middleware('auth')->group(function () {
     // =============== size management =====================================================================
     Route::get('/sizes', [SizeController::class, 'index'])
         ->name('productmanagement.sizes');
+    Route::get('/sizes/by-category/{categoryId}', [SizeController::class, 'getByCategory'])
+        ->name('productmanagement.sizes.by_category');
     Route::get('/sizes/edit/{id}', [SizeController::class, 'edit'])
         ->name('productmanagement.sizes.edit');
     Route::post('/sizes/store', [SizeController::class, 'store'])

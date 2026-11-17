@@ -88,6 +88,24 @@ class SizeController extends Controller
     }
 
     /**
+     * Get active sizes by category id.
+     */
+    public function getByCategory($categoryId): JsonResponse
+    {
+        $sizes = Size::query()
+            ->where('category_id', $categoryId)
+            ->where('is_delete', 0)
+            ->where('status', 1)
+            ->orderBy('id')
+            ->get(['id', 'name', 'code', 'category_id']);
+
+        return response()->json([
+            'success' => true,
+            'data' => $sizes,
+        ]);
+    }
+
+    /**
      * Get the specified size as JSON for editing.
      */
     public function edit($id): JsonResponse

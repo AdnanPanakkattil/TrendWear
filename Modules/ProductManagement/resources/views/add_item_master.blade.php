@@ -52,30 +52,8 @@
 
                                     <hr class="mt-0 mb-6 custom-line">
 
-                                    <div class="d-flex flex-wrap flex-column flex-sm-row justify-content-between text-heading">
-                                        <!-- SKU -->
-                                        <div class="col-md-5 pe-0 ps-0 ps-md-2">
-                                            <dl class="row mb-0 align-items-center">
-                                                <dt class="col-sm-2 mb-2 d-flex align-items-center justify-content-end text-end">
-                                                    <span class="h5 mb-0 text-nowrap">
-                                                        SKU
-                                                    </span>
-                                                </dt>
-
-                                                <dd class="col-sm-7 mb-0 ps-1">
-                                                    <input type="text"
-                                                        name="sku"
-                                                        id="sku"
-                                                        class="form-control"
-                                                        placeholder=""
-                                                        value="{{ old('sku', $itemMaster->sku ?? '') }}">
-
-                                                    <small id="skuError" class="text-danger d-none">
-                                                        SKU Required
-                                                    </small>
-                                                </dd>
-                                            </dl>
-                                        </div>
+                                    <div class="d-flex flex-wrap flex-column flex-sm-row justify-content-end text-heading">
+                                        <input type="hidden" name="sku" id="sku" value="{{ old('sku', $itemMaster->sku ?? '') }}">
 
                                         <div class="col-md-5 pe-0 ps-0 ps-md-2">
                                             <dl class="row mb-0">
@@ -86,7 +64,15 @@
                                                 </dt>
                                                 <dd class="col-sm-7">
                                                     <div class="input-group input-group-merge">
-                                                        <input type="text" class="form-control" id="itemcodeId" name="itemcodeId" value="{{ old('itemcodeId', $itemMaster->item_code ?? '') }}">
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            id="itemcodeId"
+                                                            name="itemcodeId"
+                                                            value="{{ old('itemcodeId', isset($itemMaster) ? ($itemMaster->item_code ?? '') : ($nextItemCode ?? '1')) }}"
+                                                            readonly
+                                                            tabindex="-1"
+                                                            style="background-color: #f8f9fa; cursor: not-allowed;">
                                                     </div>
                                                 </dd>
                                             </dl>
@@ -308,23 +294,7 @@
                                     </div>
 
                                     <div class="row mb-5">
-                                        <div class="col-md-3 mb-5">
-                                            <label class="form-label labez"> E-Commerce Status</label>
-                                            <div class="form-check form-switch">
-                                                <input class="form-check-input"
-                                                    type="checkbox"
-                                                    id="ecommerce_status"
-                                                    name="ecommerce_status"
-                                                    value="1"
-                                                    {{ old('ecommerce_status', $itemMaster->ecommerce_status ?? true) ? 'checked' : '' }}>
-
-                                                <label class="form-check-label" for="ecommerce_status">
-                                                    Active / Inactive
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-3 mb-5">
+                                        <div class="col-md-4 mb-5">
                                             <label class="form-label labez">Offer Product</label>
                                             <div class="form-check form-switch">
                                                 <input class="form-check-input"
@@ -339,7 +309,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-3 mb-5">
+                                        <div class="col-md-4 mb-5">
                                             <label class="form-label labez">Best Selling Status</label>
                                             <div class="form-check form-switch">
                                                 <input class="form-check-input"
@@ -354,7 +324,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-3 mb-5">
+                                        <div class="col-md-4 mb-5">
                                             <label class="form-label labez">Featured Product</label>
                                             <div class="form-check form-switch">
                                                 <input class="form-check-input"
@@ -422,6 +392,43 @@
 
                                     </div>
 
+                                    <div class="row mb-5" id="sizes_section">
+                                        <div class="col-12">
+                                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                                <label class="form-label labez mb-0">Select Sizes</label>
+                                                <small class="text-muted d-none" id="sizes_loading_indicator">
+                                                    <span class="spinner-border spinner-border-sm me-1 text-primary"></span> Loading sizes...
+                                                </small>
+                                            </div>
+                                            <div id="sizes_container" class="d-flex flex-wrap gap-2 align-items-center">
+                                                @php
+                                                    $selectedSizeIds = old('size', $itemMaster->size ?? []);
+                                                    if (!is_array($selectedSizeIds)) {
+                                                        $selectedSizeIds = $selectedSizeIds ? [(int)$selectedSizeIds] : [];
+                                                    } else {
+                                                        $selectedSizeIds = array_values(array_filter(array_map('intval', $selectedSizeIds)));
+                                                    }
+                                                @endphp
+                                                @if(isset($availableSizes) && $availableSizes->count() > 0)
+                                                    @foreach($availableSizes as $size)
+                                                        @php
+                                                            $isChecked = in_array((int)$size->id, $selectedSizeIds, true);
+                                                        @endphp
+                                                        <label class="size-pill-option {{ $isChecked ? 'active' : '' }}" data-size-id="{{ $size->id }}" title="{{ $size->name }} ({{ $size->code }})">
+                                                            <input type="checkbox" name="size[]" value="{{ $size->id }}" class="size-checkbox d-none" {{ $isChecked ? 'checked' : '' }}>
+                                                            <span class="size-code-text">{{ $size->code }}</span>
+                                                        </label>
+                                                    @endforeach
+                                                @else
+                                                    <div class="text-muted small no-sizes-msg">
+                                                        {{ isset($itemMaster) && $itemMaster->category_id ? 'No sizes found for this category.' : 'Select a category to view sizes' }}
+                                                    </div>
+                                                @endif
+                                            </div>
+                                            <span class="text-danger size_error error-text mt-1 d-block"></span>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -480,7 +487,7 @@
                                     <div class="item-image-card__header">
                                         <div class="item-image-card__title-wrap">
                                             <span class="item-image-card__icon">
-                                                <i class="ti ti-photos"></i>
+                                                <i class="ti ti-photo"></i>
                                             </span>
                                             <div>
                                                 <h5 class="mb-0 card-title primarycol labez">Sub Images</h5>
@@ -762,9 +769,11 @@
         categories: @json($categories ?? []),
         initialCategoryId: @json(old('category_id', $itemMaster->category_id ?? '')),
         initialSubCategoryId: @json(old('sub_category_id', $itemMaster->sub_category_id ?? '')),
+        initialSizeIds: @json($selectedSizeIds ?? []),
         routes: {
             categoriesStore: @json(route('productmanagement.categories.store')),
             subCategoriesStore: @json(route('productmanagement.sub_categories.store')),
+            sizesByCategory: "{{ url('/sizes/by-category') }}",
             itemMasterStore: @json(route('productmanagement.item_master.store')),
             itemMasterIndex: @json(route('productmanagement.item_master')),
         }

@@ -35,6 +35,7 @@ class ItemMaster extends Model
         'category_id',
         'sub_category_id',
         'brand_id',
+        'size',
         'cost_price',
         'selling_price',
         'offer_price',
@@ -49,7 +50,6 @@ class ItemMaster extends Model
         'tests',
         'sample',
         'results',
-        'ecommerce_status',
         'offer_product_status',
         'best_selling_status',
         'featured_product',
@@ -63,7 +63,6 @@ class ItemMaster extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'ecommerce_status' => 'boolean',
         'offer_product_status' => 'boolean',
         'best_selling_status' => 'boolean',
         'featured_product' => 'boolean',
@@ -73,6 +72,7 @@ class ItemMaster extends Model
         'cost_price' => 'decimal:2',
         'selling_price' => 'decimal:2',
         'offer_price' => 'decimal:2',
+        'size' => 'array',
     ];
 
     /**
@@ -137,5 +137,24 @@ class ItemMaster extends Model
     public function getMasterImageUrlAttribute(): ?string
     {
         return $this->masterImage?->url ?? $this->mediaFile?->url;
+    }
+
+    /**
+     * Generate the next sequential numeric item code.
+     */
+    public static function generateNextItemCode(): string
+    {
+        $allCodes = static::withTrashed()
+            ->whereNotNull('item_code')
+            ->pluck('item_code');
+
+        $max = 0;
+        foreach ($allCodes as $code) {
+            if (is_numeric($code) && (int) $code > $max) {
+                $max = (int) $code;
+            }
+        }
+
+        return (string) ($max + 1);
     }
 }

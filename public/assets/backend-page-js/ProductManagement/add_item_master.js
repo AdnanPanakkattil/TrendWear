@@ -99,13 +99,87 @@ $(document).ready(function () {
         }
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Sizes Dynamic Rendering based on Category
+    |--------------------------------------------------------------------------
+    */
+    const initialSizeIds = Array.isArray(config.initialSizeIds)
+        ? config.initialSizeIds.map(id => Number(id))
+        : [];
+
+    function updateCategorySizes(categoryId, preSelectedIds = []) {
+        const $container = $('#sizes_container');
+        const $loader = $('#sizes_loading_indicator');
+
+        if (!categoryId) {
+            $loader.addClass('d-none');
+            $container.html('<div class="text-muted fst-italic no-sizes-msg">Select a category to view sizes</div>');
+            return;
+        }
+
+        $loader.removeClass('d-none');
+
+        const baseUrl = routes.sizesByCategory || '/sizes/by-category';
+        const url = baseUrl.replace(/\/+$/, '') + '/' + categoryId;
+
+        $.ajax({
+            url: url,
+            type: 'GET',
+            dataType: 'json',
+            success: function (res) {
+                $loader.addClass('d-none');
+                if (res.success && Array.isArray(res.data) && res.data.length > 0) {
+                    let html = '';
+                    res.data.forEach(function (size) {
+                        const sizeIdNum = Number(size.id);
+                        const isChecked = preSelectedIds.includes(sizeIdNum) || preSelectedIds.includes(String(size.id));
+                        const activeClass = isChecked ? ' active' : '';
+                        const checkedAttr = isChecked ? ' checked' : '';
+                        const titleAttr = size.name ? ` title="${$('<div>').text(size.name + (size.code ? ' (' + size.code + ')' : '')).html()}"` : '';
+                        const codeDisplay = $('<div>').text(size.code || size.name).html();
+
+                        html += `
+                            <label class="size-pill-option${activeClass}" data-size-id="${size.id}"${titleAttr}>
+                                <input type="checkbox" name="size[]" value="${size.id}" class="size-checkbox d-none"${checkedAttr}>
+                                <span class="size-code-text">${codeDisplay}</span>
+                            </label>
+                        `;
+                    });
+                    $container.html(html);
+                } else {
+                    $container.html('<div class="text-muted fst-italic no-sizes-msg">No sizes found for this category.</div>');
+                }
+            },
+            error: function () {
+                $loader.addClass('d-none');
+                $container.html('<div class="text-danger fst-italic no-sizes-msg">Failed to load sizes for this category.</div>');
+            }
+        });
+    }
+
+    // Toggle active class on size checkbox change
+    $(document).on('change', '.size-checkbox', function () {
+        const $pill = $(this).closest('.size-pill-option');
+        if (this.checked) {
+            $pill.addClass('active');
+        } else {
+            $pill.removeClass('active');
+        }
+    });
+
     if (initialCatId) {
         updateSubCategories(initialCatId, initialSubCatId);
+        if ($('#sizes_container .size-pill-option').length === 0) {
+            updateCategorySizes(initialCatId, initialSizeIds);
+        }
     }
 
     $('#category_id').on('change', function () {
         const catId = $(this).val();
         updateSubCategories(catId);
+        const preSelect = (String(catId) === String(initialCatId)) ? initialSizeIds : [];
+        updateCategorySizes(catId, preSelect);
     });
 
     /*
@@ -478,6 +552,7 @@ $(document).ready(function () {
                         'sub_category_id': '#sub_category_id',
                         'brand_id': '#brand_id',
                         'brand': '#brand_id',
+                        'size': '#sizes_container',
                         'itemMinRetailPrice': '#itemMinRetailPrice',
                         'min_retail_price': '#itemMinRetailPrice',
                         'itemProfitLevel': '#itemProfitLevel',

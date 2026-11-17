@@ -46,7 +46,6 @@ class ItemMasterTest extends TestCase
             'itemReorderQty' => 10,
             'itemMaximunQty' => 100,
             'itemDescription' => 'High quality casual cotton shirt',
-            'ecommerce_status' => 1,
         ]);
 
         $response->assertCreated()
@@ -82,14 +81,12 @@ class ItemMasterTest extends TestCase
             'sku' => 'SKU-OLD',
             'name_en' => 'Old Title',
             'min_retail_price' => 30.00,
-            'ecommerce_status' => true,
         ]);
 
         $response = $this->postJson('/item_master/update/'.$item->id, [
             'sku' => 'SKU-NEW',
             'itemName_en' => 'Updated Title',
             'itemMinRetailPrice' => 45.00,
-            'ecommerce_status' => 1,
         ]);
 
         $response->assertOk()
@@ -108,7 +105,6 @@ class ItemMasterTest extends TestCase
         $item = ItemMaster::create([
             'sku' => 'SKU-DEL',
             'name_en' => 'Item to Delete',
-            'ecommerce_status' => true,
         ]);
 
         $response = $this->postJson('/item_master/delete/'.$item->id);
@@ -126,7 +122,6 @@ class ItemMasterTest extends TestCase
         ItemMaster::create([
             'sku' => 'SKU-TABLE',
             'name_en' => 'Table Item',
-            'ecommerce_status' => true,
         ]);
 
         $response = $this->getJson('/item_master/data');
@@ -138,5 +133,28 @@ class ItemMasterTest extends TestCase
                 'recordsFiltered',
                 'data',
             ]);
+    }
+
+    public function test_item_code_increments_sequentially(): void
+    {
+        $response1 = $this->postJson('/item_master/store', [
+            'itemName_en' => 'First Product',
+        ]);
+        $response1->assertCreated();
+        $this->assertDatabaseHas('item_masters', [
+            'name_en' => 'First Product',
+            'item_code' => '1',
+        ]);
+
+        $response2 = $this->postJson('/item_master/store', [
+            'itemName_en' => 'Second Product',
+        ]);
+        $response2->assertCreated();
+        $this->assertDatabaseHas('item_masters', [
+            'name_en' => 'Second Product',
+            'item_code' => '2',
+        ]);
+
+        $this->assertEquals('3', ItemMaster::generateNextItemCode());
     }
 }

@@ -360,3 +360,37 @@
 .tw-select-wrapper select.is-invalid ~ .select2-container .select2-selection--single {
     border-color: var(--tw-danger, #f06548) !important;
 }
+
+/* ==========================================================
+   Select Sizes Pill Buttons (.size-pill-option)
+   ========================================================== */
+.size-pill-option {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 48px;
+    height: 38px;
+    padding: 0 14px;
+    border: 1px solid #dbdade;
+    border-radius: 8px;
+    background-color: #ffffff;
+    color: #435971;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.size-pill-option:hover {
+    border-color: var(--bs-primary, #696cff);
+    color: var(--bs-primary, #696cff);
+}
+
+.size-pill-option.active,
+.size-pill-option:has(.size-checkbox:checked) {
+    border: 1.5px solid var(--bs-primary, #696cff) !important;
+    background-color: rgba(105, 108, 255, 0.08);
+    color: var(--bs-primary, #696cff) !important;
+}
+
