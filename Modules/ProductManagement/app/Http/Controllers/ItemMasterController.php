@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use Modules\ProductManagement\Http\Requests\ItemMasterRequest;
 use Modules\ProductManagement\Models\Brand;
 use Modules\ProductManagement\Models\Category;
+use Modules\ProductManagement\Models\ColorManagement;
 use Modules\ProductManagement\Models\ItemMaster;
 use Modules\ProductManagement\Models\Size;
 use Yajra\DataTables\Facades\DataTables;
@@ -124,7 +125,13 @@ class ItemMasterController extends Controller
 
         $nextItemCode = ItemMaster::generateNextItemCode();
 
-        return view('productmanagement::add_item_master', compact('categories', 'brands', 'nextItemCode'));
+        $colors = ColorManagement::query()
+            ->where('is_delete', 0)
+            ->where('status', 1)
+            ->orderBy('name_en')
+            ->get();
+
+        return view('productmanagement::add_item_master', compact('categories', 'brands', 'nextItemCode', 'colors'));
     }
 
     /**
@@ -200,7 +207,19 @@ class ItemMasterController extends Controller
                 ->get();
         }
 
-        return view('productmanagement::add_item_master', compact('itemMaster', 'categories', 'brands', 'availableSizes'));
+        $selectedColorIds = (array) ($itemMaster->colors ?? []);
+        $colors = ColorManagement::query()
+            ->where('is_delete', 0)
+            ->where(function ($query) use ($selectedColorIds) {
+                $query->where('status', 1);
+                if (! empty($selectedColorIds)) {
+                    $query->orWhereIn('id', $selectedColorIds);
+                }
+            })
+            ->orderBy('name_en')
+            ->get();
+
+        return view('productmanagement::add_item_master', compact('itemMaster', 'categories', 'brands', 'availableSizes', 'colors'));
     }
 
     /**
@@ -310,6 +329,15 @@ class ItemMasterController extends Controller
             ? array_values(array_filter(array_map('intval', (array) $sizeInput)))
             : null;
 
+        $colorsInput = $request->input('colors', $request->input('color'));
+        if (is_string($colorsInput)) {
+            $decoded = json_decode($colorsInput, true);
+            $colorsInput = is_array($decoded) ? $decoded : explode(',', $colorsInput);
+        }
+        $colorIds = ! empty($colorsInput)
+            ? array_values(array_filter(array_map('intval', (array) $colorsInput)))
+            : null;
+
         return [
             'sku' => $request->input('sku'),
             'item_code' => $request->input('itemcodeId', $request->input('item_code')),
@@ -320,6 +348,7 @@ class ItemMasterController extends Controller
             'sub_category_id' => $request->filled('sub_category_id') ? $request->input('sub_category_id') : null,
             'brand_id' => $request->filled('brand_id') ? $request->input('brand_id') : ($request->filled('brand') ? $request->input('brand') : null),
             'size' => $sizeIds,
+            'colors' => $colorIds,
             'cost_price' => $request->filled('cost_price') ? $request->input('cost_price') : null,
             'selling_price' => $request->filled('selling_price') ? $request->input('selling_price') : null,
             'offer_price' => $offerEnabled && $request->filled('offer_price') ? $request->input('offer_price') : null,

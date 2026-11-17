@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Collection;
 
 class ItemMaster extends Model
 {
@@ -36,6 +37,7 @@ class ItemMaster extends Model
         'sub_category_id',
         'brand_id',
         'size',
+        'colors',
         'cost_price',
         'selling_price',
         'offer_price',
@@ -73,6 +75,7 @@ class ItemMaster extends Model
         'selling_price' => 'decimal:2',
         'offer_price' => 'decimal:2',
         'size' => 'array',
+        'colors' => 'array',
     ];
 
     /**
@@ -111,6 +114,20 @@ class ItemMaster extends Model
         } else {
             $this->attributes['brand_id'] = $value;
         }
+    }
+
+    /**
+     * Get ColorManagement models associated with this item master.
+     *
+     * @return Collection<int, ColorManagement>
+     */
+    public function getColorModelsAttribute()
+    {
+        if (empty($this->colors) || ! is_array($this->colors)) {
+            return collect();
+        }
+
+        return ColorManagement::whereIn('id', $this->colors)->get();
     }
 
     /**

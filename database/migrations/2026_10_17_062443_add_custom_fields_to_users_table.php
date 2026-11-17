@@ -17,8 +17,8 @@ return new class extends Migration
 
             $table->string('username', 100)->nullable()->unique();
             $table->string('mobile_no', 20)->nullable();
-            $table->enum('gender',['male','female'])->nullable();
-            $table->enum('role',['super_admin','admin','staff','inventory_manager','customer'])->default('customer');
+            $table->enum('gender', ['male', 'female'])->nullable();
+            $table->enum('role', ['super_admin', 'admin', 'staff', 'inventory_manager', 'customer'])->default('customer');
             $table->date('joined_date')->nullable();
             $table->boolean('active')->default(1);
 
@@ -33,7 +33,7 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->dropUnique(['username']);
             $table->dropColumn([
-                  'name_en',
+                'name_en',
                 'name_ar',
                 'username',
                 'mobile_no',

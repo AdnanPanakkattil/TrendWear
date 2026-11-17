@@ -186,6 +186,7 @@
                                                 class="form-control"
                                                 name="selling_price"
                                                 value="{{ old('selling_price', $itemMaster->selling_price ?? '') }}"
+                                                min="{{ old('cost_price', $itemMaster->cost_price ?? '0') }}"
                                                 placeholder="0.00" />
                                             <span class="text-danger selling_price_error error-text"></span>
                                         </div>
@@ -205,7 +206,7 @@
                                     </div>
 
                                     <div class="row mb-6">
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <label class="form-label labez" for="itemProfitLevel">Profit Level</label>
                                             <input
                                                 type="text"
@@ -217,7 +218,7 @@
                                             <span class="text-danger itemProfitLevel_error error-text"></span>
                                         </div>
 
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <label class="form-label labe" for="itemMinimunQty">Minimum Qty</label>
                                             <input
                                                 type="number"
@@ -229,7 +230,7 @@
                                             <span class="text-danger itemMinimunQty_error error-text"></span>
                                         </div>
 
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <label class="form-label labe" for="itemReorderQty">Reorder Qty</label>
                                             <input
                                                 type="number"
@@ -240,22 +241,10 @@
                                                 placeholder="" />
                                             <span class="text-danger itemReorderQty_error error-text"></span>
                                         </div>
-
-                                        <div class="col-md-3">
-                                            <label class="form-label labez" for="itemMaximunQty">Maximum Qty</label>
-                                            <input
-                                                type="number"
-                                                id="itemMaximunQty"
-                                                class="form-control"
-                                                name="itemMaximunQty"
-                                                value="{{ old('itemMaximunQty', $itemMaster->max_qty ?? '') }}"
-                                                placeholder="" />
-                                            <span class="text-danger itemMaximunQty_error error-text"></span>
-                                        </div>
                                     </div>
                                     <div class="row mb-6">
 
-                                        <div class="col">
+                                        <div class="col-md-6">
                                             <label class="form-label labez ecommerce-required-label" for="itemDescription">Description (English)</label>
                                             <input
                                                 type="text"
@@ -267,7 +256,7 @@
                                             <span class="text-danger itemDescription_error error-text"></span>
                                         </div>
 
-                                        <div class="col">
+                                        <div class="col-md-6">
                                             <label class="form-label labez ecommerce-required-label" for="itemDescriptionAr">Description (Arabic)</label>
                                             <input
                                                 type="text"
@@ -277,18 +266,6 @@
                                                 value="{{ old('itemDescriptionAr', $itemMaster->description_ar ?? '') }}"
                                                 placeholder="" />
                                             <span class="text-danger itemDescriptionAr_error error-text"></span>
-                                        </div>
-
-                                        <div class="col">
-                                            <label class="form-label labez" for="itemNote">Note</label>
-                                            <input
-                                                type="text"
-                                                id="itemNote"
-                                                class="form-control"
-                                                name="itemNote"
-                                                value="{{ old('itemNote', $itemMaster->note ?? '') }}"
-                                                placeholder="" />
-                                            <span class="text-danger itemNote_error error-text"></span>
                                         </div>
 
                                     </div>
@@ -390,6 +367,41 @@
                                             </div>
                                         </div>
 
+                                    </div>
+
+                                    <div class="row mb-5" id="color_theme_section">
+                                        <div class="col-12">
+                                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                                <label class="form-label labez mb-0">Color Theme</label>
+                                            </div>
+                                            <div id="colors_container" class="d-flex flex-wrap gap-3 align-items-start pt-1">
+                                                @php
+                                                    $selectedColorIds = old('colors', $itemMaster->colors ?? []);
+                                                    if (!is_array($selectedColorIds)) {
+                                                        $selectedColorIds = $selectedColorIds ? [(int)$selectedColorIds] : [];
+                                                    } else {
+                                                        $selectedColorIds = array_values(array_filter(array_map('intval', $selectedColorIds)));
+                                                    }
+                                                @endphp
+                                                @if(isset($colors) && $colors->count() > 0)
+                                                    @foreach($colors as $color)
+                                                        @php
+                                                            $isColorChecked = in_array((int)$color->id, $selectedColorIds, true);
+                                                        @endphp
+                                                        <label class="color-swatch-item {{ $isColorChecked ? 'active' : '' }}" data-color-id="{{ $color->id }}" title="{{ $color->name_en }} ({{ $color->color_code }})">
+                                                            <input type="checkbox" name="colors[]" value="{{ $color->id }}" class="color-checkbox d-none" {{ $isColorChecked ? 'checked' : '' }}>
+                                                            <span class="color-swatch-circle" style="background-color: {{ $color->color_code }};"></span>
+                                                            <span class="color-swatch-name">{{ $color->name_en }}</span>
+                                                        </label>
+                                                    @endforeach
+                                                @else
+                                                    <div class="text-muted small fst-italic no-colors-msg">
+                                                        No colors found in Color Management.
+                                                    </div>
+                                                @endif
+                                            </div>
+                                            <span class="text-danger colors_error error-text mt-1 d-block"></span>
+                                        </div>
                                     </div>
 
                                     <div class="row mb-5" id="sizes_section">
@@ -770,6 +782,7 @@
         initialCategoryId: @json(old('category_id', $itemMaster->category_id ?? '')),
         initialSubCategoryId: @json(old('sub_category_id', $itemMaster->sub_category_id ?? '')),
         initialSizeIds: @json($selectedSizeIds ?? []),
+        initialColorIds: @json($selectedColorIds ?? []),
         routes: {
             categoriesStore: @json(route('productmanagement.categories.store')),
             subCategoriesStore: @json(route('productmanagement.sub_categories.store')),

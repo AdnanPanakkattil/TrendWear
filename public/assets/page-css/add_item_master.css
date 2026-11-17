@@ -394,3 +394,68 @@
     color: var(--bs-primary, #696cff) !important;
 }
 
+/* ==========================================================
+   Color Theme Swatches (.color-swatch-item)
+   ========================================================== */
+.color-swatch-item {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 6px 8px;
+    border-radius: 10px;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    min-width: 58px;
+    text-align: center;
+}
+
+.color-swatch-item:hover {
+    background-color: rgba(105, 108, 255, 0.05);
+}
+
+.color-swatch-circle {
+    display: inline-block;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    flex-shrink: 0;
+}
+
+.color-swatch-item:hover .color-swatch-circle {
+    transform: translateY(-2px);
+    box-shadow: 0 0 0 2px #ffffff, 0 0 0 3.5px rgba(105, 108, 255, 0.45);
+}
+
+.color-swatch-item.active .color-swatch-circle,
+.color-swatch-item:has(.color-checkbox:checked) .color-swatch-circle {
+    transform: translateY(-2px);
+    box-shadow: 0 0 0 2.5px #ffffff, 0 0 0 4.5px var(--bs-primary, #696cff) !important;
+}
+
+.color-swatch-name {
+    display: block;
+    margin-top: 6px;
+    font-size: 11.5px;
+    font-weight: 500;
+    color: #566a7f;
+    max-width: 65px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.2;
+    transition: color 0.2s ease, font-weight 0.2s ease;
+}
+
+.color-swatch-item.active .color-swatch-name,
+.color-swatch-item:has(.color-checkbox:checked) .color-swatch-name {
+    color: var(--bs-primary, #696cff);
+    font-weight: 600;
+}
+
+

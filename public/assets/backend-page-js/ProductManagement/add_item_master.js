@@ -168,6 +168,16 @@ $(document).ready(function () {
         }
     });
 
+    // Toggle active class on color checkbox change
+    $(document).on('change', '.color-checkbox', function () {
+        const $item = $(this).closest('.color-swatch-item');
+        if (this.checked) {
+            $item.addClass('active');
+        } else {
+            $item.removeClass('active');
+        }
+    });
+
     if (initialCatId) {
         updateSubCategories(initialCatId, initialSubCatId);
         if ($('#sizes_container .size-pill-option').length === 0) {
@@ -180,6 +190,45 @@ $(document).ready(function () {
         updateSubCategories(catId);
         const preSelect = (String(catId) === String(initialCatId)) ? initialSizeIds : [];
         updateCategorySizes(catId, preSelect);
+    });
+
+    /*
+    |--------------------------------------------------------------------------
+    | Price Relationship Validation (Selling Price >= Cost Price)
+    |--------------------------------------------------------------------------
+    */
+    function validateCostAndSellingPrice() {
+        const costVal = $('#cost_price').val() ? $('#cost_price').val().trim() : '';
+        const sellingVal = $('#selling_price').val() ? $('#selling_price').val().trim() : '';
+
+        if (costVal !== '' && !isNaN(costVal)) {
+            const costPrice = parseFloat(costVal);
+            $('#selling_price').attr('min', costPrice >= 0 ? costPrice : 0);
+
+            if (sellingVal !== '' && !isNaN(sellingVal)) {
+                const sellingPrice = parseFloat(sellingVal);
+                if (sellingPrice < costPrice) {
+                    $('#selling_price').addClass('is-invalid');
+                    $('.selling_price_error').text('Selling price cannot be less than cost price (' + costPrice.toFixed(2) + ').');
+                    return false;
+                } else {
+                    $('#selling_price').removeClass('is-invalid');
+                    $('.selling_price_error').text('');
+                    return true;
+                }
+            }
+        } else {
+            $('#selling_price').removeAttr('min');
+            if ($('#selling_price').hasClass('is-invalid') && $('.selling_price_error').text().includes('cost price')) {
+                $('#selling_price').removeClass('is-invalid');
+                $('.selling_price_error').text('');
+            }
+        }
+        return true;
+    }
+
+    $('#cost_price, #selling_price').on('input change blur', function () {
+        validateCostAndSellingPrice();
     });
 
     /*
@@ -511,6 +560,42 @@ $(document).ready(function () {
             ? ('/item_master/update/' + itemId)
             : (routes.itemMasterStore || '/item_master/store');
 
+        const costVal = $('#cost_price').val() ? $('#cost_price').val().trim() : '';
+        const sellingVal = $('#selling_price').val() ? $('#selling_price').val().trim() : '';
+
+        if (costVal !== '' && !isNaN(costVal)) {
+            const costPrice = parseFloat(costVal);
+            const sellingPrice = parseFloat(sellingVal);
+
+            if (costPrice > 0 && (sellingVal === '' || isNaN(sellingPrice))) {
+                $('#selling_price').addClass('is-invalid').focus();
+                $('.selling_price_error').text('Selling price is required and must be greater than or equal to cost price (' + costPrice.toFixed(2) + ').');
+                $btn.prop('disabled', false).html(originalHtml);
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Invalid Selling Price',
+                    text: 'Please enter a selling price that is greater than or equal to the cost price.',
+                    customClass: { confirmButton: 'btn btn-primary' },
+                    buttonsStyling: false,
+                });
+                return;
+            }
+
+            if (!isNaN(sellingPrice) && sellingPrice < costPrice) {
+                $('#selling_price').addClass('is-invalid').focus();
+                $('.selling_price_error').text('Selling price cannot be less than cost price (' + costPrice.toFixed(2) + ').');
+                $btn.prop('disabled', false).html(originalHtml);
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Invalid Selling Price',
+                    text: 'Selling price cannot be less than cost price (' + costPrice.toFixed(2) + ').',
+                    customClass: { confirmButton: 'btn btn-primary' },
+                    buttonsStyling: false,
+                });
+                return;
+            }
+        }
+
         const formData = new FormData(this);
 
         $.ajax({
@@ -553,6 +638,8 @@ $(document).ready(function () {
                         'brand_id': '#brand_id',
                         'brand': '#brand_id',
                         'size': '#sizes_container',
+                        'colors': '#colors_container',
+                        'color': '#colors_container',
                         'itemMinRetailPrice': '#itemMinRetailPrice',
                         'min_retail_price': '#itemMinRetailPrice',
                         'itemProfitLevel': '#itemProfitLevel',

@@ -3,6 +3,7 @@
 namespace Modules\ProductManagement\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Validator;
 
 class ItemMasterRequest extends FormRequest
 {
@@ -28,6 +29,10 @@ class ItemMasterRequest extends FormRequest
             'brand' => 'nullable',
             'size' => 'nullable',
             'size.*' => 'nullable',
+            'colors' => 'nullable',
+            'colors.*' => 'nullable',
+            'color' => 'nullable',
+            'color.*' => 'nullable',
             'cost_price' => 'nullable|numeric|min:0',
             'selling_price' => 'nullable|numeric|min:0',
             'offer_price' => 'nullable|numeric|min:0',
@@ -82,6 +87,29 @@ class ItemMasterRequest extends FormRequest
             'master_image.image' => 'The master image must be an image file.',
             'master_image.max' => 'The master image may not be greater than 2MB.',
         ];
+    }
+
+    /**
+     * Configure the validator instance.
+     */
+    public function withValidator(Validator $validator): void
+    {
+        $validator->after(function (Validator $validator) {
+            $costPrice = $this->input('cost_price');
+            $sellingPrice = $this->input('selling_price');
+
+            if ($costPrice !== null && $costPrice !== '' && is_numeric($costPrice) && (float) $costPrice > 0) {
+                if ($sellingPrice === null || $sellingPrice === '' || ! is_numeric($sellingPrice)) {
+                    $validator->errors()->add('selling_price', 'Selling price is required and must be greater than or equal to cost price.');
+                } elseif ((float) $sellingPrice < (float) $costPrice) {
+                    $validator->errors()->add('selling_price', 'Selling price cannot be less than cost price ('.number_format((float) $costPrice, 2).').');
+                }
+            } elseif ($sellingPrice !== null && $sellingPrice !== '' && is_numeric($sellingPrice) && $costPrice !== null && $costPrice !== '' && is_numeric($costPrice)) {
+                if ((float) $sellingPrice < (float) $costPrice) {
+                    $validator->errors()->add('selling_price', 'Selling price cannot be less than cost price ('.number_format((float) $costPrice, 2).').');
+                }
+            }
+        });
     }
 
     /**
