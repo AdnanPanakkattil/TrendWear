@@ -85,9 +85,15 @@
           </a>
         </li>
 
-        <li class="menu-item {{ request()->routeIs('productmanagement.brands', 'brands*') ? 'active' : '' }}" id="menu_category_sub">
+        <li class="menu-item {{ request()->routeIs('productmanagement.brands', 'brands*') ? 'active' : '' }}" id="menu_brand_sub">
           <a href="{{ route('productmanagement.brands') }}" class="menu-link">
             <div data-i18n="Brand">Brand</div>
+          </a>
+        </li>
+
+        <li class="menu-item {{ request()->routeIs('productmanagement.sizes*', 'sizes*') ? 'active' : '' }}" id="menu_size_management_sub">
+          <a href="{{ route('productmanagement.sizes') }}" class="menu-link">
+            <div data-i18n="Size Management">Size Management</div>
           </a>
         </li>
 

@@ -5,6 +5,7 @@ use Modules\ProductManagement\Http\Controllers\BrandController;
 use Modules\ProductManagement\Http\Controllers\CategoriesController;
 use Modules\ProductManagement\Http\Controllers\ItemMasterController;
 use Modules\ProductManagement\Http\Controllers\ProductManagementController;
+use Modules\ProductManagement\Http\Controllers\SizeController;
 use Modules\ProductManagement\Http\Controllers\SubCategoriesController;
 
 Route::middleware('auth')->group(function () {
@@ -79,6 +80,18 @@ Route::middleware('auth')->group(function () {
         ->name('productmanagement.brands.update');
     Route::post('/brands/delete/{id}', [BrandController::class, 'destroy'])
         ->name('productmanagement.brands.destroy');
+
+    // =====================================================================================================
+
+    // =============== size management =====================================================================
+    Route::get('/sizes', [SizeController::class, 'index'])
+        ->name('productmanagement.sizes');
+    Route::get('/sizes/edit/{id}', [SizeController::class, 'edit'])
+        ->name('productmanagement.sizes.edit');
+    Route::post('/sizes/store', [SizeController::class, 'store'])
+        ->name('productmanagement.sizes.store');
+    Route::post('/sizes/delete/{id}', [SizeController::class, 'destroy'])
+        ->name('productmanagement.sizes.destroy');
 
     // =====================================================================================================
 
