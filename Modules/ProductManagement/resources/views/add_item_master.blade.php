@@ -134,7 +134,7 @@
                                         </div>
                                     </div>
                                     <div class="row mb-6">
-                                        <div class="col-md-6 mb-3 mb-md-0">
+                                        <div class="col-md-4 mb-3 mb-md-0">
                                             <label class="form-label labe" for="category_id">Category</label>
                                             <div class="input-group">
                                                 <select class="form-select tw-select" id="category_id" name="category_id" data-search="true" data-placeholder="Select Category">
@@ -150,7 +150,7 @@
                                             <span class="text-danger category_id_error error-text"></span>
                                         </div>
 
-                                        <div class="col-md-6">
+                                        <div class="col-md-4 mb-3 mb-md-0">
                                             <label class="form-label labe" for="sub_category_id">Sub Category</label>
                                             <div class="input-group">
                                                 <select class="form-select tw-select" id="sub_category_id" name="sub_category_id" data-search="true" data-placeholder="Select Sub Category">
@@ -161,6 +161,19 @@
                                                 </button>
                                             </div>
                                             <span class="text-danger sub_category_id_error error-text"></span>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="form-label labe" for="brand_id">Brand</label>
+                                            <div class="input-group">
+                                                <select class="form-select tw-select" id="brand_id" name="brand_id" data-search="true" data-placeholder="Select Brand">
+                                                    <option value="">Select Brand</option>
+                                                    @foreach ($brands ?? [] as $brand)
+                                                        <option value="{{ $brand->id }}" {{ (old('brand_id', $itemMaster->brand_id ?? '') == $brand->id) ? 'selected' : '' }}>{{ $brand->name_en }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <span class="text-danger brand_id_error error-text"></span>
                                         </div>
                                     </div>
 

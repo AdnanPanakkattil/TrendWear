@@ -34,6 +34,7 @@ class ItemMaster extends Model
         'name_ar',
         'category_id',
         'sub_category_id',
+        'brand_id',
         'cost_price',
         'selling_price',
         'offer_price',
@@ -88,6 +89,28 @@ class ItemMaster extends Model
     public function subCategory(): BelongsTo
     {
         return $this->belongsTo(SubCategory::class);
+    }
+
+    /**
+     * Get the brand that owns the item.
+     */
+    public function brand(): BelongsTo
+    {
+        return $this->belongsTo(Brand::class);
+    }
+
+    /**
+     * Allow setting brand ID via 'brand' attribute.
+     */
+    public function setBrandAttribute($value): void
+    {
+        if (is_numeric($value)) {
+            $this->attributes['brand_id'] = (int) $value;
+        } elseif ($value instanceof Brand) {
+            $this->attributes['brand_id'] = $value->id;
+        } else {
+            $this->attributes['brand_id'] = $value;
+        }
     }
 
     /**

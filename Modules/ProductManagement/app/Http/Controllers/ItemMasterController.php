@@ -7,6 +7,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Modules\ProductManagement\Http\Requests\ItemMasterRequest;
+use Modules\ProductManagement\Models\Brand;
 use Modules\ProductManagement\Models\Category;
 use Modules\ProductManagement\Models\ItemMaster;
 use Yajra\DataTables\Facades\DataTables;
@@ -30,6 +31,7 @@ class ItemMasterController extends Controller
             ->with([
                 'category:id,name_en',
                 'subCategory:id,name_en',
+                'brand:id,name_en',
                 'masterImage:id,mediable_type,mediable_id,disk,path',
             ])
             ->select([
@@ -40,6 +42,7 @@ class ItemMasterController extends Controller
                 'name_ar',
                 'category_id',
                 'sub_category_id',
+                'brand_id',
                 'cost_price',
                 'selling_price',
                 'offer_price',
@@ -122,7 +125,9 @@ class ItemMasterController extends Controller
             $query->orderBy('name_en');
         }])->orderBy('name_en')->get();
 
-        return view('productmanagement::add_item_master', compact('categories'));
+        $brands = Brand::where('is_delete', 0)->orderBy('name_en')->get();
+
+        return view('productmanagement::add_item_master', compact('categories', 'brands'));
     }
 
     /**
@@ -170,6 +175,7 @@ class ItemMasterController extends Controller
         $itemMaster = ItemMaster::with([
             'category',
             'subCategory',
+            'brand',
             'masterImage',
             'subImages',
         ])->findOrFail($id);
@@ -178,7 +184,9 @@ class ItemMasterController extends Controller
             $query->orderBy('name_en');
         }])->orderBy('name_en')->get();
 
-        return view('productmanagement::add_item_master', compact('itemMaster', 'categories'));
+        $brands = Brand::where('is_delete', 0)->orderBy('name_en')->get();
+
+        return view('productmanagement::add_item_master', compact('itemMaster', 'categories', 'brands'));
     }
 
     /**
@@ -286,6 +294,7 @@ class ItemMasterController extends Controller
             'name_ar' => $request->input('itemName_ar', $request->input('name_ar')),
             'category_id' => $request->filled('category_id') ? $request->input('category_id') : null,
             'sub_category_id' => $request->filled('sub_category_id') ? $request->input('sub_category_id') : null,
+            'brand_id' => $request->filled('brand_id') ? $request->input('brand_id') : ($request->filled('brand') ? $request->input('brand') : null),
             'cost_price' => $request->filled('cost_price') ? $request->input('cost_price') : null,
             'selling_price' => $request->filled('selling_price') ? $request->input('selling_price') : null,
             'offer_price' => $offerEnabled && $request->filled('offer_price') ? $request->input('offer_price') : null,

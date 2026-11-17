@@ -476,6 +476,8 @@ $(document).ready(function () {
                         'name_ar': '#itemName_ar',
                         'category_id': '#category_id',
                         'sub_category_id': '#sub_category_id',
+                        'brand_id': '#brand_id',
+                        'brand': '#brand_id',
                         'itemMinRetailPrice': '#itemMinRetailPrice',
                         'min_retail_price': '#itemMinRetailPrice',
                         'itemProfitLevel': '#itemProfitLevel',

@@ -24,6 +24,8 @@ class ItemMasterRequest extends FormRequest
             'name_ar' => 'nullable|string|max:255',
             'category_id' => 'nullable|exists:categories,id',
             'sub_category_id' => 'nullable|exists:sub_categories,id',
+            'brand_id' => 'nullable|exists:brands,id',
+            'brand' => 'nullable',
             'cost_price' => 'nullable|numeric|min:0',
             'selling_price' => 'nullable|numeric|min:0',
             'offer_price' => 'nullable|numeric|min:0',
