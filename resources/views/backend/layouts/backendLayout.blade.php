@@ -182,14 +182,19 @@
 
         var hasSearch = $el.data('search') === true || $el.data('search') === 'true';
         var placeholder = $el.data('placeholder') || '';
+        var isInputGroup = $el.parent().hasClass('input-group');
 
         if (!$el.parent().hasClass('tw-select-wrapper')) {
-          $el.wrap('<div class="position-relative tw-select-wrapper d-inline-block"></div>');
+          var wrapperClass = isInputGroup
+            ? 'position-relative tw-select-wrapper tw-input-group-select flex-grow-1'
+            : 'position-relative tw-select-wrapper d-inline-block';
+          $el.wrap('<div class="' + wrapperClass + '"></div>');
         }
 
+        var $modal = $el.closest('.modal');
         var select2Config = {
           minimumResultsForSearch: hasSearch ? 0 : Infinity,
-          dropdownParent: $el.closest('.tw-select-wrapper'),
+          dropdownParent: $modal.length ? $modal : $el.closest('.tw-select-wrapper'),
           width: '100%'
         };
 

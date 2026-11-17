@@ -23,6 +23,8 @@ Route::middleware('auth')->group(function () {
         ->name('productmanagement.item_master.update');
     Route::post('/item_master/delete/{id}', [ItemMasterController::class, 'destroy'])
         ->name('productmanagement.item_master.destroy');
+    Route::post('/item_master/toggle-featured/{id}', [ItemMasterController::class, 'toggleFeatured'])
+        ->name('productmanagement.item_master.toggle_featured');
     Route::post('/item_master/{id}/media/delete/{mediaId}', [ItemMasterController::class, 'deleteMedia'])
         ->name('productmanagement.item_master.media.delete');
 

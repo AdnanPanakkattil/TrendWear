@@ -34,6 +34,9 @@ class ItemMaster extends Model
         'name_ar',
         'category_id',
         'sub_category_id',
+        'cost_price',
+        'selling_price',
+        'offer_price',
         'min_retail_price',
         'profit_level',
         'min_qty',
@@ -48,6 +51,7 @@ class ItemMaster extends Model
         'ecommerce_status',
         'offer_product_status',
         'best_selling_status',
+        'featured_product',
         'offer_start_date',
         'offer_end_date',
     ];
@@ -61,9 +65,13 @@ class ItemMaster extends Model
         'ecommerce_status' => 'boolean',
         'offer_product_status' => 'boolean',
         'best_selling_status' => 'boolean',
+        'featured_product' => 'boolean',
         'offer_start_date' => 'date',
         'offer_end_date' => 'date',
         'min_retail_price' => 'decimal:2',
+        'cost_price' => 'decimal:2',
+        'selling_price' => 'decimal:2',
+        'offer_price' => 'decimal:2',
     ];
 
     /**

@@ -25,7 +25,10 @@
                             <th>Category</th>
                             <th>Sub Category</th>
                             <th>Item Name EN</th>
-                            <th>Item Name AR</th>
+                            <th>Cost Price</th>
+                            <th>Selling Price</th>
+                            <th>Offer Price</th>
+                            <th class="text-center">Featured</th>
                             <th>Image</th>
                             <th>Actions</th>
                         </tr>
@@ -37,7 +40,10 @@
                             <th>Category</th>
                             <th>Sub Category</th>
                             <th>Item Name EN</th>
-                            <th>Item Name AR</th>
+                            <th>Cost Price</th>
+                            <th>Selling Price</th>
+                            <th>Offer Price</th>
+                            <th class="text-center">Featured</th>
                             <th>Image</th>
                             <th>Actions</th>
                         </tr>
@@ -52,5 +58,5 @@
 @endsection
 
 @push('scripts')
-<script src="{{ asset('assets/backend-page-js/ProductManagement/itemmaster.js') }}"></script>
+<script src="{{ asset('assets/backend-page-js/ProductManagement/itemmaster.js') }}?v={{ filemtime(public_path('assets/backend-page-js/ProductManagement/itemmaster.js')) }}"></script>
 @endpush

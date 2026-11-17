@@ -17,10 +17,55 @@ $(document).ready(function () {
             { data: 'category_name', name: 'category_name', orderable: false, searchable: false },
             { data: 'sub_category_name', name: 'sub_category_name', orderable: false, searchable: false },
             { data: 'name_en', name: 'name_en' },
-            { data: 'name_ar', name: 'name_ar', defaultContent: '-' },
+            { data: 'cost_price_formatted', name: 'cost_price', defaultContent: '-' },
+            { data: 'selling_price_formatted', name: 'selling_price', defaultContent: '-' },
+            { data: 'offer_price_formatted', name: 'offer_price', defaultContent: '-' },
+            { data: 'featured_switch', name: 'featured_product', className: 'text-center', orderable: false, searchable: false },
             { data: 'image_preview', name: 'image_preview', orderable: false, searchable: false, defaultContent: '-' },
             { data: 'actions', name: 'actions', orderable: false, searchable: false },
         ],
+    });
+
+    $(document).on('change', '.featured-toggle-btn', function () {
+        const itemId = $(this).data('id');
+        const isFeatured = $(this).is(':checked') ? 1 : 0;
+        const $checkbox = $(this);
+
+        $.ajax({
+            url: '/item_master/toggle-featured/' + itemId,
+            type: 'POST',
+            data: {
+                featured_product: isFeatured,
+            },
+            dataType: 'json',
+            success: function (response) {
+                if (response.success && typeof Swal !== 'undefined') {
+                    Swal.fire({
+                        icon: 'success',
+                        title: isFeatured ? 'Featured Product Active' : 'Featured Product Inactive',
+                        text: response.message || (isFeatured ? 'Item is now marked as a Featured Product.' : 'Item has been removed from Featured Products.'),
+                        timer: 1500,
+                        showConfirmButton: false,
+                        customClass: {
+                            confirmButton: 'btn btn-primary',
+                        },
+                        buttonsStyling: false,
+                    });
+                }
+            },
+            error: function () {
+                $checkbox.prop('checked', !isFeatured);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Failed to update featured status. Please try again.',
+                    customClass: {
+                        confirmButton: 'btn btn-primary',
+                    },
+                    buttonsStyling: false,
+                });
+            },
+        });
     });
 
     $(document).on('click', '.delete-itemmaster-btn', function () {

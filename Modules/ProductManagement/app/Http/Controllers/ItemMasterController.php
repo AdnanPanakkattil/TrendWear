@@ -40,11 +40,15 @@ class ItemMasterController extends Controller
                 'name_ar',
                 'category_id',
                 'sub_category_id',
+                'cost_price',
+                'selling_price',
+                'offer_price',
                 'min_retail_price',
                 'min_qty',
                 'ecommerce_status',
                 'offer_product_status',
                 'best_selling_status',
+                'featured_product',
                 'created_at',
             ]);
 
@@ -63,6 +67,33 @@ class ItemMasterController extends Controller
 
                 return '<span class="badge bg-label-secondary font-monospace">'.e($code).'</span>';
             })
+            ->addColumn('cost_price_formatted', function (ItemMaster $item): string {
+                return $item->cost_price !== null ? number_format((float) $item->cost_price, 2) : '-';
+            })
+            ->addColumn('selling_price_formatted', function (ItemMaster $item): string {
+                return $item->selling_price !== null ? number_format((float) $item->selling_price, 2) : '-';
+            })
+            ->addColumn('offer_price_formatted', function (ItemMaster $item): string {
+                if ($item->offer_price === null) {
+                    return '-';
+                }
+
+                return '<span class="badge bg-label-warning font-monospace">'.number_format((float) $item->offer_price, 2).'</span>';
+            })
+            ->addColumn('featured_switch', function (ItemMaster $item): string {
+                $checked = $item->featured_product ? 'checked' : '';
+
+                return '
+                    <div class="d-flex justify-content-center align-items-center">
+                        <div class="form-check form-switch m-0 p-0">
+                            <input class="form-check-input featured-toggle-btn"
+                                   type="checkbox"
+                                   role="switch"
+                                   data-id="'.$item->id.'"
+                                   '.$checked.'>
+                        </div>
+                    </div>';
+            })
             ->addColumn('formatted_price', function (ItemMaster $item): string {
                 if ($item->min_retail_price === null) {
                     return '-';
@@ -78,7 +109,7 @@ class ItemMasterController extends Controller
             ->addColumn('actions', function (ItemMaster $item): string {
                 return $this->actionButtons($item->id, $item->name_en);
             })
-            ->rawColumns(['image_preview', 'sku_code', 'status_badge', 'actions'])
+            ->rawColumns(['image_preview', 'sku_code', 'status_badge', 'offer_price_formatted', 'featured_switch', 'actions'])
             ->toJson();
     }
 
@@ -225,10 +256,28 @@ class ItemMasterController extends Controller
     }
 
     /**
+     * Toggle the featured status of an item master.
+     */
+    public function toggleFeatured(Request $request, $id): JsonResponse
+    {
+        $itemMaster = ItemMaster::findOrFail($id);
+        $itemMaster->featured_product = $request->boolean('featured_product');
+        $itemMaster->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Featured product status updated successfully.',
+            'featured_product' => (bool) $itemMaster->featured_product,
+        ]);
+    }
+
+    /**
      * Map request input to ItemMaster model attributes.
      */
     private function mapPayload(Request $request): array
     {
+        $offerEnabled = $request->boolean('offer_product_status');
+
         return [
             'sku' => $request->input('sku'),
             'item_code' => $request->input('itemcodeId', $request->input('item_code')),
@@ -237,6 +286,9 @@ class ItemMasterController extends Controller
             'name_ar' => $request->input('itemName_ar', $request->input('name_ar')),
             'category_id' => $request->filled('category_id') ? $request->input('category_id') : null,
             'sub_category_id' => $request->filled('sub_category_id') ? $request->input('sub_category_id') : null,
+            'cost_price' => $request->filled('cost_price') ? $request->input('cost_price') : null,
+            'selling_price' => $request->filled('selling_price') ? $request->input('selling_price') : null,
+            'offer_price' => $offerEnabled && $request->filled('offer_price') ? $request->input('offer_price') : null,
             'min_retail_price' => $request->filled('itemMinRetailPrice') ? $request->input('itemMinRetailPrice') : ($request->filled('min_retail_price') ? $request->input('min_retail_price') : null),
             'profit_level' => $request->input('itemProfitLevel', $request->input('profit_level')),
             'min_qty' => $request->filled('itemMinimunQty') ? (int) $request->input('itemMinimunQty') : ($request->filled('itenMinimunQty') ? (int) $request->input('itenMinimunQty') : null),
@@ -249,10 +301,11 @@ class ItemMasterController extends Controller
             'sample' => $request->input('itemSample', $request->input('sample')),
             'results' => $request->input('itemResults', $request->input('results')),
             'ecommerce_status' => $request->boolean('ecommerce_status'),
-            'offer_product_status' => $request->boolean('offer_product_status'),
+            'offer_product_status' => $offerEnabled,
             'best_selling_status' => $request->boolean('best_selling_status'),
-            'offer_start_date' => $request->filled('value_from_start_date') ? $request->input('value_from_start_date') : ($request->filled('offer_start_date') ? $request->input('offer_start_date') : null),
-            'offer_end_date' => $request->filled('value_from_end_date') ? $request->input('value_from_end_date') : ($request->filled('offer_end_date') ? $request->input('offer_end_date') : null),
+            'featured_product' => $request->boolean('featured_product'),
+            'offer_start_date' => $offerEnabled && $request->filled('value_from_start_date') ? $request->input('value_from_start_date') : ($offerEnabled && $request->filled('offer_start_date') ? $request->input('offer_start_date') : null),
+            'offer_end_date' => $offerEnabled && $request->filled('value_from_end_date') ? $request->input('value_from_end_date') : ($offerEnabled && $request->filled('offer_end_date') ? $request->input('offer_end_date') : null),
         ];
     }
 

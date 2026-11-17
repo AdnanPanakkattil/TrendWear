@@ -1,290 +1,11 @@
 @extends('backend.layouts.backendLayout')
 
 @push('styles')
-<link rel="stylesheet" href="{{ asset('page-css/patient.css') }}">
-<link rel="stylesheet" href="{{ asset('page-css/billing.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/patient.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/page-css/add_item_master.css') }}?v={{ filemtime(public_path('assets/page-css/add_item_master.css')) }}">
 @endpush
 
 @section('content')
-<style>
-    #single-input-box,
-    #multiple-input-box {
-        display: none;
-    }
-
-    #loader-overlay {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.3);
-        z-index: 9990;
-    }
-
-    #loader-center {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 9999;
-    }
-
-    .repeater-item {
-        position: relative;
-    }
-
-    .dropzone {
-        max-height: 320px !important;
-        overflow-y: auto !important;
-        overflow-x: hidden !important;
-    }
-
-    .item-image-card {
-        border: 1px solid #eceef1;
-        border-radius: 14px;
-        box-shadow: 0 4px 18px rgba(15, 23, 42, 0.04);
-        overflow: hidden;
-        background: #ffffff;
-    }
-
-    .item-image-card__header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-        padding-bottom: 14px;
-        margin-bottom: 14px;
-        border-bottom: 1px solid #f1f3f5;
-    }
-
-    .item-image-card__title-wrap {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .item-image-card__icon {
-        width: 36px;
-        height: 36px;
-        border-radius: 10px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        background: rgba(var(--tw-primary-rgb), 0.12);
-        color: var(--tw-primary);
-        font-size: 1.15rem;
-        flex-shrink: 0;
-    }
-
-    .item-image-card__subtitle {
-        font-size: 0.78rem;
-        color: #8592a3;
-        margin: 2px 0 0;
-    }
-
-    .item-image-card__badge {
-        font-size: 0.72rem;
-        font-weight: 600;
-        padding: 4px 10px;
-        border-radius: 999px;
-        background: rgba(var(--tw-primary-rgb), 0.12);
-        color: var(--tw-primary);
-        white-space: nowrap;
-    }
-
-    .item-image-card__badge--secondary {
-        background: rgba(105, 108, 255, 0.1);
-        color: #696cff;
-    }
-
-    .item-dropzone.dropzone {
-        border: 2px dashed #d4dae3 !important;
-        border-radius: 12px !important;
-        background: linear-gradient(180deg, #fafbfd 0%, #f5f7fa 100%) !important;
-        padding: 28px 18px !important;
-        min-height: 205px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        cursor: pointer;
-        transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
-    }
-
-    .item-dropzone.dropzone:hover,
-    .item-dropzone.dropzone.dz-drag-hover {
-        border-color: var(--tw-primary) !important;
-        background: linear-gradient(180deg, rgba(var(--tw-primary-rgb), 0.04) 0%, rgba(var(--tw-primary-rgb), 0.08) 100%) !important;
-        box-shadow: 0 6px 20px rgba(var(--tw-primary-rgb), 0.12);
-    }
-
-    .item-dropzone .dz-message {
-        margin: 0 !important;
-        width: 100%;
-    }
-
-    .item-dropzone__icon-circle {
-        width: 54px;
-        height: 54px;
-        margin: 0 auto 12px;
-        border-radius: 50%;
-        background: #ffffff;
-        border: 1px solid #e7eaf0;
-        box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--tw-primary);
-        font-size: 1.5rem;
-        transition: transform 0.2s ease;
-    }
-
-    .item-dropzone.dropzone:hover .item-dropzone__icon-circle {
-        transform: translateY(-2px);
-    }
-
-    .item-dropzone__title {
-        font-size: 0.95rem;
-        font-weight: 600;
-        color: #384551;
-        margin-bottom: 4px;
-    }
-
-    .item-dropzone__hint {
-        font-size: 0.78rem;
-        color: #8592a3;
-        margin-bottom: 12px;
-    }
-
-    .item-dropzone__divider {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        width: 140px;
-        margin: 0 auto 12px;
-        font-size: 0.75rem;
-        color: #a1acb8;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-    }
-
-    .item-dropzone__divider::before,
-    .item-dropzone__divider::after {
-        content: "";
-        flex: 1;
-        height: 1px;
-        background: #e1e5eb;
-    }
-
-    .item-dropzone__browse-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        padding: 7px 16px;
-        border-radius: 8px;
-        font-weight: 600;
-        font-size: 0.82rem;
-    }
-
-    .item-preview-box.dropzone {
-        border: 1px solid #e7eaf0 !important;
-        border-radius: 12px !important;
-        background: #f9fafc !important;
-        padding: 12px !important;
-        min-height: 110px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-    }
-
-    .item-preview-box .dz-preview {
-        margin: 0 !important;
-        border-radius: 10px;
-        overflow: hidden;
-        border: 1px solid #e7eaf0;
-        background: #ffffff;
-        box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
-    }
-
-    .other-unit-row {
-        display: flex;
-        align-items: flex-end;
-        flex-wrap: nowrap;
-        gap: 12px;
-        width: 100%;
-    }
-
-    .other-unit-field {
-        min-width: 0;
-    }
-
-    /* Other Unit */
-    .other-unit-select {
-        flex: 3;
-    }
-
-    /* Multiple */
-    .multiple-field {
-        flex: 0.8;
-    }
-
-    /* Cost / Selling / Offer */
-    .price-field {
-        flex: 1.7;
-    }
-
-    /* Plus + Delete buttons */
-    .other-unit-actions {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        flex: 0 0 auto;
-        margin-bottom: 0;
-    }
-
-    .other-unit-actions .btn {
-        height: 38px;
-        white-space: nowrap;
-    }
-
-    .other-unit-actions .btn-icon {
-        width: 38px;
-        padding: 0;
-    }
-
-    .other-unit-field .error-text {
-        display: block;
-        white-space: nowrap;
-    }
-
-    @media (max-width: 992px) {
-
-        .other-unit-row {
-            overflow-x: auto;
-            padding-bottom: 5px;
-        }
-
-        .other-unit-select {
-            flex: 0 0 250px;
-        }
-
-        .multiple-field {
-            flex: 0 0 80px;
-        }
-
-        .price-field {
-            flex: 0 0 140px;
-        }
-
-        .other-unit-actions {
-            flex: 0 0 auto;
-        }
-    }
-</style>
 <div id="loader-overlay">
     <div id="loader-center">
         <div class="sk-chase sk-primary">
@@ -321,9 +42,7 @@
                                             <button type="submit" class="btn btn-primary waves-effect waves-light me-2" id="saveItemMasterButton">
                                                 <i class="ti ti-box me-2"></i> {{ isset($itemMaster) ? 'Update' : 'Save' }}
                                             </button>
-                                            <button type="button" class="btn btn-label-primary waves-effect waves-light me-2" id="item_master_settings_btn">
-                                                <i class="ti ti-settings me-2"></i> Settings
-                                            </button>
+
 
                                             <a id="backToItemMasterView" href="{{ route('productmanagement.item_master') }}" class="btn btn-label-secondary waves-effect waves-light me-2">
                                                 <i class="ti ti-arrow-left icon-directional me-2"></i> Back
@@ -418,7 +137,7 @@
                                         <div class="col-md-6 mb-3 mb-md-0">
                                             <label class="form-label labe" for="category_id">Category</label>
                                             <div class="input-group">
-                                                <select class="form-select" id="category_id" name="category_id">
+                                                <select class="form-select tw-select" id="category_id" name="category_id" data-search="true" data-placeholder="Select Category">
                                                     <option value="">Select Category</option>
                                                     @foreach ($categories ?? [] as $category)
                                                         <option value="{{ $category->id }}" {{ (old('category_id', $itemMaster->category_id ?? '') == $category->id) ? 'selected' : '' }}>{{ $category->name_en }}</option>
@@ -434,7 +153,7 @@
                                         <div class="col-md-6">
                                             <label class="form-label labe" for="sub_category_id">Sub Category</label>
                                             <div class="input-group">
-                                                <select class="form-select" id="sub_category_id" name="sub_category_id">
+                                                <select class="form-select tw-select" id="sub_category_id" name="sub_category_id" data-search="true" data-placeholder="Select Sub Category">
                                                     <option value="">Select Sub Category</option>
                                                 </select>
                                                 <button type="button" class="btn btn-primary" id="btn_quick_add_subcategory" title="Add Sub Category" data-bs-toggle="modal" data-bs-target="#quickSubCategoryModal">
@@ -446,7 +165,33 @@
                                     </div>
 
                                     <div class="row mb-6">
-                                        <div class="col">
+                                        <div class="col-md-4">
+                                            <label class="form-label labez" for="cost_price">Cost Price</label>
+                                            <input
+                                                type="number"
+                                                step="0.01"
+                                                id="cost_price"
+                                                class="form-control"
+                                                name="cost_price"
+                                                value="{{ old('cost_price', $itemMaster->cost_price ?? '') }}"
+                                                placeholder="0.00" />
+                                            <span class="text-danger cost_price_error error-text"></span>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="form-label labez" for="selling_price">Selling Price</label>
+                                            <input
+                                                type="number"
+                                                step="0.01"
+                                                id="selling_price"
+                                                class="form-control"
+                                                name="selling_price"
+                                                value="{{ old('selling_price', $itemMaster->selling_price ?? '') }}"
+                                                placeholder="0.00" />
+                                            <span class="text-danger selling_price_error error-text"></span>
+                                        </div>
+
+                                        <div class="col-md-4">
                                             <label class="form-label labez" for="itemMinRetailPrice">Min Retail Price</label>
                                             <input
                                                 type="number"
@@ -455,12 +200,14 @@
                                                 class="form-control"
                                                 name="itemMinRetailPrice"
                                                 value="{{ old('itemMinRetailPrice', $itemMaster->min_retail_price ?? '') }}"
-                                                placeholder="" />
+                                                placeholder="0.00" />
                                             <span class="text-danger itemMinRetailPrice_error error-text"></span>
-
                                         </div>
-                                        <div class="col">
-                                            <label class="form-label labez" for="itemProfitLevel"> Profit Level</label>
+                                    </div>
+
+                                    <div class="row mb-6">
+                                        <div class="col-md-3">
+                                            <label class="form-label labez" for="itemProfitLevel">Profit Level</label>
                                             <input
                                                 type="text"
                                                 id="itemProfitLevel"
@@ -470,7 +217,8 @@
                                                 placeholder="" />
                                             <span class="text-danger itemProfitLevel_error error-text"></span>
                                         </div>
-                                        <div class="col">
+
+                                        <div class="col-md-3">
                                             <label class="form-label labe" for="itemMinimunQty">Minimum Qty</label>
                                             <input
                                                 type="number"
@@ -481,9 +229,8 @@
                                                 placeholder="" />
                                             <span class="text-danger itemMinimunQty_error error-text"></span>
                                         </div>
-                                    </div>
-                                    <div class="row mb-6">
-                                        <div class="col">
+
+                                        <div class="col-md-3">
                                             <label class="form-label labe" for="itemReorderQty">Reorder Qty</label>
                                             <input
                                                 type="number"
@@ -494,7 +241,8 @@
                                                 placeholder="" />
                                             <span class="text-danger itemReorderQty_error error-text"></span>
                                         </div>
-                                        <div class="col">
+
+                                        <div class="col-md-3">
                                             <label class="form-label labez" for="itemMaximunQty">Maximum Qty</label>
                                             <input
                                                 type="number"
@@ -505,7 +253,6 @@
                                                 placeholder="" />
                                             <span class="text-danger itemMaximunQty_error error-text"></span>
                                         </div>
-
                                     </div>
                                     <div class="row mb-6">
 
@@ -547,50 +294,8 @@
 
                                     </div>
 
-                                    <div class="row mb-6">
-
-                                        <div class="col">
-                                            <label class="form-label labez" for="itemTests">Tests</label>
-                                            <input
-                                                type="text"
-                                                id="itemTests"
-                                                class="form-control"
-                                                name="itemTests"
-                                                value="{{ old('itemTests', $itemMaster->tests ?? '') }}"
-                                                placeholder="" />
-                                            <span class="text-danger itemTests_error error-text"></span>
-                                        </div>
-
-                                        <div class="col">
-                                            <label class="form-label labez" for="itemSample">sample</label>
-                                            <input
-                                                type="text"
-                                                id="itemSample"
-                                                class="form-control"
-                                                name="itemSample"
-                                                value="{{ old('itemSample', $itemMaster->sample ?? '') }}"
-                                                placeholder="" />
-                                            <span class="text-danger itemSample_error error-text"></span>
-                                        </div>
-
-                                        <div class="col">
-                                            <label class="form-label labez" for="itemResults">Results</label>
-                                            <input
-                                                type="text"
-                                                id="itemResults"
-                                                class="form-control"
-                                                name="itemResults"
-                                                value="{{ old('itemResults', $itemMaster->results ?? '') }}"
-                                                placeholder="" />
-                                            <span class="text-danger itemResults_error error-text"></span>
-                                        </div>
-
-                                    </div>
-
-
-
                                     <div class="row mb-5">
-                                        <div class="col-md-4 mb-5">
+                                        <div class="col-md-3 mb-5">
                                             <label class="form-label labez"> E-Commerce Status</label>
                                             <div class="form-check form-switch">
                                                 <input class="form-check-input"
@@ -606,7 +311,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-4 mb-5">
+                                        <div class="col-md-3 mb-5">
                                             <label class="form-label labez">Offer Product</label>
                                             <div class="form-check form-switch">
                                                 <input class="form-check-input"
@@ -621,7 +326,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-4 mb-5">
+                                        <div class="col-md-3 mb-5">
                                             <label class="form-label labez">Best Selling Status</label>
                                             <div class="form-check form-switch">
                                                 <input class="form-check-input"
@@ -636,33 +341,69 @@
                                             </div>
                                         </div>
 
+                                        <div class="col-md-3 mb-5">
+                                            <label class="form-label labez">Featured Product</label>
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input"
+                                                    type="checkbox"
+                                                    id="featured_product"
+                                                    name="featured_product"
+                                                    value="1"
+                                                    {{ old('featured_product', $itemMaster->featured_product ?? false) ? 'checked' : '' }}>
+                                                <label class="form-check-label" for="featured_product">
+                                                    Active / Inactive
+                                                </label>
+                                            </div>
+                                        </div>
+
                                         <div class="col-md-12 mt-3" id="offer_date_range_box" style="{{ old('offer_product_status', $itemMaster->offer_product_status ?? false) ? '' : 'display: none;' }}">
-                                            <div class="row">
+                                            <div class="card p-3 border shadow-none bg-light-subtle">
+                                                <div class="row g-3">
+                                                    <div class="col-md-4">
+                                                        <label class="form-label labez" for="offer_price">Offer Price</label>
+                                                        <input
+                                                            type="number"
+                                                            step="0.01"
+                                                            class="form-control"
+                                                            id="offer_price"
+                                                            name="offer_price"
+                                                            value="{{ old('offer_price', $itemMaster->offer_price ?? '') }}"
+                                                            placeholder="0.00" />
+                                                        <span class="text-danger offer_price_error error-text"></span>
+                                                    </div>
 
-                                                <div class="col-md-3">
-                                                    <label class="form-label labez">Offer Start Date</label>
-                                                    <input
-                                                        type="text"
-                                                        class="form-control start_date"
-                                                        name="value_from_start_date"
-                                                        value="{{ old('value_from_start_date', isset($itemMaster) && $itemMaster->offer_start_date ? $itemMaster->offer_start_date->format('Y-m-d') : '') }}"
-                                                        placeholder="Start Date"
-                                                        autocomplete="off" />
-                                                    <span class="text-danger value_from_start_date_error error-text"></span>
+                                                    <div class="col-md-4">
+                                                        <label class="form-label labez" for="value_from_start_date">Offer Start Date</label>
+                                                        <div class="input-group">
+                                                            <input
+                                                                type="text"
+                                                                class="form-control start_date"
+                                                                id="value_from_start_date"
+                                                                name="value_from_start_date"
+                                                                value="{{ old('value_from_start_date', isset($itemMaster) && $itemMaster->offer_start_date ? $itemMaster->offer_start_date->format('Y-m-d') : '') }}"
+                                                                placeholder="YYYY-MM-DD"
+                                                                autocomplete="off" />
+                                                            <span class="input-group-text cursor-pointer"><i class="ti ti-calendar"></i></span>
+                                                        </div>
+                                                        <span class="text-danger value_from_start_date_error error-text"></span>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <label class="form-label labez" for="value_from_end_date">Offer End Date</label>
+                                                        <div class="input-group">
+                                                            <input
+                                                                type="text"
+                                                                class="form-control end_date"
+                                                                id="value_from_end_date"
+                                                                name="value_from_end_date"
+                                                                value="{{ old('value_from_end_date', isset($itemMaster) && $itemMaster->offer_end_date ? $itemMaster->offer_end_date->format('Y-m-d') : '') }}"
+                                                                placeholder="YYYY-MM-DD"
+                                                                autocomplete="off" />
+                                                            <span class="input-group-text cursor-pointer"><i class="ti ti-calendar"></i></span>
+                                                        </div>
+                                                        <span class="text-danger value_from_end_date_error error-text"></span>
+                                                    </div>
                                                 </div>
-
-                                                <div class="col-md-3">
-                                                    <label class="form-label labez">Offer End Date</label>
-                                                    <input
-                                                        type="text"
-                                                        class="form-control end_date"
-                                                        name="value_from_end_date"
-                                                        value="{{ old('value_from_end_date', isset($itemMaster) && $itemMaster->offer_end_date ? $itemMaster->offer_end_date->format('Y-m-d') : '') }}"
-                                                        placeholder="End Date"
-                                                        autocomplete="off" />
-                                                    <span class="text-danger value_from_end_date_error error-text"></span>
-                                                </div>
-
                                             </div>
                                         </div>
 
@@ -853,7 +594,7 @@
                     </div>
                     <div class="col-6">
                         <label class="form-label labez" for="printBarcodeSize">Label Size</label>
-                        <select id="printBarcodeSize" class="form-select">
+                        <select id="printBarcodeSize" class="form-select tw-select">
                             <option value="38x25">38 x 25 mm</option>
                             <option value="50x25">50 x 25 mm</option>
                             <option value="50x30">50 x 30 mm</option>
@@ -961,7 +702,7 @@
                     @csrf
                     <div class="mb-3">
                         <label class="form-label labe" for="quick_subcat_category_id">Category</label>
-                        <select id="quick_subcat_category_id" name="category_id" class="form-select" required>
+                        <select id="quick_subcat_category_id" name="category_id" class="form-select tw-select" data-search="true" data-placeholder="Select Category" required>
                             <option value="">Select Category</option>
                             @foreach ($categories ?? [] as $category)
                                 <option value="{{ $category->id }}">{{ $category->name_en }}</option>
@@ -1004,478 +745,17 @@
 
 @push('scripts')
 <script>
-$(document).ready(function () {
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-        },
-    });
-
-    let categoriesData = @json($categories ?? []);
-    const initialCatId = "{{ old('category_id', $itemMaster->category_id ?? '') }}";
-    const initialSubCatId = "{{ old('sub_category_id', $itemMaster->sub_category_id ?? '') }}";
-
-    function renderCategoryOptions(selectedId) {
-        let catOptions = '<option value="">Select Category</option>';
-        let modalOptions = '<option value="">Select Category</option>';
-
-        categoriesData.forEach(function (cat) {
-            const isCatSelected = selectedId && String(cat.id) === String(selectedId);
-            const selAttr = isCatSelected ? ' selected' : '';
-            catOptions += `<option value="${cat.id}"${selAttr}>${cat.name_en}</option>`;
-            modalOptions += `<option value="${cat.id}"${selAttr}>${cat.name_en}</option>`;
-        });
-
-        $('#category_id').html(catOptions);
-        $('#quick_subcat_category_id').html(modalOptions);
-    }
-
-    function updateSubCategories(categoryId, selectedSubId) {
-        const $subSelect = $('#sub_category_id');
-        $subSelect.html('<option value="">Select Sub Category</option>');
-
-        if (!categoryId) {
-            return;
+    window.ItemMasterConfig = {
+        categories: @json($categories ?? []),
+        initialCategoryId: @json(old('category_id', $itemMaster->category_id ?? '')),
+        initialSubCategoryId: @json(old('sub_category_id', $itemMaster->sub_category_id ?? '')),
+        routes: {
+            categoriesStore: @json(route('productmanagement.categories.store')),
+            subCategoriesStore: @json(route('productmanagement.sub_categories.store')),
+            itemMasterStore: @json(route('productmanagement.item_master.store')),
+            itemMasterIndex: @json(route('productmanagement.item_master')),
         }
-
-        const category = categoriesData.find(c => String(c.id) === String(categoryId));
-        if (category && Array.isArray(category.sub_categories) && category.sub_categories.length > 0) {
-            category.sub_categories.forEach(function (sub) {
-                const isSubSelected = selectedSubId && String(sub.id) === String(selectedSubId);
-                $subSelect.append(`<option value="${sub.id}"${isSubSelected ? ' selected' : ''}>${sub.name_en}</option>`);
-            });
-        } else {
-            $.ajax({
-                url: '/sub_categories/by-category/' + categoryId,
-                type: 'GET',
-                dataType: 'json',
-                success: function (res) {
-                    if (res.success && Array.isArray(res.data)) {
-                        if (category) {
-                            category.sub_categories = res.data;
-                        }
-                        res.data.forEach(function (sub) {
-                            const isSubSelected = selectedSubId && String(sub.id) === String(selectedSubId);
-                            $subSelect.append(`<option value="${sub.id}"${isSubSelected ? ' selected' : ''}>${sub.name_en}</option>`);
-                        });
-                    }
-                }
-            });
-        }
-    }
-
-    if (initialCatId) {
-        updateSubCategories(initialCatId, initialSubCatId);
-    }
-
-    $('#category_id').on('change', function () {
-        const catId = $(this).val();
-        updateSubCategories(catId);
-    });
-
-    // Offer product status toggle
-    $('#offer_product_status').on('change', function () {
-        if ($(this).is(':checked')) {
-            $('#offer_date_range_box').slideDown();
-        } else {
-            $('#offer_date_range_box').slideUp();
-        }
-    });
-
-    // Master Image Upload & Preview
-    $('#btnBrowse, #item_master_image_upload_form').on('click', function (e) {
-        if ($(e.target).is('#master_image')) return;
-        $('#master_image').trigger('click');
-    });
-
-    $('#master_image').on('change', function () {
-        const file = this.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                $('#lab_item_preview_container').html(`
-                    <div class="position-relative d-inline-block">
-                        <img src="${e.target.result}" class="rounded border" style="width: 100px; height: 100px; object-fit: cover;">
-                        <button type="button" class="btn btn-danger btn-xs position-absolute top-0 end-0 p-1 rounded-circle" id="clear_master_image" style="transform: translate(25%, -25%);" title="Clear image">
-                            <i class="ti ti-x ti-xs"></i>
-                        </button>
-                    </div>
-                `);
-                $('#lab_item_preview_wrapper').slideDown();
-            };
-            reader.readAsDataURL(file);
-        }
-    });
-
-    $(document).on('click', '#clear_master_image', function () {
-        $('#master_image').val('');
-        $('#lab_item_preview_container').empty();
-        $('#lab_item_preview_wrapper').slideUp();
-    });
-
-    // Sub Images Upload & Preview
-    $('#btnBrowseSub, #item_sub_image_upload_form').on('click', function (e) {
-        if ($(e.target).is('#sub_images')) return;
-        $('#sub_images').trigger('click');
-    });
-
-    $('#sub_images').on('change', function () {
-        const files = this.files;
-        if (files && files.length > 0) {
-            $('#sub_item_preview_wrapper').slideDown();
-            Array.from(files).forEach(function (file) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    $('#sub_item_preview_container').append(`
-                        <div class="position-relative new-sub-preview">
-                            <img src="${e.target.result}" class="rounded border" style="width: 75px; height: 75px; object-fit: cover;">
-                        </div>
-                    `);
-                };
-                reader.readAsDataURL(file);
-            });
-        }
-    });
-
-    // Delete existing sub media
-    $(document).on('click', '.remove-sub-media-btn', function () {
-        const $card = $(this).closest('.existing-sub-media');
-        const mediaId = $(this).data('media-id');
-        const itemId = $('#item_master_id').val();
-
-        if (!itemId || !mediaId) return;
-
-        Swal.fire({
-            title: 'Delete Image?',
-            text: 'Are you sure you want to remove this gallery image?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, delete',
-            customClass: {
-                confirmButton: 'btn btn-primary me-2',
-                cancelButton: 'btn btn-label-secondary',
-            },
-            buttonsStyling: false,
-        }).then(function (result) {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: `/item_master/${itemId}/media/delete/${mediaId}`,
-                    type: 'POST',
-                    dataType: 'json',
-                    success: function (res) {
-                        if (res.success) {
-                            $card.fadeOut(300, function () {
-                                $(this).remove();
-                            });
-                        }
-                    }
-                });
-            }
-        });
-    });
-
-    // Quick Add Category
-    $('#quickCategoryModal').on('show.bs.modal', function () {
-        $('#quick_category_form')[0].reset();
-        $('#quick_category_form .error-text').text('');
-        $('#quick_category_form .form-control').removeClass('is-invalid');
-    });
-
-    $('#quickSubCategoryModal').on('show.bs.modal', function () {
-        $('#quick_sub_category_form')[0].reset();
-        $('#quick_sub_category_form .error-text').text('');
-        $('#quick_sub_category_form .form-control, #quick_sub_category_form .form-select').removeClass('is-invalid');
-        const currentCat = $('#category_id').val();
-        if (currentCat) {
-            $('#quick_subcat_category_id').val(currentCat);
-        }
-    });
-
-    $('#quick_category_form').on('submit', function (e) {
-        e.preventDefault();
-        const $btn = $('#saveQuickCategoryBtn');
-        const originalHtml = $btn.html();
-        $btn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm me-1"></span> Saving...');
-        $('#quick_category_form .error-text').text('');
-        $('#quick_category_form .form-control').removeClass('is-invalid');
-
-        const formData = new FormData(this);
-
-        $.ajax({
-            url: '{{ route("productmanagement.categories.store") }}',
-            type: 'POST',
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function (response) {
-                $btn.prop('disabled', false).html(originalHtml);
-                if (response.success) {
-                    const newCatId = response.id || response.data?.id;
-                    const newCategory = {
-                        id: newCatId,
-                        name_en: response.data?.name_en || $('#quick_cat_name_en').val(),
-                        name_ar: response.data?.name_ar || $('#quick_cat_name_ar').val(),
-                        sub_categories: []
-                    };
-                    categoriesData.push(newCategory);
-                    renderCategoryOptions(newCategory.id);
-                    $('#category_id').val(newCategory.id).trigger('change');
-
-                    const modalEl = document.getElementById('quickCategoryModal');
-                    const modal = bootstrap.Modal.getInstance(modalEl);
-                    if (modal) {
-                        modal.hide();
-                    }
-
-                    if (typeof Swal !== 'undefined') {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Success',
-                            text: response.message || 'Category created successfully.',
-                            timer: 2000,
-                            showConfirmButton: false,
-                        });
-                    }
-                }
-            },
-            error: function (xhr) {
-                $btn.prop('disabled', false).html(originalHtml);
-                if (xhr.status === 422) {
-                    const errors = xhr.responseJSON.errors || {};
-                    if (errors.name_en) {
-                        $('#quick_cat_name_en').addClass('is-invalid');
-                        $('.quick_cat_name_en_error').text(errors.name_en[0]);
-                    }
-                    if (errors.name_ar) {
-                        $('#quick_cat_name_ar').addClass('is-invalid');
-                        $('.quick_cat_name_ar_error').text(errors.name_ar[0]);
-                    }
-                    if (errors.image) {
-                        $('#quick_cat_image').addClass('is-invalid');
-                        $('.quick_cat_image_error').text(errors.image[0]);
-                    }
-                } else {
-                    if (typeof Swal !== 'undefined') {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: 'Failed to create category. Please try again.',
-                        });
-                    }
-                }
-            }
-        });
-    });
-
-    $('#quick_sub_category_form').on('submit', function (e) {
-        e.preventDefault();
-        const $btn = $('#saveQuickSubCategoryBtn');
-        const originalHtml = $btn.html();
-        $btn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm me-1"></span> Saving...');
-        $('#quick_sub_category_form .error-text').text('');
-        $('#quick_sub_category_form .form-control, #quick_sub_category_form .form-select').removeClass('is-invalid');
-
-        const formData = new FormData(this);
-        const selectedCatId = $('#quick_subcat_category_id').val();
-        const subNameEn = $('#quick_subcat_name_en').val();
-        const subNameAr = $('#quick_subcat_name_ar').val();
-
-        $.ajax({
-            url: '{{ route("productmanagement.sub_categories.store") }}',
-            type: 'POST',
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function (response) {
-                $btn.prop('disabled', false).html(originalHtml);
-                if (response.success) {
-                    const newSubId = response.id || response.data?.id;
-                    const newSub = {
-                        id: newSubId,
-                        category_id: selectedCatId,
-                        name_en: response.data?.name_en || subNameEn,
-                        name_ar: response.data?.name_ar || subNameAr,
-                    };
-
-                    let catObj = categoriesData.find(c => String(c.id) === String(selectedCatId));
-                    if (catObj) {
-                        if (!Array.isArray(catObj.sub_categories)) {
-                            catObj.sub_categories = [];
-                        }
-                        catObj.sub_categories.push(newSub);
-                    }
-
-                    $('#category_id').val(selectedCatId);
-                    updateSubCategories(selectedCatId, newSubId);
-
-                    const modalEl = document.getElementById('quickSubCategoryModal');
-                    const modal = bootstrap.Modal.getInstance(modalEl);
-                    if (modal) {
-                        modal.hide();
-                    }
-
-                    if (typeof Swal !== 'undefined') {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Success',
-                            text: response.message || 'Sub category created successfully.',
-                            timer: 2000,
-                            showConfirmButton: false,
-                        });
-                    }
-                }
-            },
-            error: function (xhr) {
-                $btn.prop('disabled', false).html(originalHtml);
-                if (xhr.status === 422) {
-                    const errors = xhr.responseJSON.errors || {};
-                    if (errors.category_id) {
-                        $('#quick_subcat_category_id').addClass('is-invalid');
-                        $('.quick_subcat_category_id_error').text(errors.category_id[0]);
-                    }
-                    if (errors.name_en) {
-                        $('#quick_subcat_name_en').addClass('is-invalid');
-                        $('.quick_subcat_name_en_error').text(errors.name_en[0]);
-                    }
-                    if (errors.name_ar) {
-                        $('#quick_subcat_name_ar').addClass('is-invalid');
-                        $('.quick_subcat_name_ar_error').text(errors.name_ar[0]);
-                    }
-                    if (errors.image) {
-                        $('#quick_subcat_image').addClass('is-invalid');
-                        $('.quick_subcat_image_error').text(errors.image[0]);
-                    }
-                } else {
-                    if (typeof Swal !== 'undefined') {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: 'Failed to create sub category. Please try again.',
-                        });
-                    }
-                }
-            }
-        });
-    });
-
-    // ==========================================
-    // Main Form Submit (Create & Update)
-    // ==========================================
-    $('#item_master').on('submit', function (e) {
-        e.preventDefault();
-
-        const $btn = $('#saveItemMasterButton');
-        const originalHtml = $btn.html();
-        $btn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm me-1"></span> Saving...');
-
-        $('.error-text').text('');
-        $('.form-control, .form-select').removeClass('is-invalid');
-        $('#skuError').addClass('d-none');
-
-        const itemId = $('#item_master_id').val();
-        const submitUrl = itemId
-            ? ('/item_master/update/' + itemId)
-            : '{{ route("productmanagement.item_master.store") }}';
-
-        const formData = new FormData(this);
-
-        $.ajax({
-            url: submitUrl,
-            type: 'POST',
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function (response) {
-                $btn.prop('disabled', false).html(originalHtml);
-                if (response.success) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success!',
-                        text: response.message || 'Item Master saved successfully.',
-                        timer: 1500,
-                        showConfirmButton: false,
-                    }).then(function () {
-                        window.location.href = response.redirect || '{{ route("productmanagement.item_master") }}';
-                    });
-                }
-            },
-            error: function (xhr) {
-                $btn.prop('disabled', false).html(originalHtml);
-
-                if (xhr.status === 422) {
-                    const errors = xhr.responseJSON.errors || {};
-
-                    const fieldMapping = {
-                        'sku': '#sku',
-                        'itemcodeId': '#itemcodeId',
-                        'item_code': '#itemcodeId',
-                        'item_ref_code': '#item_ref_code',
-                        'itemName_en': '#itemName_en',
-                        'name_en': '#itemName_en',
-                        'itemName_ar': '#itemName_ar',
-                        'name_ar': '#itemName_ar',
-                        'category_id': '#category_id',
-                        'sub_category_id': '#sub_category_id',
-                        'itemMinRetailPrice': '#itemMinRetailPrice',
-                        'min_retail_price': '#itemMinRetailPrice',
-                        'itemProfitLevel': '#itemProfitLevel',
-                        'profit_level': '#itemProfitLevel',
-                        'itemMinimunQty': '#itemMinimunQty',
-                        'itenMinimunQty': '#itemMinimunQty',
-                        'min_qty': '#itemMinimunQty',
-                        'itemReorderQty': '#itemReorderQty',
-                        'reorder_qty': '#itemReorderQty',
-                        'itemMaximunQty': '#itemMaximunQty',
-                        'max_qty': '#itemMaximunQty',
-                        'itemDescription': '#itemDescription',
-                        'description_en': '#itemDescription',
-                        'itemDescriptionAr': '#itemDescriptionAr',
-                        'description_ar': '#itemDescriptionAr',
-                        'itemNote': '#itemNote',
-                        'note': '#itemNote',
-                        'itemTests': '#itemTests',
-                        'tests': '#itemTests',
-                        'itemSample': '#itemSample',
-                        'sample': '#itemSample',
-                        'itemResults': '#itemResults',
-                        'results': '#itemResults',
-                        'value_from_start_date': '.start_date',
-                        'offer_start_date': '.start_date',
-                        'value_from_end_date': '.end_date',
-                        'offer_end_date': '.end_date',
-                    };
-
-                    for (const [key, msg] of Object.entries(errors)) {
-                        const selector = fieldMapping[key];
-                        if (selector) {
-                            $(selector).addClass('is-invalid');
-                            $('.' + key + '_error').text(msg[0]);
-                        }
-                    }
-
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Validation Error',
-                        text: 'Please check the required fields and errors in the form.',
-                        customClass: {
-                            confirmButton: 'btn btn-primary',
-                        },
-                        buttonsStyling: false,
-                    });
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'Something went wrong while saving the item. Please try again.',
-                        customClass: {
-                            confirmButton: 'btn btn-primary',
-                        },
-                        buttonsStyling: false,
-                    });
-                }
-            }
-        });
-    });
-});
+    };
 </script>
+<script src="{{ asset('assets/backend-page-js/ProductManagement/add_item_master.js') }}?v={{ filemtime(public_path('assets/backend-page-js/ProductManagement/add_item_master.js')) }}"></script>
 @endpush
