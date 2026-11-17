@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Modules\ProductManagement\Http\Controllers\BrandController;
 use Modules\ProductManagement\Http\Controllers\CategoriesController;
+use Modules\ProductManagement\Http\Controllers\ColorManagementController;
 use Modules\ProductManagement\Http\Controllers\ItemMasterController;
 use Modules\ProductManagement\Http\Controllers\ProductManagementController;
 use Modules\ProductManagement\Http\Controllers\SizeController;
@@ -94,6 +95,18 @@ Route::middleware('auth')->group(function () {
         ->name('productmanagement.sizes.store');
     Route::post('/sizes/delete/{id}', [SizeController::class, 'destroy'])
         ->name('productmanagement.sizes.destroy');
+
+    // =====================================================================================================
+
+    // =============== color management ====================================================================
+    Route::get('/colors', [ColorManagementController::class, 'index'])
+        ->name('productmanagement.colors');
+    Route::get('/colors/edit/{id}', [ColorManagementController::class, 'edit'])
+        ->name('productmanagement.colors.edit');
+    Route::post('/colors/store', [ColorManagementController::class, 'store'])
+        ->name('productmanagement.colors.store');
+    Route::post('/colors/delete/{id}', [ColorManagementController::class, 'destroy'])
+        ->name('productmanagement.colors.destroy');
 
     // =====================================================================================================
 

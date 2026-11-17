@@ -97,6 +97,12 @@
           </a>
         </li>
 
+        <li class="menu-item {{ request()->routeIs('productmanagement.colors*', 'colors*') ? 'active' : '' }}" id="menu_color_management_sub">
+          <a href="{{ route('productmanagement.colors') }}" class="menu-link">
+            <div data-i18n="Color Management">Color Management</div>
+          </a>
+        </li>
+
       </ul>
 
     </li>
